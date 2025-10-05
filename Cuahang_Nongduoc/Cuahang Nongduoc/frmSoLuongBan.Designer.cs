@@ -59,27 +59,32 @@ namespace CuahangNongduoc
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(860, 104);
+            this.panel1.Size = new System.Drawing.Size(1720, 201);
             this.panel1.TabIndex = 11;
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox1.Controls.Add(this.numNam);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.cmbThang);
             this.groupBox1.Controls.Add(this.btnXemThang);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(203, 3);
+            this.groupBox1.Location = new System.Drawing.Point(406, 6);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(217, 95);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox1.Size = new System.Drawing.Size(434, 183);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Xem theo tháng/nãm";
             // 
             // numNam
             // 
-            this.numNam.Location = new System.Drawing.Point(147, 23);
+            this.numNam.Location = new System.Drawing.Point(294, 44);
+            this.numNam.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.numNam.Maximum = new decimal(new int[] {
             9999,
             0,
@@ -91,7 +96,7 @@ namespace CuahangNongduoc
             0,
             0});
             this.numNam.Name = "numNam";
-            this.numNam.Size = new System.Drawing.Size(64, 20);
+            this.numNam.Size = new System.Drawing.Size(128, 31);
             this.numNam.TabIndex = 13;
             this.numNam.Value = new decimal(new int[] {
             2007,
@@ -102,9 +107,10 @@ namespace CuahangNongduoc
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(112, 30);
+            this.label3.Location = new System.Drawing.Point(224, 58);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.Size = new System.Drawing.Size(56, 25);
             this.label3.TabIndex = 12;
             this.label3.Text = "Nãm";
             // 
@@ -125,18 +131,20 @@ namespace CuahangNongduoc
             "10",
             "11",
             "12"});
-            this.cmbThang.Location = new System.Drawing.Point(50, 22);
+            this.cmbThang.Location = new System.Drawing.Point(100, 42);
+            this.cmbThang.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.cmbThang.Name = "cmbThang";
-            this.cmbThang.Size = new System.Drawing.Size(56, 21);
+            this.cmbThang.Size = new System.Drawing.Size(108, 33);
             this.cmbThang.TabIndex = 11;
             // 
             // btnXemThang
             // 
             this.btnXemThang.Image = global::CuahangNongduoc.Properties.Resources.reload;
             this.btnXemThang.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnXemThang.Location = new System.Drawing.Point(61, 60);
+            this.btnXemThang.Location = new System.Drawing.Point(122, 115);
+            this.btnXemThang.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnXemThang.Name = "btnXemThang";
-            this.btnXemThang.Size = new System.Drawing.Size(97, 24);
+            this.btnXemThang.Size = new System.Drawing.Size(194, 46);
             this.btnXemThang.TabIndex = 10;
             this.btnXemThang.Text = "Xem tháng";
             this.btnXemThang.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -146,20 +154,24 @@ namespace CuahangNongduoc
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 30);
+            this.label2.Location = new System.Drawing.Point(12, 58);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(38, 13);
+            this.label2.Size = new System.Drawing.Size(73, 25);
             this.label2.TabIndex = 9;
             this.label2.Text = "Tháng";
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.groupBox2.Controls.Add(this.dtNgay);
             this.groupBox2.Controls.Add(this.btnXemNgay);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(426, 3);
+            this.groupBox2.Location = new System.Drawing.Point(852, 6);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(190, 95);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.groupBox2.Size = new System.Drawing.Size(380, 183);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Xem theo ngày";
@@ -168,18 +180,20 @@ namespace CuahangNongduoc
             // 
             this.dtNgay.CustomFormat = "dd/MM/yyyy";
             this.dtNgay.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtNgay.Location = new System.Drawing.Point(66, 21);
+            this.dtNgay.Location = new System.Drawing.Point(132, 40);
+            this.dtNgay.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.dtNgay.Name = "dtNgay";
-            this.dtNgay.Size = new System.Drawing.Size(107, 20);
+            this.dtNgay.Size = new System.Drawing.Size(210, 31);
             this.dtNgay.TabIndex = 6;
             // 
             // btnXemNgay
             // 
             this.btnXemNgay.Image = global::CuahangNongduoc.Properties.Resources.reload;
             this.btnXemNgay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnXemNgay.Location = new System.Drawing.Point(53, 60);
+            this.btnXemNgay.Location = new System.Drawing.Point(106, 115);
+            this.btnXemNgay.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.btnXemNgay.Name = "btnXemNgay";
-            this.btnXemNgay.Size = new System.Drawing.Size(80, 24);
+            this.btnXemNgay.Size = new System.Drawing.Size(160, 46);
             this.btnXemNgay.TabIndex = 7;
             this.btnXemNgay.Text = "Xem";
             this.btnXemNgay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -189,9 +203,10 @@ namespace CuahangNongduoc
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 27);
+            this.label1.Location = new System.Drawing.Point(34, 52);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.Size = new System.Drawing.Size(62, 25);
             this.label1.TabIndex = 5;
             this.label1.Text = "Ngày";
             // 
@@ -199,9 +214,10 @@ namespace CuahangNongduoc
             // 
             this.panel2.Controls.Add(this.reportViewer);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 104);
+            this.panel2.Location = new System.Drawing.Point(0, 201);
+            this.panel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(860, 436);
+            this.panel2.Size = new System.Drawing.Size(1720, 837);
             this.panel2.TabIndex = 12;
             // 
             // reportViewer
@@ -212,8 +228,10 @@ namespace CuahangNongduoc
             this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer.LocalReport.ReportEmbeddedResource = "CuahangNongduoc.Report.rptSoLuongBan.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.reportViewer.Name = "reportViewer";
-            this.reportViewer.Size = new System.Drawing.Size(860, 436);
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(1720, 837);
             this.reportViewer.TabIndex = 0;
             // 
             // ChiTietPhieuBanBindingSource
@@ -222,12 +240,13 @@ namespace CuahangNongduoc
             // 
             // frmSoLuongBan
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(860, 540);
+            this.ClientSize = new System.Drawing.Size(1720, 1038);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "frmSoLuongBan";
             this.Text = "SO LUONG BAN";
             this.Load += new System.EventHandler(this.frmSoLuongBan_Load);

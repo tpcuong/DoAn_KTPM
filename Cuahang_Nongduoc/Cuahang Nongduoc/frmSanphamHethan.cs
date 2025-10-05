@@ -1,3 +1,4 @@
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,12 +24,11 @@ namespace CuahangNongduoc
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("ngay_tinh", dt.Value.Date.ToString("dd/MM/yyyy")));
             this.MaSanPhamBindingSource.DataSource = data;
             this.reportViewer.LocalReport.SetParameters(param);
+
+            reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewer.ZoomMode = ZoomMode.Percent;
+            reportViewer.ZoomPercent = 100;
             this.reportViewer.RefreshReport();
-        }
-
-        private void frmSanphamHethan_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

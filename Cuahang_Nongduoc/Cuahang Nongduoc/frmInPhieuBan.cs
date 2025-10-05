@@ -1,8 +1,10 @@
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -14,15 +16,24 @@ namespace CuahangNongduoc
         public frmInPhieuBan(CuahangNongduoc.BusinessObject.PhieuBan ph)
         {
             InitializeComponent();
-            reportViewer.LocalReport.ExecuteReportInCurrentAppDomain(System.Reflection.Assembly.GetExecutingAssembly().Evidence);
+            //reportViewer.LocalReport.ExecuteReportInCurrentAppDomain(System.Reflection.Assembly.GetExecutingAssembly().Evidence);
             this.reportViewer.LocalReport.SubreportProcessing += new Microsoft.Reporting.WinForms.SubreportProcessingEventHandler(LocalReport_SubreportProcessing);
             m_PhieuBan = ph;
         }
 
         void LocalReport_SubreportProcessing(object sender, Microsoft.Reporting.WinForms.SubreportProcessingEventArgs e)
         {
-            e.DataSources.Clear();
-            e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_ChiTietPhieuBan", m_PhieuBan.ChiTiet));
+            //e.DataSources.Clear();
+            //e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_ChiTietPhieuBan", m_PhieuBan.ChiTiet));
+            var chiTietPB = m_PhieuBan.ChiTiet.Select(r => new
+            {
+                MaSanPham = r.MaSanPham.SanPham.TenSanPham,
+                r.SoLuong,
+                r.DonGia,
+                r.ThanhTien
+            }).ToList();
+
+            e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_ChiTietPhieuBan", chiTietPB));
         }
 
         private void frmInPhieuBan_Load(object sender, EventArgs e)
@@ -35,9 +46,30 @@ namespace CuahangNongduoc
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("dien_thoai", ch.DienThoai));
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("bang_chu", num.NumberToString(m_PhieuBan.TongTien.ToString())));
 
+            //ma, khach, dchi, dt, ngayban, tt, da tra, con no
+
+            var data = new
+            {
+                Id = m_PhieuBan.Id,
+                KhachHang = m_PhieuBan.KhachHang.HoTen,
+                DiaChi = m_PhieuBan.KhachHang.DiaChi,
+                DienThoai = m_PhieuBan.KhachHang.DienThoai,
+                NgayBan = m_PhieuBan.NgayBan,
+                TongTien = m_PhieuBan.TongTien,
+                DaTra = m_PhieuBan.DaTra,
+                ConNo = m_PhieuBan.ConNo
+            };
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("DiaChi_KH", data.DiaChi));
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("DienThoai_KH", data.DienThoai));
+
             this.reportViewer.LocalReport.SetParameters(param);
-            this.PhieuBanBindingSource.DataSource = m_PhieuBan;
+            this.PhieuBanBindingSource.DataSource = data;
+
+            reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewer.ZoomMode = ZoomMode.Percent;
+            reportViewer.ZoomPercent = 100;
             this.reportViewer.RefreshReport();
         }
+
     }
 }
