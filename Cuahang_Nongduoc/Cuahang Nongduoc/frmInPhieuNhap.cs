@@ -1,8 +1,12 @@
+using CuahangNongduoc.BusinessObject;
+using CuahangNongduoc.Controller;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -16,14 +20,26 @@ namespace CuahangNongduoc
             m_PhieuNhap = ph;
             InitializeComponent();
 
-            reportViewer.LocalReport.ExecuteReportInCurrentAppDomain(System.Reflection.Assembly.GetExecutingAssembly().Evidence);
+            //reportViewer.LocalReport.ExecuteReportInCurrentAppDomain(System.Reflection.Assembly.GetExecutingAssembly().Evidence);
             this.reportViewer.LocalReport.SubreportProcessing += new Microsoft.Reporting.WinForms.SubreportProcessingEventHandler(LocalReport_SubreportProcessing);
         }
 
         void LocalReport_SubreportProcessing(object sender, Microsoft.Reporting.WinForms.SubreportProcessingEventArgs e)
         {
-            e.DataSources.Clear();
-            e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_MaSanPham", m_PhieuNhap.ChiTiet));
+            //e.DataSources.Clear();
+            //e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_MaSanPham", m_PhieuNhap.ChiTiet));
+            var chiTietPN = m_PhieuNhap.ChiTiet.Select(r => new
+            {
+                Id = r.Id,
+                SanPham = r.SanPham.TenSanPham,
+                GiaNhap = r.GiaNhap,
+                SoLuong = r.SoLuong,
+                ThanhTien = r.ThanhTien,
+                NgaySanXuat = r.NgaySanXuat,
+                NgayHetHan = r.NgayHetHan
+            }).ToList();
+
+            e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_MaSanPham", chiTietPN));
         }
 
         private void frmInPhieuNhap_Load(object sender, EventArgs e)
@@ -38,7 +54,22 @@ namespace CuahangNongduoc
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("bang_chu", num.NumberToString(m_PhieuNhap.TongTien.ToString())));
 
             this.reportViewer.LocalReport.SetParameters(param);
-            this.PhieuNhapBindingSource.DataSource = m_PhieuNhap;
+
+            var data = new
+            {
+                m_PhieuNhap.Id,
+                m_PhieuNhap.NgayNhap,
+                m_PhieuNhap.TongTien,
+                m_PhieuNhap.DaTra,
+                m_PhieuNhap.ConNo,
+                NhaCungCap = m_PhieuNhap.NhaCungCap.HoTen,
+            };
+
+            this.PhieuNhapBindingSource.DataSource = data;
+
+            reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewer.ZoomMode = ZoomMode.Percent;
+            reportViewer.ZoomPercent = 100;
             this.reportViewer.RefreshReport();
         }
     }

@@ -74,22 +74,60 @@ namespace CuahangNongduoc
             this.Close();
         }
 
-        private void toolIn_Click(object sender, EventArgs e)
+        private void ToolIn_Click(object sender, EventArgs e)
         {
-            DataRowView row = (DataRowView)bindingNavigator.BindingSource.Current;
-            KhachHangController ctrlKH = new KhachHangController();
-            DuNoKhachHang dn = new DuNoKhachHang();
+            
+            
+        }
 
-            dn.Thang = Convert.ToInt32(row["THANG"]);
-            dn.Nam = Convert.ToInt32(row["NAM"]);
-            dn.DauKy = Convert.ToInt64(row["DAU_KY"]);
-            dn.PhatSinh = Convert.ToInt64(row["PHAT_SINH"]);
-            dn.DaTra = Convert.ToInt64(row["DA_TRA"]);
-            dn.CuoiKy = Convert.ToInt64(row["CUOI_KY"]);
-            dn.KhachHang = ctrlKH.LayKhachHang(Convert.ToString(row["ID_KHACH_HANG"]));
+        private void ToolIn1_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.Rows.Count>0)
+            {
+                DataRowView row = (DataRowView)bindingNavigator.BindingSource.Current;
+                KhachHangController ctrlKH = new KhachHangController();
+                DuNoKhachHang dn = new DuNoKhachHang();
 
-            frmInDunoKhachHang InDuNo = new frmInDunoKhachHang(dn);
-            InDuNo.Show();
+                dn.Thang = Convert.ToInt32(row["THANG"]);
+                dn.Nam = Convert.ToInt32(row["NAM"]);
+                dn.DauKy = Convert.ToInt64(row["DAU_KY"]);
+                dn.PhatSinh = Convert.ToInt64(row["PHAT_SINH"]);
+                dn.DaTra = Convert.ToInt64(row["DA_TRA"]);
+                dn.CuoiKy = Convert.ToInt64(row["CUOI_KY"]);
+                dn.KhachHang = ctrlKH.LayKhachHang(Convert.ToString(row["ID_KHACH_HANG"]));
+
+                frmInDunoKhachHang InDuNo = new frmInDunoKhachHang(dn);
+                InDuNo.Show();
+            }
+            else
+                MessageBox.Show("Không có dữ liệu để in!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void ToolInNhieu_Click(object sender, EventArgs e)
+        {
+            if (dataGridView.Rows.Count > 0)
+            {
+                KhachHangController ctrlKH = new KhachHangController();
+                var list_DuNoKH = new List<DuNoKhachHang>();
+                foreach (DataRowView row in bindingNavigator.BindingSource)
+                {
+                    var DuNoKH = new DuNoKhachHang
+                    {
+                        Thang = Convert.ToInt32(row["THANG"]),
+                        Nam = Convert.ToInt32(row["NAM"]),
+                        DauKy = Convert.ToInt64(row["DAU_KY"]),
+                        PhatSinh = Convert.ToInt64(row["PHAT_SINH"]),
+                        DaTra = Convert.ToInt64(row["DA_TRA"]),
+                        CuoiKy = Convert.ToInt64(row["CUOI_KY"]),
+                        KhachHang = ctrlKH.LayKhachHang(Convert.ToString(row["ID_KHACH_HANG"]))
+                    };
+                    list_DuNoKH.Add(DuNoKH);
+                }
+                frmInDunoKhachHang InDuNo = new frmInDunoKhachHang(list_DuNoKH);
+                InDuNo.Show();
+            }
+            else
+                MessageBox.Show("Không có dữ liệu để in!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }
