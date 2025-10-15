@@ -173,7 +173,6 @@ namespace CuahangNongduoc
 
             numSoLuong.Value = 0;
             numThanhTien.Value = 0;
-            ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
         }
 
         // MỚI: Hàm tính toán tổng tiền tập trung
