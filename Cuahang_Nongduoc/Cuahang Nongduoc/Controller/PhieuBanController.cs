@@ -8,7 +8,7 @@ using System.Data;
 
 namespace CuahangNongduoc.Controller
 {
-    
+
     public class PhieuBanController
     {
         PhieuBanFactory factory = new PhieuBanFactory();
@@ -43,10 +43,10 @@ namespace CuahangNongduoc.Controller
             }
             else
             {
-                MessageBox.Show("Đây là bản dùng thử! Chỉ lưu được thêm " + Convert.ToString(50-n) + " phiếu bán!", "Phieu Ban", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Đây là bản dùng thử! Chỉ lưu được thêm " + Convert.ToString(50 - n) + " phiếu bán!", "Phieu Ban", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 factory.Save();
             }
-            
+
         }
         public void HienthiPhieuBanLe(BindingNavigator bn, DataGridView dg)
         {
@@ -64,9 +64,8 @@ namespace CuahangNongduoc.Controller
             dg.DataSource = bs;
         }
 
-        public void HienthiPhieuBan(BindingNavigator bn,ComboBox cmb, TextBox txt, DateTimePicker dt, NumericUpDown numTongTien, NumericUpDown numDatra, NumericUpDown numConNo)
+        public void HienthiPhieuBan(BindingNavigator bn, ComboBox cmb, TextBox txt, DateTimePicker dt, NumericUpDown numPhiDichVu, NumericUpDown numGiamGia, NumericUpDown numTongTien, NumericUpDown numDatra, NumericUpDown numConNo)
         {
-
             bn.BindingSource = bs;
 
             txt.DataBindings.Clear();
@@ -78,17 +77,21 @@ namespace CuahangNongduoc.Controller
             dt.DataBindings.Clear();
             dt.DataBindings.Add("Value", bs, "NGAY_BAN");
 
+            numPhiDichVu.DataBindings.Clear();
+            numPhiDichVu.DataBindings.Add("Value", bs, "PHI_DICH_VU");
+
+            numGiamGia.DataBindings.Clear();
+            numGiamGia.DataBindings.Add("Value", bs, "GIAM_GIA");
+
             numTongTien.DataBindings.Clear();
             numTongTien.DataBindings.Add("Value", bs, "TONG_TIEN");
-
             numDatra.DataBindings.Clear();
             numDatra.DataBindings.Add("Value", bs, "DA_TRA");
 
             numConNo.DataBindings.Clear();
             numConNo.DataBindings.Add("Value", bs, "CON_NO");
-
-
         }
+
 
         public PhieuBan LayPhieuBan(String id)
         {
@@ -96,21 +99,28 @@ namespace CuahangNongduoc.Controller
             PhieuBan ph = null;
             if (tbl.Rows.Count > 0)
             {
-
+                DataRow row = tbl.Rows[0];
                 ph = new PhieuBan();
-                ph.Id = Convert.ToString(tbl.Rows[0]["ID"]);
-                
-                ph.NgayBan = Convert.ToDateTime(tbl.Rows[0]["NGAY_BAN"]);
-                ph.TongTien = Convert.ToInt64(tbl.Rows[0]["TONG_TIEN"]);
-                ph.DaTra = Convert.ToInt64(tbl.Rows[0]["DA_TRA"]);
-                ph.ConNo = Convert.ToInt64(tbl.Rows[0]["CON_NO"]);
+
+                ph.Id = row["ID"].ToString();
+                ph.NgayBan = row["NGAY_BAN"] == DBNull.Value ? DateTime.Now : Convert.ToDateTime(row["NGAY_BAN"]);
+                ph.TongTien = row["TONG_TIEN"] == DBNull.Value ? 0 : Convert.ToInt64(row["TONG_TIEN"]);
+                ph.DaTra = row["DA_TRA"] == DBNull.Value ? 0 : Convert.ToInt64(row["DA_TRA"]);
+                ph.ConNo = row["CON_NO"] == DBNull.Value ? 0 : Convert.ToInt64(row["CON_NO"]);
+                ph.PhiDichVu = row["PHI_DICH_VU"] == DBNull.Value ? 0 : Convert.ToInt64(row["PHI_DICH_VU"]);
+                ph.GiamGia = row["GIAM_GIA"] == DBNull.Value ? 0 : Convert.ToInt64(row["GIAM_GIA"]);
+
                 KhachHangController ctrlKH = new KhachHangController();
-                ph.KhachHang = ctrlKH.LayKhachHang(Convert.ToString(tbl.Rows[0]["ID_KHACH_HANG"]));
-                ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
-                ph.ChiTiet = ctrl.ChiTietPhieuBan(ph.Id);
+                ph.KhachHang = ctrlKH.LayKhachHang(row["ID_KHACH_HANG"].ToString());
+
+                ChiTietPhieuBanController ctrlCT = new ChiTietPhieuBanController();
+                ph.ChiTiet = ctrlCT.ChiTietPhieuBan(ph.Id);
             }
+
             return ph;
         }
+
+
 
         public void TimPhieuBan(String maKH, DateTime dt)
         {

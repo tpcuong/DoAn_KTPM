@@ -36,7 +36,7 @@ namespace CuahangNongduoc.DataLayer
         public DataTable LaySanPham(String idMaSanPham)
         {
             OleDbCommand cmd = new OleDbCommand("SELECT SP.* FROM SAN_PHAM SP INNER JOIN MA_SAN_PHAM MSP ON SP.ID = MSP.ID_SAN_PHAM WHERE MSP.ID = @id");
-            cmd.Parameters.Add("id", OleDbType.VarChar,50).Value = idMaSanPham;
+            cmd.Parameters.Add("id", OleDbType.VarChar, 50).Value = idMaSanPham;
             m_Ds.Load(cmd);
             return m_Ds;
         }
@@ -44,7 +44,7 @@ namespace CuahangNongduoc.DataLayer
         public DataTable LayMaSanPham(String idMaSanPham)
         {
             OleDbCommand cmd = new OleDbCommand("SELECT * FROM MA_SAN_PHAM MSP WHERE MSP.ID = @id");
-            cmd.Parameters.Add("id", OleDbType.VarChar,50).Value = idMaSanPham;
+            cmd.Parameters.Add("id", OleDbType.VarChar, 50).Value = idMaSanPham;
             m_Ds.Load(cmd);
             return m_Ds;
         }
@@ -87,5 +87,19 @@ namespace CuahangNongduoc.DataLayer
         {
             return m_Ds.ExecuteNoneQuery() > 0;
         }
+
+        #region code yeu cau
+        public DataTable LaySanPham_NgayNhap_NgayHH(string idSanPham)
+        {
+            OleDbCommand cmd = new OleDbCommand(@"SELECT * FROM MA_SAN_PHAM WHERE ID_SAN_PHAM = @masp AND SO_LUONG > 0 ORDER BY NGAY_HET_HAN ASC, NGAY_NHAP ASC");
+            cmd.Parameters.Add("masp", OleDbType.VarChar).Value = idSanPham;
+            m_Ds.Load(cmd);
+            return m_Ds;
+        }
+
+
+        #endregion
+
+
     }
 }
