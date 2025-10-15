@@ -74,6 +74,7 @@ namespace CuahangNongduoc
             this.Close();
         }
 
+<<<<<<< HEAD
         private void ToolIn_Click(object sender, EventArgs e)
         {
             
@@ -128,6 +129,24 @@ namespace CuahangNongduoc
             }
             else
                 MessageBox.Show("Không có dữ liệu để in!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+=======
+        private void toolIn_Click(object sender, EventArgs e)
+        {
+            DataRowView row = (DataRowView)bindingNavigator.BindingSource.Current;
+            KhachHangController ctrlKH = new KhachHangController();
+            DuNoKhachHang dn = new DuNoKhachHang();
+
+            dn.Thang = Convert.ToInt32(row["THANG"]);
+            dn.Nam = Convert.ToInt32(row["NAM"]);
+            dn.DauKy = Convert.ToInt64(row["DAU_KY"]);
+            dn.PhatSinh = Convert.ToInt64(row["PHAT_SINH"]);
+            dn.DaTra = Convert.ToInt64(row["DA_TRA"]);
+            dn.CuoiKy = Convert.ToInt64(row["CUOI_KY"]);
+            dn.KhachHang = ctrlKH.LayKhachHang(Convert.ToString(row["ID_KHACH_HANG"]));
+
+            frmInDunoKhachHang InDuNo = new frmInDunoKhachHang(dn);
+            InDuNo.Show();
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
         }
     }
 }

@@ -1,14 +1,24 @@
+<<<<<<< HEAD
 using CuahangNongduoc.BusinessObject;
 using CuahangNongduoc.Controller;
 using Microsoft.Reporting.WinForms;
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+<<<<<<< HEAD
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+=======
+using System.Text;
+using System.Windows.Forms;
+using CuahangNongduoc.BusinessObject;
+using CuahangNongduoc.Controller;
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 
 namespace CuahangNongduoc
 {
@@ -17,7 +27,11 @@ namespace CuahangNongduoc
         public frmSoLuongBan()
         {
             InitializeComponent();
+<<<<<<< HEAD
             //reportViewer.LocalReport.ExecuteReportInCurrentAppDomain(System.Reflection.Assembly.GetExecutingAssembly().Evidence);
+=======
+            reportViewer.LocalReport.ExecuteReportInCurrentAppDomain(System.Reflection.Assembly.GetExecutingAssembly().Evidence);
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
         }
 
         private void frmSoLuongBan_Load(object sender, EventArgs e)
@@ -28,7 +42,11 @@ namespace CuahangNongduoc
 
         ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
 
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
         private void btnXemNgay_Click(object sender, EventArgs e)
         {
             IList<Microsoft.Reporting.WinForms.ReportParameter> param = new List<Microsoft.Reporting.WinForms.ReportParameter>();
@@ -36,6 +54,7 @@ namespace CuahangNongduoc
 
             this.reportViewer.LocalReport.SetParameters(param);
 
+<<<<<<< HEAD
             var data = ctrl.ChiTietPhieuBan(dtNgay.Value.Date)
                 .Select(r => new
                 {
@@ -49,6 +68,9 @@ namespace CuahangNongduoc
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
             reportViewer.ZoomMode = ZoomMode.Percent;
             reportViewer.ZoomPercent = 100;
+=======
+            this.ChiTietPhieuBanBindingSource.DataSource = ctrl.ChiTietPhieuBan(dtNgay.Value.Date);
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
             this.reportViewer.RefreshReport();
         }
 
@@ -60,6 +82,7 @@ namespace CuahangNongduoc
 
             this.reportViewer.LocalReport.SetParameters(param);
 
+<<<<<<< HEAD
             var data = ctrl.ChiTietPhieuBan(cmbThang.SelectedIndex + 1, Convert.ToInt32(numNam.Value))
                 .Select(r => new
                 {
@@ -77,5 +100,13 @@ namespace CuahangNongduoc
         }
 
 
+=======
+
+            this.ChiTietPhieuBanBindingSource.DataSource = ctrl.ChiTietPhieuBan(cmbThang.SelectedIndex + 1, Convert.ToInt32(numNam.Value));
+            this.reportViewer.RefreshReport();
+        }
+
+      
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
     }
 }

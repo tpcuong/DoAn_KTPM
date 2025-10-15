@@ -14,7 +14,11 @@ namespace CuahangNongduoc
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+<<<<<<< HEAD
             Application.Run(new frmMain());
+=======
+            Application.Run(new frmDanhsachPhieuBanSi());
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
         }
     }
 }

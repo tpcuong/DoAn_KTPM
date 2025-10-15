@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 using CuahangNongduoc.BusinessObject;
 using Microsoft.Reporting.WinForms;
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,6 +33,7 @@ namespace CuahangNongduoc
 
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("bang_chu", num.NumberToString(m_PhieuThanhToan.TongTien.ToString())));
 
+<<<<<<< HEAD
 
 
             var data = new
@@ -52,6 +56,10 @@ namespace CuahangNongduoc
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
             reportViewer.ZoomMode = ZoomMode.Percent;
             reportViewer.ZoomPercent = 100;
+=======
+            this.reportViewer.LocalReport.SetParameters(param);
+            this.PhieuThanhToanBindingSource.DataSource = m_PhieuThanhToan; 
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
             this.reportViewer.RefreshReport();
         }
     }

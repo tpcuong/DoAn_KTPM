@@ -12,7 +12,11 @@ namespace CuahangNongduoc
 		private static OleDbConnection	m_Connection;
 
         //
+<<<<<<< HEAD
         public static String m_ConnectString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=cuahang.dll;";
+=======
+        public static String m_ConnectString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:\\Users\\Admin Pc\\Downloads\\New folder\\do an\\Cuahang_Nongduoc\\Cuahang Nongduoc\\bin\\Debug/cuahang.dll;";
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 		// The command to execute query or non-query command on a database of this data service.
 		private OleDbCommand		m_Command;
       

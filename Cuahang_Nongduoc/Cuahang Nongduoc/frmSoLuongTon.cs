@@ -1,21 +1,33 @@
+<<<<<<< HEAD
 using CuahangNongduoc.BusinessObject;
 using Microsoft.Reporting.WinForms;
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+<<<<<<< HEAD
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using CuahangNongduoc.Dataset;
 using System.IO;
+=======
+using System.Text;
+using System.Windows.Forms;
+
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 namespace CuahangNongduoc
 {
     public partial class frmSoLuongTon : Form
     {
+<<<<<<< HEAD
         CHNDDataSet.SoLuongTonDataTable soLuongTonDataTable = new CHNDDataSet.SoLuongTonDataTable();
         string reportFolder = Application.StartupPath.Replace("\\bin\\Debug", "\\Report");
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
         public frmSoLuongTon()
         {
             InitializeComponent();
@@ -23,6 +35,7 @@ namespace CuahangNongduoc
 
         private void frmSoLuongTon_Load(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             var data = CuahangNongduoc.Controller.SanPhamController.LaySoLuongTon()
                 .Select(r => new
                 {
@@ -59,6 +72,10 @@ namespace CuahangNongduoc
             reportViewer.ZoomMode = ZoomMode.Percent;
             reportViewer.ZoomPercent = 100;
 
+=======
+            IList<CuahangNongduoc.BusinessObject.SoLuongTon> data = CuahangNongduoc.Controller.SanPhamController.LaySoLuongTon();
+            this.SoLuongTonBindingSource.DataSource = data;
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
             this.reportViewer.RefreshReport();
         }
     }

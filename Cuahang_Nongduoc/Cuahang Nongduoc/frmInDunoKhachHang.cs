@@ -1,12 +1,18 @@
+<<<<<<< HEAD
 using CuahangNongduoc.BusinessObject;
 using Microsoft.Reporting.WinForms;
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+<<<<<<< HEAD
 using System.IO;
 using System.Linq;
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 using System.Text;
 using System.Windows.Forms;
 
@@ -15,13 +21,18 @@ namespace CuahangNongduoc
     public partial class frmInDunoKhachHang : Form
     {
         CuahangNongduoc.BusinessObject.DuNoKhachHang m_DuNo;
+<<<<<<< HEAD
         IList<DuNoKhachHang> dNKHData;
         string reportFolder = Application.StartupPath.Replace("\\bin\\Debug", "\\Report");
         public frmInDunoKhachHang(CuahangNongduoc.BusinessObject.DuNoKhachHang dn)
+=======
+        public frmInDunoKhachHang(CuahangNongduoc.BusinessObject.DuNoKhachHang  dn)
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
         {
             InitializeComponent();
             m_DuNo = dn;
         }
+<<<<<<< HEAD
         public frmInDunoKhachHang(IList<DuNoKhachHang> dn)
         {
             InitializeComponent();
@@ -82,6 +93,22 @@ namespace CuahangNongduoc
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
             reportViewer.ZoomMode = ZoomMode.Percent;
             reportViewer.ZoomPercent = 100;
+=======
+
+        private void frmInDunoKhachHang_Load(object sender, EventArgs e)
+        {
+            Num2Str num = new Num2Str();
+            IList<Microsoft.Reporting.WinForms.ReportParameter> param = new List<Microsoft.Reporting.WinForms.ReportParameter>();
+            CuahangNongduoc.BusinessObject.CuaHang ch = ThamSo.LayCuaHang();
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("ten_cua_hang", ch.TenCuaHang));
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("dia_chi", ch.DiaChi));
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("dien_thoai", ch.DienThoai));
+
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("bang_chu", num.NumberToString(m_DuNo.CuoiKy.ToString())));
+
+            this.reportViewer.LocalReport.SetParameters(param);
+            this.DuNoKhachHangBindingSource.DataSource = m_DuNo;
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
             this.reportViewer.RefreshReport();
         }
     }

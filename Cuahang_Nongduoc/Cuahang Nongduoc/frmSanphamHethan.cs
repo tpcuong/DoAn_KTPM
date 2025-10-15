@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 using Microsoft.Reporting.WinForms;
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,11 +27,21 @@ namespace CuahangNongduoc
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("ngay_tinh", dt.Value.Date.ToString("dd/MM/yyyy")));
             this.MaSanPhamBindingSource.DataSource = data;
             this.reportViewer.LocalReport.SetParameters(param);
+<<<<<<< HEAD
 
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
             reportViewer.ZoomMode = ZoomMode.Percent;
             reportViewer.ZoomPercent = 100;
             this.reportViewer.RefreshReport();
         }
+=======
+            this.reportViewer.RefreshReport();
+        }
+
+        private void frmSanphamHethan_Load(object sender, EventArgs e)
+        {
+
+        }
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
     }
 }

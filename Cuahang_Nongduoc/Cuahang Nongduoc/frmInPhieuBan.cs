@@ -1,10 +1,16 @@
+<<<<<<< HEAD
 using Microsoft.Reporting.WinForms;
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+<<<<<<< HEAD
 using System.Linq;
+=======
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 using System.Text;
 using System.Windows.Forms;
 
@@ -16,13 +22,18 @@ namespace CuahangNongduoc
         public frmInPhieuBan(CuahangNongduoc.BusinessObject.PhieuBan ph)
         {
             InitializeComponent();
+<<<<<<< HEAD
             //reportViewer.LocalReport.ExecuteReportInCurrentAppDomain(System.Reflection.Assembly.GetExecutingAssembly().Evidence);
+=======
+            reportViewer.LocalReport.ExecuteReportInCurrentAppDomain(System.Reflection.Assembly.GetExecutingAssembly().Evidence);
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
             this.reportViewer.LocalReport.SubreportProcessing += new Microsoft.Reporting.WinForms.SubreportProcessingEventHandler(LocalReport_SubreportProcessing);
             m_PhieuBan = ph;
         }
 
         void LocalReport_SubreportProcessing(object sender, Microsoft.Reporting.WinForms.SubreportProcessingEventArgs e)
         {
+<<<<<<< HEAD
             //e.DataSources.Clear();
             //e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_ChiTietPhieuBan", m_PhieuBan.ChiTiet));
             var chiTietPB = m_PhieuBan.ChiTiet.Select(r => new
@@ -34,6 +45,10 @@ namespace CuahangNongduoc
             }).ToList();
 
             e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_ChiTietPhieuBan", chiTietPB));
+=======
+            e.DataSources.Clear();
+            e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_ChiTietPhieuBan", m_PhieuBan.ChiTiet));
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
         }
 
         private void frmInPhieuBan_Load(object sender, EventArgs e)
@@ -46,6 +61,7 @@ namespace CuahangNongduoc
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("dien_thoai", ch.DienThoai));
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("bang_chu", num.NumberToString(m_PhieuBan.TongTien.ToString())));
 
+<<<<<<< HEAD
             //ma, khach, dchi, dt, ngayban, tt, da tra, con no
 
             var data = new
@@ -71,5 +87,11 @@ namespace CuahangNongduoc
             this.reportViewer.RefreshReport();
         }
 
+=======
+            this.reportViewer.LocalReport.SetParameters(param);
+            this.PhieuBanBindingSource.DataSource = m_PhieuBan;
+            this.reportViewer.RefreshReport();
+        }
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
     }
 }

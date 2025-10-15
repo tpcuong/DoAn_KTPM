@@ -33,7 +33,11 @@ namespace CuahangNongduoc
                     else { chuc = ""; }; break;
                 case "1": chuc = "mười "; break;
                 default:
+<<<<<<< HEAD
                     chuc = No[Convert.ToByte(num.Substring(1, 1))] + " mươi"; break;
+=======
+                    chuc = No[Convert.ToByte(num.Substring(1, 1))] + " mươi "; break;
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
             }
             // Đơn vị
             switch (num.Substring(2, 1))

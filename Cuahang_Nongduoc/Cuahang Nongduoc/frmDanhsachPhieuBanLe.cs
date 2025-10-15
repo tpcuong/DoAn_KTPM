@@ -113,9 +113,13 @@ namespace CuahangNongduoc
             }
         }
 
+<<<<<<< HEAD
         private void dataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+=======
+
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
     }
 }

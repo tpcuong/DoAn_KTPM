@@ -5,6 +5,10 @@ using System.Windows.Forms;
 using System.Data;
 using CuahangNongduoc.DataLayer;
 using CuahangNongduoc.BusinessObject;
+<<<<<<< HEAD
+=======
+using System.Data.OleDb;
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
 
 namespace CuahangNongduoc.Controller
 {
@@ -136,5 +140,32 @@ namespace CuahangNongduoc.Controller
             return ds;
         }
 
+<<<<<<< HEAD
+=======
+        #region code yeu cau
+        public List<MaSanPham> LayDanhSachMaSanPham(string idSAnPham)
+        {
+            MaSanPhanFactory f = new MaSanPhanFactory();
+            DataTable tbl = f.LaySanPham_NgayNhap_NgayHH(idSAnPham);
+            List<MaSanPham> lst = new List<MaSanPham>();
+            SanPhamController ctrlSanPham = new SanPhamController();
+            foreach (DataRow row in tbl.Rows)
+            {
+                MaSanPham sp = new MaSanPham();
+                sp.Id = Convert.ToString(row["ID"]);
+                sp.SoLuong = Convert.ToInt32(row["SO_LUONG"]);
+                sp.GiaNhap = Convert.ToInt64(row["DON_GIA_NHAP"]);
+                sp.NgayNhap = Convert.ToDateTime(row["NGAY_NHAP"]);
+                sp.NgaySanXuat = Convert.ToDateTime(row["NGAY_SAN_XUAT"]);
+                sp.NgayHetHan = Convert.ToDateTime(row["NGAY_HET_HAN"]);
+                sp.SanPham = ctrlSanPham.LaySanPham(row["ID_SAN_PHAM"].ToString());
+                lst.Add(sp);
+            }
+            return lst;
+        }
+
+        #endregion
+
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
     }
 }

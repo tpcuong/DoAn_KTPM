@@ -22,6 +22,28 @@ namespace CuahangNongduoc.Controller
             cmb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             cmb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
         }
+<<<<<<< HEAD
+=======
+        public List<SanPham> DanhSachSanPham()
+        {
+            DataTable tbl = factory.DanhsachSanPham();
+            List<SanPham> ds = new List<SanPham>();
+            DonViTinhController ctrlDVT = new DonViTinhController();
+            foreach (DataRow row in tbl.Rows)
+            {
+                SanPham sp = new SanPham();
+                sp.Id = Convert.ToString(row["ID"]);
+                sp.TenSanPham = Convert.ToString(row["TEN_SAN_PHAM"]);
+                sp.SoLuong = Convert.ToInt32(row["SO_LUONG"]);
+                sp.DonGiaNhap = Convert.ToInt64(row["DON_GIA_NHAP"]);
+                sp.GiaBanLe = Convert.ToInt64(row["GIA_BAN_LE"]);
+                sp.GiaBanSi = Convert.ToInt64(row["GIA_BAN_SI"]);
+                sp.DonViTinh = ctrlDVT.LayDVT(Convert.ToInt32(row["ID_DON_VI_TINH"]));
+                ds.Add(sp);
+            }
+            return ds;
+        }
+>>>>>>> 9fc2dac0940c4391e02e0d6a8da1c6c9eb2fc1c8
         public void HienthiDataGridViewComboBoxColumn(System.Windows.Forms.DataGridViewComboBoxColumn cmb)
         {
             cmb.DataSource = factory.DanhsachSanPham();
