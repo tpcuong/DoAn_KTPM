@@ -41,11 +41,6 @@ namespace CuahangNongduoc.BusinessObject
             get { return m_ThanhTien; }
             set { m_ThanhTien = value; }
         }
-        private DateTime m_NgayHetHan;
-        public DateTime NgayHetHan
-        {
-            get { return m_NgayHetHan; }
-            set { m_NgayHetHan = value; }
-        }
+
     }
 }
