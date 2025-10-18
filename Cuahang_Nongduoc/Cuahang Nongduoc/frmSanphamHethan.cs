@@ -1,8 +1,10 @@
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -21,8 +23,22 @@ namespace CuahangNongduoc
             IList<Microsoft.Reporting.WinForms.ReportParameter> param = new List<Microsoft.Reporting.WinForms.ReportParameter>();
 
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("ngay_tinh", dt.Value.Date.ToString("dd/MM/yyyy")));
-            this.MaSanPhamBindingSource.DataSource = data;
+            var spHetHan = data.Select(r => new
+            {
+                r.Id,
+                SanPham = r.SanPham.TenSanPham,
+                r.GiaNhap,
+                r.NgayNhap,
+                r.SoLuong,
+                r.NgaySanXuat,
+                r.NgayHetHan,
+            });
+            this.MaSanPhamBindingSource.DataSource = spHetHan;
             this.reportViewer.LocalReport.SetParameters(param);
+
+            reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewer.ZoomMode = ZoomMode.Percent;
+            reportViewer.ZoomPercent = 100;
             this.reportViewer.RefreshReport();
         }
 

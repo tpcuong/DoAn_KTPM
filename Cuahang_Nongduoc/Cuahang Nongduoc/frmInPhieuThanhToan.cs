@@ -1,3 +1,5 @@
+using CuahangNongduoc.BusinessObject;
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,9 +29,26 @@ namespace CuahangNongduoc
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("dien_thoai", ch.DienThoai));
 
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("bang_chu", num.NumberToString(m_PhieuThanhToan.TongTien.ToString())));
+            var data = new
+            {
+                m_PhieuThanhToan.Id,
+                m_PhieuThanhToan.NgayThanhToan,
+                m_PhieuThanhToan.TongTien,
+                m_PhieuThanhToan.GhiChu,
+                KhachHang = m_PhieuThanhToan.KhachHang.HoTen,
+                DienThoai = m_PhieuThanhToan.KhachHang.DienThoai,
+                DiaChi = m_PhieuThanhToan.KhachHang.DiaChi
+            };
+
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("dienthoai_kh", data.DienThoai));
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("diachi_kh", data.DiaChi));
 
             this.reportViewer.LocalReport.SetParameters(param);
-            this.PhieuThanhToanBindingSource.DataSource = m_PhieuThanhToan; 
+            this.PhieuThanhToanBindingSource.DataSource = data;
+
+            reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            reportViewer.ZoomMode = ZoomMode.Percent;
+            reportViewer.ZoomPercent = 100;
             this.reportViewer.RefreshReport();
         }
     }
