@@ -215,3 +215,4 @@ D:\ThietKe_PhanMem\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\bin\Debug\pt\Micr
 D:\ThietKe_PhanMem\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\bin\Debug\ru\Microsoft.ReportViewer.WinForms.resources.dll
 D:\ThietKe_PhanMem\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\bin\Debug\zh-CHS\Microsoft.ReportViewer.WinForms.resources.dll
 D:\ThietKe_PhanMem\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\bin\Debug\zh-CHT\Microsoft.ReportViewer.WinForms.resources.dll
+D:\ThietKe_PhanMem\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.frmInDichVu.resources

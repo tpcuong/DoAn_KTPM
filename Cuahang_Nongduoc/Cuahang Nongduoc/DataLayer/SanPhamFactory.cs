@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
@@ -53,6 +53,75 @@ namespace CuahangNongduoc.DataLayer
             return m_Ds;
         }
 
+        // thêm
+        public DataTable LaySoLuongTon(DateTime tuNgay, DateTime denNgay)
+        {
+            // iif(điều kiện, giá trị nếu đúng, giá trị nếu sai)
+            string query = $@"
+                SELECT 
+                SP.ID, 
+                SP.TEN_SAN_PHAM, 
+                SP.ID_DON_VI_TINH,
+                (
+                    (SELECT IIF(ISNULL(SUM(MA.SO_LUONG)),0,SUM(MA.SO_LUONG))
+                    FROM MA_SAN_PHAM AS MA
+                    WHERE MA.ID_SAN_PHAM = SP.ID
+                    AND MA.NGAY_NHAP < @tuNgay)
+                    -
+                    (SELECT IIF(ISNULL(SUM(CT.SO_LUONG)),0,SUM(CT.SO_LUONG))
+                    FROM PHIEU_BAN AS PB
+                    INNER JOIN CHI_TIET_PHIEU_BAN AS CT ON PB.ID = CT.ID_PHIEU_BAN
+                    WHERE CT.ID_MA_SAN_PHAM = SP.ID
+                    AND PB.NGAY_BAN < @tuNgay) 
+                ) AS TON_DAU,
+
+                (
+                    SELECT IIF(ISNULL(SUM(MA.SO_LUONG)),0,SUM(MA.SO_LUONG))
+                    FROM MA_SAN_PHAM AS MA
+                    WHERE MA.ID_SAN_PHAM = SP.ID
+                    AND MA.NGAY_NHAP BETWEEN @tuNgay AND @denNgay
+                ) AS NHAP_TRONG_KY,
+
+                (
+                    SELECT IIF(ISNULL(SUM(CT.SO_LUONG)),0,SUM(CT.SO_LUONG))
+                    FROM PHIEU_BAN AS PB
+                    INNER JOIN CHI_TIET_PHIEU_BAN AS CT ON PB.ID = CT.ID_PHIEU_BAN
+                    WHERE CT.ID_MA_SAN_PHAM = SP.ID
+                    AND PB.NGAY_BAN BETWEEN @tuNgay AND @denNgay
+                ) AS XUAT_TRONG_KY,
+
+                (
+                    (SELECT IIF(ISNULL(SUM(MA.SO_LUONG)),0,SUM(MA.SO_LUONG))
+                    FROM MA_SAN_PHAM AS MA
+                    WHERE MA.ID_SAN_PHAM = SP.ID
+                    AND MA.NGAY_NHAP < @tuNgay)
+                    -
+                    (SELECT IIF(ISNULL(SUM(CT.SO_LUONG)),0,SUM(CT.SO_LUONG))
+                    FROM PHIEU_BAN AS PB
+                    INNER JOIN CHI_TIET_PHIEU_BAN AS CT ON PB.ID = CT.ID_PHIEU_BAN
+                    WHERE CT.ID_MA_SAN_PHAM = SP.ID
+                    AND PB.NGAY_BAN < @tuNgay)
+                    +
+                    (SELECT IIF(ISNULL(SUM(MA.SO_LUONG)),0,SUM(MA.SO_LUONG))
+                    FROM MA_SAN_PHAM AS MA
+                    WHERE MA.ID_SAN_PHAM = SP.ID
+                    AND MA.NGAY_NHAP BETWEEN @tuNgay AND @denNgay)
+                    -
+                    (SELECT IIF(ISNULL(SUM(CT.SO_LUONG)),0,SUM(CT.SO_LUONG)) 
+                    FROM PHIEU_BAN AS PB
+                    INNER JOIN CHI_TIET_PHIEU_BAN AS CT ON PB.ID = CT.ID_PHIEU_BAN
+                    WHERE CT.ID_MA_SAN_PHAM = SP.ID
+                    AND PB.NGAY_BAN BETWEEN @tuNgay AND @denNgay)
+                ) AS TON_CUOI
+
+                FROM SAN_PHAM AS SP;";
+
+            OleDbCommand cmd = new OleDbCommand(query);
+            cmd.Parameters.AddWithValue("@tuNgay", tuNgay);
+            cmd.Parameters.AddWithValue("@denNgay", denNgay);
+            m_Ds.Load(cmd);
+            return m_Ds;
+        }
 
         public DataRow NewRow()
         {

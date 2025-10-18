@@ -1,6 +1,6 @@
 ﻿namespace CuahangNongduoc
 {
-    partial class frmSoLuongTon
+    partial class frmInDichVu
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSoLuongTon));
-            this.SoLuongTonBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dtpDenNgay = new System.Windows.Forms.DateTimePicker();
@@ -41,40 +36,10 @@
             this.dtpTuNgay = new System.Windows.Forms.DateTimePicker();
             this.btnXemNgay = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.SoLuongTonBindingSource)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // SoLuongTonBindingSource
-            // 
-            this.SoLuongTonBindingSource.DataSource = typeof(CuahangNongduoc.BusinessObject.SoLuongTon);
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.reportViewer);
-            this.panel2.Controls.Add(this.panel1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
-            this.panel2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1552, 898);
-            this.panel2.TabIndex = 1;
-            // 
-            // reportViewer
-            // 
-            this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource1.Name = "CuahangNongduoc_BusinessObject_SoLuongTon";
-            reportDataSource1.Value = this.SoLuongTonBindingSource;
-            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
-            this.reportViewer.LocalReport.ReportEmbeddedResource = "CuahangNongduoc.Report.rptSoLuongTon.rdlc";
-            this.reportViewer.Location = new System.Drawing.Point(0, 173);
-            this.reportViewer.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.reportViewer.Name = "reportViewer";
-            this.reportViewer.ServerReport.BearerToken = null;
-            this.reportViewer.Size = new System.Drawing.Size(1552, 725);
-            this.reportViewer.TabIndex = 0;
             // 
             // panel1
             // 
@@ -83,8 +48,8 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(6);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1552, 173);
-            this.panel1.TabIndex = 13;
+            this.panel1.Size = new System.Drawing.Size(1211, 173);
+            this.panel1.TabIndex = 15;
             // 
             // groupBox2
             // 
@@ -94,7 +59,7 @@
             this.groupBox2.Controls.Add(this.dtpTuNgay);
             this.groupBox2.Controls.Add(this.btnXemNgay);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(414, 6);
+            this.groupBox2.Location = new System.Drawing.Point(243, 6);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(6);
@@ -157,19 +122,30 @@
             this.label1.TabIndex = 5;
             this.label1.Text = "Từ Ngày";
             // 
-            // frmSoLuongTon
+            // reportViewer
+            // 
+            this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            reportDataSource1.Name = "CuahangNongduoc_BusinessObject_SoLuongTon";
+            reportDataSource1.Value = null;
+            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
+            this.reportViewer.LocalReport.ReportEmbeddedResource = "CuahangNongduoc.Report.rptSoLuongTon.rdlc";
+            this.reportViewer.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer.Margin = new System.Windows.Forms.Padding(6);
+            this.reportViewer.Name = "reportViewer";
+            this.reportViewer.ServerReport.BearerToken = null;
+            this.reportViewer.Size = new System.Drawing.Size(1211, 883);
+            this.reportViewer.TabIndex = 16;
+            // 
+            // frmInDichVu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1552, 898);
-            this.Controls.Add(this.panel2);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
-            this.Name = "frmSoLuongTon";
-            this.Text = "SO LUONG TON";
-            this.Load += new System.EventHandler(this.frmSoLuongTon_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.SoLuongTonBindingSource)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.ClientSize = new System.Drawing.Size(1211, 883);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.reportViewer);
+            this.Name = "frmInDichVu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "DICH VU";
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -179,9 +155,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel2;
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
-        private System.Windows.Forms.BindingSource SoLuongTonBindingSource;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DateTimePicker dtpDenNgay;
@@ -189,5 +162,6 @@
         private System.Windows.Forms.DateTimePicker dtpTuNgay;
         private System.Windows.Forms.Button btnXemNgay;
         private System.Windows.Forms.Label label1;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
     }
 }

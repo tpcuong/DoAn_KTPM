@@ -117,6 +117,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CHNDDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="frmInDichVu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInDichVu.Designer.cs">
+      <DependentUpon>frmInDichVu.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmInPhieuChi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,6 +327,9 @@
     <Compile Include="Num2Str.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmInDichVu.resx">
+      <DependentUpon>frmInDichVu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInPhieuChi.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmInPhieuChi.cs</DependentUpon>
@@ -454,12 +463,14 @@
     <EmbeddedResource Include="Report\rptChiTietPhieuNhap.rdlc" />
     <EmbeddedResource Include="Report\rptDsDuNoKhachHang.rdlc" />
     <EmbeddedResource Include="Report\rptDuNoKhachHang.rdlc" />
+    <EmbeddedResource Include="Report\rptInDichVu.rdlc" />
     <EmbeddedResource Include="Report\rptPhieuBan.rdlc" />
     <EmbeddedResource Include="Report\rptPhieuChi.rdlc" />
     <EmbeddedResource Include="Report\rptPhieuNhap.rdlc" />
     <EmbeddedResource Include="Report\rptSanPhamHetHan.rdlc" />
     <EmbeddedResource Include="Report\rptSoLuongBan.rdlc" />
     <EmbeddedResource Include="Report\rptSoLuongTon.rdlc" />
+    <EmbeddedResource Include="Report\rptSoLuongTon_TheoNgay.rdlc" />
     <EmbeddedResource Include="Report\rptThanhToan.rdlc" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

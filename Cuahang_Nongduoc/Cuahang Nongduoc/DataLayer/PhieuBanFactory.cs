@@ -1,3 +1,4 @@
+using Microsoft.ReportingServices.Diagnostics.Internal;
 using System;
 using System.Data;
 using System.Data.OleDb;
@@ -45,6 +46,21 @@ namespace CuahangNongduoc.DataLayer
         {
             OleDbCommand cmd = new OleDbCommand("SELECT * FROM PHIEU_BAN WHERE ID = @id");
             cmd.Parameters.Add("id", OleDbType.VarChar, 50).Value = id;
+            m_Ds.Load(cmd);
+            return m_Ds;
+        }
+        //them
+        public DataTable LayPhieuBan(DateTime tuNgay, DateTime denNgay)
+        {
+            string query = @"
+            SELECT PB.ID_KHACH_HANG, PB.NGAY_BAN, SUM(PB.TONG_TIEN) AS TONG_TIEN, SUM(PB.PHI_DICH_VU) AS PHI_DICH_VU, SUM(PB.GIAM_GIA) AS GIAM_GIA
+            FROM PHIEU_BAN PB
+            WHERE PB.NGAY_BAN >= @tuNgay AND PB.NGAY_BAN <= @denNgay
+            GROUP BY PB.ID_KHACH_HANG, PB.NGAY_BAN";
+            OleDbCommand cmd = new OleDbCommand(query);
+            cmd.Parameters.Add("?", OleDbType.Date).Value = tuNgay;
+            cmd.Parameters.Add("?", OleDbType.Date).Value = denNgay;
+
             m_Ds.Load(cmd);
             return m_Ds;
         }

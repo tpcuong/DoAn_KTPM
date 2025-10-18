@@ -119,8 +119,36 @@ namespace CuahangNongduoc.Controller
 
             return ph;
         }
+        // thêm
+        public List<PhieuBan> LayPhieuBan(DateTime tuNgay, DateTime denNgay)
+        {
+            DataTable tbl = factory.LayPhieuBan(tuNgay, denNgay);
+            List<PhieuBan> list_PB = new List<PhieuBan>();
+            if (tbl.Rows.Count > 0)
+            {
+                foreach (DataRow row in tbl.Rows)
+                {
+                    PhieuBan ph = new PhieuBan();
 
+                    ph.Id = row["ID"].ToString();
+                    ph.NgayBan = row["NGAY_BAN"] == DBNull.Value ? DateTime.Now : Convert.ToDateTime(row["NGAY_BAN"]);
+                    ph.TongTien = row["TONG_TIEN"] == DBNull.Value ? 0 : Convert.ToInt64(row["TONG_TIEN"]);
+                    ph.DaTra = row["DA_TRA"] == DBNull.Value ? 0 : Convert.ToInt64(row["DA_TRA"]);
+                    ph.ConNo = row["CON_NO"] == DBNull.Value ? 0 : Convert.ToInt64(row["CON_NO"]);
+                    ph.PhiDichVu = row["PHI_DICH_VU"] == DBNull.Value ? 0 : Convert.ToInt64(row["PHI_DICH_VU"]);
+                    ph.GiamGia = row["GIAM_GIA"] == DBNull.Value ? 0 : Convert.ToInt64(row["GIAM_GIA"]);
 
+                    KhachHangController ctrlKH = new KhachHangController();
+                    ph.KhachHang = ctrlKH.LayKhachHang(row["ID_KHACH_HANG"].ToString());
+
+                    ChiTietPhieuBanController ctrlCT = new ChiTietPhieuBanController();
+                    ph.ChiTiet = ctrlCT.ChiTietPhieuBan(ph.Id);
+
+                    list_PB.Add(ph);
+                }
+            }
+            return list_PB;
+        }
 
         public void TimPhieuBan(String maKH, DateTime dt)
         {

@@ -15,7 +15,7 @@ namespace CuahangNongduoc.Controller
 
         public void HienthiAutoComboBox(System.Windows.Forms.ComboBox cmb)
         {
-            DataTable tbl = factory.DanhsachSanPham(); 
+            DataTable tbl = factory.DanhsachSanPham();
             cmb.DataSource = tbl;
             cmb.DisplayMember = "TEN_SAN_PHAM";
             cmb.ValueMember = "ID";
@@ -62,7 +62,7 @@ namespace CuahangNongduoc.Controller
         {
             System.Windows.Forms.BindingSource bs = new System.Windows.Forms.BindingSource();
             bs.DataSource = factory.DanhsachSanPham();
-            
+
             txtMaSp.DataBindings.Clear();
             txtMaSp.DataBindings.Add("Text", bs, "ID");
 
@@ -86,9 +86,9 @@ namespace CuahangNongduoc.Controller
             bn.BindingSource = bs;
             dg.DataSource = bs;
 
-            
+
         }
-        public void CapNhatGiaNhap(String id, long gia_moi ,long so_luong)
+        public void CapNhatGiaNhap(String id, long gia_moi, long so_luong)
         {
             DataTable tbl = factory.LaySanPham(id);
             if (tbl.Rows.Count > 0)
@@ -106,7 +106,7 @@ namespace CuahangNongduoc.Controller
             }
 
         }
-    
+
         public SanPham LaySanPham(String id)
         {
             DataTable tbl = factory.LaySanPham(id);
@@ -115,7 +115,7 @@ namespace CuahangNongduoc.Controller
             if (tbl.Rows.Count > 0)
             {
                 sp.Id = Convert.ToString(tbl.Rows[0]["ID"]);
-                sp.TenSanPham =  Convert.ToString(tbl.Rows[0]["TEN_SAN_PHAM"]);
+                sp.TenSanPham = Convert.ToString(tbl.Rows[0]["TEN_SAN_PHAM"]);
                 sp.SoLuong = Convert.ToInt32(tbl.Rows[0]["SO_LUONG"]);
                 sp.DonGiaNhap = Convert.ToInt64(tbl.Rows[0]["DON_GIA_NHAP"]);
                 sp.GiaBanLe = Convert.ToInt64(tbl.Rows[0]["GIA_BAN_LE"]);
@@ -132,10 +132,10 @@ namespace CuahangNongduoc.Controller
             DataTable tbl = f.LaySoLuongTon();
 
             IList<SoLuongTon> ds = new List<SoLuongTon>();
-            
+
 
             DonViTinhController ctrlDVT = new DonViTinhController();
-            foreach(DataRow row in tbl.Rows)
+            foreach (DataRow row in tbl.Rows)
             {
                 SoLuongTon slt = new SoLuongTon();
                 SanPham sp = new SanPham();
@@ -148,6 +148,33 @@ namespace CuahangNongduoc.Controller
                 sp.DonViTinh = ctrlDVT.LayDVT(Convert.ToInt32(row["ID_DON_VI_TINH"]));
                 slt.SanPham = sp;
                 slt.SoLuong = Convert.ToInt32(row["SO_LUONG_TON"]);
+                ds.Add(slt);
+            }
+            return ds;
+        }
+
+        // thêm
+        public static IList<SoLuongTon> LaySoLuongTon(DateTime tuNgay, DateTime denNgay)
+        {
+            SanPhamFactory f = new SanPhamFactory();
+            DataTable tbl = f.LaySoLuongTon(tuNgay, denNgay);
+
+            IList<SoLuongTon> ds = new List<SoLuongTon>();
+
+            DonViTinhController ctrlDVT = new DonViTinhController();
+            foreach (DataRow row in tbl.Rows)
+            {
+                SoLuongTon slt = new SoLuongTon();
+                SanPham sp = new SanPham();
+                sp.Id = Convert.ToString(row["ID"]);
+                sp.TenSanPham = Convert.ToString(row["TEN_SAN_PHAM"]);
+                //sp.SoLuong = Convert.ToInt32(row["SO_LUONG"]);
+                sp.DonGiaNhap = Convert.ToInt64(row["TON_DAU"]);
+                sp.GiaBanLe = Convert.ToInt64(row["NHAP_TRONG_KY"]);
+                sp.GiaBanSi = Convert.ToInt64(row["XUAT_TRONG_KY"]);
+                sp.DonViTinh = ctrlDVT.LayDVT(Convert.ToInt32(row["ID_DON_VI_TINH"]));
+                slt.SanPham = sp;
+                slt.SoLuong = Convert.ToInt32(row["TON_CUOI"]);
                 ds.Add(slt);
             }
             return ds;
