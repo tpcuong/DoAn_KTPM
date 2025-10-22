@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.OleDb;
-
+using System.Data.SqlClient;
 namespace CuahangNongduoc.DataLayer
 {
     public class DuNoKhachHangFactory
@@ -12,17 +12,19 @@ namespace CuahangNongduoc.DataLayer
 
         public void LoadSchema()
         {
-            OleDbCommand cmd = new OleDbCommand("SELECT * FROM DU_NO_KH WHERE ID_KHACH_HANG='-1'");
+            //OleDbCommand cmd = new OleDbCommand("SELECT * FROM DU_NO_KH WHERE ID_KHACH_HANG='-1'");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM DU_NO_KH WHERE ID_KHACH_HANG='-1'");
             m_Ds.Load(cmd);
-
         }
 
         public DataTable DanhsachDuNo(int thang, int nam)
         {
-            OleDbCommand cmd = new OleDbCommand("SELECT * FROM DU_NO_KH WHERE THANG=@thang AND NAM=@nam");
-            cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
-            cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
-
+            //OleDbCommand cmd = new OleDbCommand("SELECT * FROM DU_NO_KH WHERE THANG=@thang AND NAM=@nam");
+            //cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
+            //cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
+            SqlCommand cmd = new SqlCommand("SELECT * FROM DU_NO_KH WHERE THANG=@thang AND NAM=@nam");
+            cmd.Parameters.Add("thang", SqlDbType.Int).Value = thang;
+            cmd.Parameters.Add("nam", SqlDbType.Int).Value = nam;
             m_Ds.Load(cmd);
 
             return m_Ds;
@@ -30,11 +32,14 @@ namespace CuahangNongduoc.DataLayer
 
         public DataTable LayDuNoKhachHang(String kh, int thang, int nam)
         {
-            OleDbCommand cmd = new OleDbCommand("SELECT * FROM DU_NO_KH WHERE ID_KHACH_HANG = @kh AND THANG=@thang AND NAM=@nam");
-            cmd.Parameters.Add("kh", OleDbType.VarChar, 50).Value = kh;
-            cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
-            cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
-
+            //OleDbCommand cmd = new OleDbCommand("SELECT * FROM DU_NO_KH WHERE ID_KHACH_HANG = @kh AND THANG=@thang AND NAM=@nam");
+            //cmd.Parameters.Add("kh", OleDbType.VarChar, 50).Value = kh;
+            //cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
+            //cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
+            SqlCommand cmd = new SqlCommand("SELECT * FROM DU_NO_KH WHERE ID_KHACH_HANG = @kh AND THANG=@thang AND NAM=@nam");
+            cmd.Parameters.Add("kh", SqlDbType.VarChar, 50).Value = kh;
+            cmd.Parameters.Add("thang", SqlDbType.Int).Value = thang;
+            cmd.Parameters.Add("nam", SqlDbType.Int).Value = nam;
             m_Ds.Load(cmd);
 
             return m_Ds;
@@ -43,10 +48,14 @@ namespace CuahangNongduoc.DataLayer
         public static long LayDuNo(String kh, int thang, int nam)
         {
             DataService ds = new DataService();
-            OleDbCommand cmd = new OleDbCommand("SELECT CUOI_KY FROM DU_NO_KH WHERE ID_KHACH_HANG = @kh AND THANG=@thang AND NAM=@nam");
-            cmd.Parameters.Add("kh", OleDbType.VarChar, 50).Value = kh;
-            cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
-            cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
+            //OleDbCommand cmd = new OleDbCommand("SELECT CUOI_KY FROM DU_NO_KH WHERE ID_KHACH_HANG = @kh AND THANG=@thang AND NAM=@nam");
+            //cmd.Parameters.Add("kh", OleDbType.VarChar, 50).Value = kh;
+            //cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
+            //cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
+            SqlCommand cmd = new SqlCommand("SELECT CUOI_KY FROM DU_NO_KH WHERE ID_KHACH_HANG = @kh AND THANG=@thang AND NAM=@nam");
+            cmd.Parameters.Add("kh", SqlDbType.VarChar, 50).Value = kh;
+            cmd.Parameters.Add("thang", SqlDbType.Int).Value = thang;
+            cmd.Parameters.Add("nam", SqlDbType.Int).Value = nam;
 
             object obj = ds.ExecuteScalar(cmd);
             if (obj == null)
@@ -58,9 +67,12 @@ namespace CuahangNongduoc.DataLayer
 
         public void Clear(int thang, int nam)
         {
-            OleDbCommand cmd = new OleDbCommand("DELETE FROM DU_NO_KH WHERE THANG=@thang AND NAM=@nam");
-            cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
-            cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
+            //OleDbCommand cmd = new OleDbCommand("DELETE FROM DU_NO_KH WHERE THANG=@thang AND NAM=@nam");
+            //cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
+            //cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
+            SqlCommand cmd = new SqlCommand("DELETE FROM DU_NO_KH WHERE THANG=@thang AND NAM=@nam");
+            cmd.Parameters.Add("thang", SqlDbType.Int).Value = thang;
+            cmd.Parameters.Add("nam", SqlDbType.Int).Value = nam;
 
             m_Ds.ExecuteNoneQuery(cmd);
         }
