@@ -51,31 +51,48 @@ namespace CuahangNongduoc.DataLayer
             return m_Ds;
         }
 
-        public bool ThemNguoiDung(string tenDangNhap, string matKhauHash, string tenNguoiDung, string vaiTro, string soDienThoai, string email, bool trangThai)
+        public bool ThemNguoiDung(string tenDangNhap, string matKhauHash, string tenNguoiDung, string vaiTro, string email, string soDienThoai, bool trangThai)
         {
             DataService ds = new DataService();
+
+            SqlCommand checkCmd = new SqlCommand("SELECT COUNT(*) FROM NGUOI_DUNG WHERE TEN_DANG_NHAP = @TenDangNhap");
+            checkCmd.Parameters.Add("@TenDangNhap", SqlDbType.NVarChar, 100).Value = tenDangNhap;
+            int count = (int)ds.ExecuteScalar(checkCmd);
+            if (count > 0)
+            {
+                return false; 
+            }
+
             SqlCommand cmd = new SqlCommand(@"
-        INSERT INTO NGUOI_DUNG 
-        (TenDangNhap, MatKhau, VaiTro, TenNguoiDung, SoDienThoai, Email, TrangThai)
-        VALUES 
-        (@user, @pass, @role, @name, @phone, @mail, @status)");
+INSERT INTO NGUOI_DUNG 
+(TEN_DANG_NHAP, MAT_KHAU_HASH, VAI_TRO, TEN_NGUOI_DUNG, EMAIL, SO_DIEN_THOAI, TRANG_THAI)
+VALUES 
+(@TenDangNhap, @MatKhauHash, @VaiTro, @TenNguoiDung, @Email, @SoDienThoai, @TrangThai)");
 
-            cmd.Parameters.Add("@user", SqlDbType.VarChar, 50).Value = tenDangNhap;
-            cmd.Parameters.Add("@pass", SqlDbType.VarChar, 255).Value = matKhauHash;
-            cmd.Parameters.Add("@role", SqlDbType.VarChar, 50).Value = vaiTro;
-            cmd.Parameters.Add("@name", SqlDbType.NVarChar, 100).Value = tenNguoiDung;
-            cmd.Parameters.Add("@phone", SqlDbType.VarChar, 20).Value = soDienThoai;
-            cmd.Parameters.Add("@mail", SqlDbType.VarChar, 100).Value = email;
-            cmd.Parameters.Add("@status", SqlDbType.Bit).Value = trangThai;
+            cmd.Parameters.Add("@TenDangNhap", SqlDbType.NVarChar, 100).Value = tenDangNhap;
+            cmd.Parameters.Add("@MatKhauHash", SqlDbType.NVarChar, 100).Value = matKhauHash;
+            cmd.Parameters.Add("@VaiTro", SqlDbType.NVarChar, 50).Value = vaiTro;
+            cmd.Parameters.Add("@TenNguoiDung", SqlDbType.NVarChar, 100).Value = tenNguoiDung;
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 100).Value = email;
+            cmd.Parameters.Add("@SoDienThoai", SqlDbType.NVarChar, 20).Value = soDienThoai;
+            cmd.Parameters.Add("@TrangThai", SqlDbType.Bit).Value = trangThai;
 
-            return ds.ExecuteNoneQuery(cmd) > 0;
+            try
+            {
+                return ds.ExecuteNoneQuery(cmd) > 0;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi thêm người dùng: {ex.Message}");
+                return false;
+            }
         }
 
 
         public bool XoaNguoiDung(int userId)
         {
             DataService ds = new DataService();
-            SqlCommand cmd = new SqlCommand("DELETE FROM NGUOI_DUNG WHERE USER_ID = @id");
+            SqlCommand cmd = new SqlCommand("DELETE FROM NGUOI_DUNG WHERE ID = @id");
             cmd.Parameters.Add("id", SqlDbType.Int, 50).Value = userId;
             return ds.ExecuteNoneQuery(cmd) > 0;
         }

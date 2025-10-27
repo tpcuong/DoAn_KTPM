@@ -39,17 +39,58 @@ namespace CuahangNongduoc
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (ctrl.ThemNguoiDung(
-                txtTenDangNhap.Text.Trim(),
-                txtMatKhau.Text.Trim(),
-                txtTenNguoiDung.Text.Trim(),
-                cmbVaiTro.Text,
-                txtEmail.Text.Trim(),
-                txtSDT.Text.Trim(),
-                chkTrangThai.Checked))
+            if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
             {
-                LoadData();
-                MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Tên đăng nhập không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtTenDangNhap.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtMatKhau.Text))
+            {
+                MessageBox.Show("Mật khẩu không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMatKhau.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTenNguoiDung.Text))
+            {
+                MessageBox.Show("Tên người dùng không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtTenNguoiDung.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cmbVaiTro.Text))
+            {
+                MessageBox.Show("Vui lòng chọn vai trò!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmbVaiTro.Focus();
+                return;
+            }
+
+            string matKhauDaMaHoa = HashSHA256(txtMatKhau.Text.Trim());
+
+            try
+            {
+                if (ctrl.ThemNguoiDung(
+                    txtTenDangNhap.Text.Trim(),
+                    matKhauDaMaHoa,
+                    txtTenNguoiDung.Text.Trim(),
+                    cmbVaiTro.Text,
+                    txtEmail.Text.Trim(),
+                    txtSDT.Text.Trim(),
+                    chkTrangThai.Checked))
+                {
+                    LoadData();
+                    MessageBox.Show("Thêm người dùng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Thêm người dùng thất bại! Tên đăng nhập có thể đã tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thêm người dùng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

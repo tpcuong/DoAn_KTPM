@@ -20,9 +20,9 @@ namespace CuahangNongduoc.BusinessLayer
             return m_NguoiDung.LayNguoiDungTheoTenDangNhap(tenDangNhap);
         }
 
-        public bool ThemNguoiDung(string tenDangNhap, string matKhauHash, string tenNguoiDung, string vaiTro, string soDienThoai, string email, bool trangThai)
+        public bool ThemNguoiDung(string vaiTro, string tenDangNhap, string matKhauHash, string tenNguoiDung, string email, string soDienThoai, bool trangThai)
         {
-            return m_NguoiDung.ThemNguoiDung(tenDangNhap, matKhauHash, tenNguoiDung, vaiTro, soDienThoai, email, trangThai);
+            return m_NguoiDung.ThemNguoiDung(vaiTro, tenDangNhap, matKhauHash, tenNguoiDung, email, soDienThoai, trangThai);
         }
 
         public bool XoaNguoiDung(int userId)

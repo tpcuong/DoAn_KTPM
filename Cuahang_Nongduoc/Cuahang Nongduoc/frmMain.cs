@@ -80,7 +80,7 @@ namespace CuahangNongduoc
             //}
 
             DataService.OpenConnection();
-            //PhanQuyenNguoiDung(vaiTroHienTai);
+            PhanQuyenNguoiDung(vaiTroHienTai);
 
         }
 
@@ -92,16 +92,15 @@ namespace CuahangNongduoc
                     
                     break;
 
-                case "NhanVien":
-                    
-                    break;
-
-                case "Manager":
-                    
-                    break;
-
                 default:
-                    
+                    expando1.Visible = false;
+                    toolSanPham.Visible = false;
+                    toolKhachHang.Visible = false;
+                    toolDaiLy.Visible = false;
+                    toolNhaCungCap.Visible = false;
+                    mnuBaocao.Visible = false;
+                    mnuQuanLy.Visible = false;
+                    expando3.Visible = false;
                     break;
             }
         }
@@ -341,8 +340,9 @@ namespace CuahangNongduoc
             // Help.ShowHelp(this, "CPP.CHM");
         }
 
+
         frmNguoiDung NguoiDung = null;
-        private void btnQLTK_Click(object sender, EventArgs e)
+        private void toolQLTK_Click(object sender, EventArgs e)
         {
             if (NguoiDung == null || NguoiDung.IsDisposed)
             {

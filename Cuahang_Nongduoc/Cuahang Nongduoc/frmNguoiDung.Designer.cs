@@ -14,7 +14,6 @@
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.Button btnSua;
         private System.Windows.Forms.Button btnXoa;
-        private System.Windows.Forms.Button btnLamMoi;
         private System.Windows.Forms.Label lblTenDangNhap;
         private System.Windows.Forms.Label lblMatKhau;
         private System.Windows.Forms.Label lblTenNguoiDung;
@@ -54,7 +53,6 @@
             this.btnThem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
             this.btnXoa = new System.Windows.Forms.Button();
-            this.btnLamMoi = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNguoiDung)).BeginInit();
             this.groupBoxThongTin.SuspendLayout();
             this.panelChucNang.SuspendLayout();
@@ -112,7 +110,6 @@
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(240, 22);
             this.txtMatKhau.TabIndex = 1;
-            this.txtMatKhau.UseSystemPasswordChar = false;
             // 
             // txtTenNguoiDung
             // 
@@ -224,7 +221,6 @@
             this.panelChucNang.Controls.Add(this.btnThem);
             this.panelChucNang.Controls.Add(this.btnSua);
             this.panelChucNang.Controls.Add(this.btnXoa);
-            this.panelChucNang.Controls.Add(this.btnLamMoi);
             this.panelChucNang.Location = new System.Drawing.Point(410, 20);
             this.panelChucNang.Name = "panelChucNang";
             this.panelChucNang.Size = new System.Drawing.Size(100, 252);
@@ -256,14 +252,6 @@
             this.btnXoa.TabIndex = 2;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
-            // 
-            // btnLamMoi
-            // 
-            this.btnLamMoi.Location = new System.Drawing.Point(5, 150);
-            this.btnLamMoi.Name = "btnLamMoi";
-            this.btnLamMoi.Size = new System.Drawing.Size(90, 30);
-            this.btnLamMoi.TabIndex = 3;
-            this.btnLamMoi.Text = "Làm mới";
             // 
             // frmNguoiDung
             // 
