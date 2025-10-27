@@ -100,6 +100,7 @@
     <Compile Include="BusinessObject\SanPham.cs" />
     <Compile Include="BusinessObject\SoLuongTon.cs" />
     <Compile Include="Controller\ChiTietPhieuBanController.cs" />
+    <Compile Include="Controller\NguoiDungController.cs" />
     <Compile Include="Controller\PhieuChiController.cs" />
     <Compile Include="Controller\LyDoChiController.cs" />
     <Compile Include="Controller\NhaCungCapController.cs" />
@@ -111,11 +112,18 @@
     <Compile Include="Controller\PhieuBanController.cs" />
     <Compile Include="Controller\SanPhamController.cs" />
     <Compile Include="Controller\DonViTinhController.cs" />
+    <Compile Include="DataLayer\NguoiDungFactory.cs" />
     <Compile Include="DataLayer\PhieuChiFactory.cs" />
     <Compile Include="DataSet\CHNDDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CHNDDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="frmDangNhap.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDangNhap.Designer.cs">
+      <DependentUpon>frmDangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="frmInDichVu.cs">
       <SubType>Form</SubType>
@@ -128,6 +136,12 @@
     </Compile>
     <Compile Include="frmInPhieuChi.Designer.cs">
       <DependentUpon>frmInPhieuChi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmNguoiDung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNguoiDung.Designer.cs">
+      <DependentUpon>frmNguoiDung.cs</DependentUpon>
     </Compile>
     <Compile Include="frmPhieuChi.cs">
       <SubType>Form</SubType>
@@ -333,6 +347,9 @@
     <EmbeddedResource Include="frmInPhieuChi.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmInPhieuChi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNguoiDung.resx">
+      <DependentUpon>frmNguoiDung.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmPhieuChi.resx">
       <DependentUpon>frmPhieuChi.cs</DependentUpon>

@@ -6,11 +6,11 @@ using System.Windows.Forms;
 
 namespace CuahangNongduoc
 {
-	
-	public class DataService : DataTable
-	{
-		// The connection to a database of this data service.
-		
+
+    public class DataService : DataTable
+    {
+        // The connection to a database of this data service.
+
         //private static OleDbConnection	m_Connection;
         private static SqlConnection m_Connection;
 
@@ -21,11 +21,11 @@ namespace CuahangNongduoc
         // The command to execute query or non-query command on a database of this data service.
         //private OleDbCommand		m_Command;
         private SqlCommand m_Command;
-        
+
         // The data adapter to execute query on a database of this data service.
         //private OleDbDataAdapter	m_DataAdapter;
         private SqlDataAdapter m_DataAdapter;
-        public DataService(){}
+        public DataService() { }
 
 
         public SqlCommand Command
@@ -34,13 +34,13 @@ namespace CuahangNongduoc
             set { m_Command = value; }
         }
 
-		public void Load(SqlCommand command)
-		{
+        public void Load(SqlCommand command)
+        {
             OpenConnection();
             m_Command = command;
             try
             {
-                
+
                 m_Command.Connection = m_Connection;
 
                 m_DataAdapter = new SqlDataAdapter();
@@ -50,11 +50,11 @@ namespace CuahangNongduoc
                 m_DataAdapter.Fill(this);
 
             }
-            catch (Exception e) 
+            catch (Exception e)
             {
                 String str = e.Message;
             }
-		}
+        }
 
 
         //public static bool OpenConnection()
@@ -102,20 +102,21 @@ namespace CuahangNongduoc
         /// Closes the connection of this data service.
         /// </summary>
         public void CloseConnection()
-		{
-			m_Connection.Close();
-		}
+        {
+            m_Connection.Close();
+        }
 
         /// <summary>
         /// Update DataTable
         /// </summary>
         /// <returns></returns>
         public int ExecuteNoneQuery()
-		{
+        {
             int result = 0;
             SqlTransaction tr = null;
-			try
-			{
+            try
+            {
+                OpenConnection();
                 tr = m_Connection.BeginTransaction();
 
                 m_Command.Connection = m_Connection;
@@ -124,21 +125,21 @@ namespace CuahangNongduoc
                 m_DataAdapter = new SqlDataAdapter();
                 m_DataAdapter.SelectCommand = m_Command;
 
-                SqlCommandBuilder builder = new SqlCommandBuilder(m_DataAdapter);                
+                SqlCommandBuilder builder = new SqlCommandBuilder(m_DataAdapter);
 
                 result = m_DataAdapter.Update(this);
-               
+
 
                 tr.Commit();
-                
-			}
-			catch ( Exception e)
+
+            }
+            catch (Exception e)
             {
                 if (tr != null) tr.Rollback();
-           
+
             }
             return result;
-		}
+        }
         /// <summary>
         /// Thuc thi mot command
         /// </summary>
@@ -152,6 +153,8 @@ namespace CuahangNongduoc
 
             try
             {
+                OpenConnection();
+
                 tr = m_Connection.BeginTransaction();
 
                 cmd.Connection = m_Connection;
@@ -165,22 +168,24 @@ namespace CuahangNongduoc
                 tr.Commit();
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 if (tr != null) tr.Rollback();
                 throw;
             }
             return result;
-            
+
         }
 
         public object ExecuteScalar(SqlCommand cmd)
         {
             object result = null;
             SqlTransaction tr = null;
-            
+
             try
             {
+                OpenConnection();
+
                 tr = m_Connection.BeginTransaction();
 
                 cmd.Connection = m_Connection;
@@ -205,5 +210,5 @@ namespace CuahangNongduoc
             }
             return result;
         }
-	}
+    }
 }

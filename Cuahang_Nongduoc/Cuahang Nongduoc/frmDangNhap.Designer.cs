@@ -1,4 +1,4 @@
-namespace CuahangNongduoc
+﻿namespace CuahangNongduoc
 {
     partial class frmDangNhap
     {
@@ -34,7 +34,7 @@ namespace CuahangNongduoc
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(38, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(94, 16);
+            this.label1.Size = new System.Drawing.Size(98, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Tên đăng nhập";
             // 
@@ -94,10 +94,12 @@ namespace CuahangNongduoc
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "frmDangNhap";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Đăng nhập hệ thống";
+            this.Text = "Đăng nhập";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
     }
 }

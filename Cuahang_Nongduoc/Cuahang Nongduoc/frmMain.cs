@@ -11,6 +11,9 @@ namespace CuahangNongduoc
 {
     public partial class frmMain : Form
     {
+        private string vaiTroHienTai;
+        private string tenNguoiDungHienTai;
+
         public frmMain()
         {
             InitializeComponent();
@@ -24,11 +27,28 @@ namespace CuahangNongduoc
                 DonViTinh = new frmDonViTinh();
                 DonViTinh.MdiParent = this;
                 DonViTinh.Show();
-                
+
             }
             else
                 DonViTinh.Activate();
         }
+
+
+
+        public frmMain(string vaiTro, string tenNguoiDung)
+        {
+
+            InitializeComponent();
+            // Lưu lại thông tin được truyền từ form đăng nhập
+            this.vaiTroHienTai = vaiTro;
+            this.tenNguoiDungHienTai = tenNguoiDung;
+
+            // Đặt tên thanh tiêu đề để chào mừng người dùng
+            this.Text = "Cửa hàng Nông dược - Chào " + this.tenNguoiDungHienTai;
+        }
+
+
+
 
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -60,8 +80,32 @@ namespace CuahangNongduoc
             //}
 
             DataService.OpenConnection();
-            
+            //PhanQuyenNguoiDung(vaiTroHienTai);
+
         }
+
+        private void PhanQuyenNguoiDung(string vaiTro)
+        {
+            switch (vaiTro)
+            {
+                case "Admin":
+                    
+                    break;
+
+                case "NhanVien":
+                    
+                    break;
+
+                case "Manager":
+                    
+                    break;
+
+                default:
+                    
+                    break;
+            }
+        }
+
         frmSanPham SanPham = null;
         private void mnuSanPham_Click(object sender, EventArgs e)
         {
@@ -294,7 +338,20 @@ namespace CuahangNongduoc
 
         private void mnuTrogiupHuongdan_Click(object sender, EventArgs e)
         {
-           // Help.ShowHelp(this, "CPP.CHM");
+            // Help.ShowHelp(this, "CPP.CHM");
+        }
+
+        frmNguoiDung NguoiDung = null;
+        private void btnQLTK_Click(object sender, EventArgs e)
+        {
+            if (NguoiDung == null || NguoiDung.IsDisposed)
+            {
+                NguoiDung = new frmNguoiDung();
+                NguoiDung.MdiParent = this;
+                NguoiDung.Show();
+            }
+            else
+                NguoiDung.Activate();
         }
     }
 }
