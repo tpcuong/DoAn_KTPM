@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
@@ -56,6 +56,21 @@ namespace CuahangNongduoc
             }
         }
 
+        public bool ExecuteAdapter(SqlDataAdapter da)
+        {
+            using (SqlConnection cn = m_Connection)
+            {
+                da.InsertCommand.Connection = cn;
+                da.UpdateCommand.Connection = cn;
+                da.DeleteCommand.Connection = cn;
+                cn.Open();
+                da.Update(this);
+                cn.Close();
+                return true;
+            }
+        }
+
+
 
         //public static bool OpenConnection()
         //{
@@ -93,7 +108,7 @@ namespace CuahangNongduoc
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Kh�ng th? k?t n?i SQL Server: " + ex.Message);
+                MessageBox.Show("Không th? k?t n?i SQL Server: " + ex.Message);
                 return false;
             }
         }
@@ -177,6 +192,30 @@ namespace CuahangNongduoc
 
         }
 
+        public int Update()
+        {
+            int result = 0;
+            try
+            {
+                if (m_DataAdapter == null)
+                {
+                    if (m_Command == null)
+                        throw new InvalidOperationException("Không có SqlCommand hoặc SqlDataAdapter để cập nhật dữ liệu.");
+
+                    m_DataAdapter = new SqlDataAdapter(m_Command);
+                    SqlCommandBuilder builder = new SqlCommandBuilder(m_DataAdapter);
+                }
+
+                OpenConnection();
+                result = m_DataAdapter.Update(this);
+                this.AcceptChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi cập nhật dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            return result;
+        }
         public object ExecuteScalar(SqlCommand cmd)
         {
             object result = null;

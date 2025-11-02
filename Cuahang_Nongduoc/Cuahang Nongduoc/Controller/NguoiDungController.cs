@@ -2,44 +2,66 @@
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows.Forms;
 using CuahangNongduoc.DataLayer;
+using CuahangNongduoc.BusinessObject;
 
-namespace CuahangNongduoc.BusinessLayer
+namespace CuahangNongduoc.Controller
 {
     public class NguoiDungController
     {
-        NguoiDungFactory m_NguoiDung = new NguoiDungFactory();
+        NguoiDungFactory factory = new NguoiDungFactory();
+
+        public void HienthiDataGridview(
+            DataGridView dg,
+            BindingNavigator bn,
+            TextBox txtTenDangNhap,
+            TextBox txtMatKhau,
+            ComboBox cmbVaiTro,
+            TextBox txtTenNguoiDung,
+            TextBox txtEmail,
+            TextBox txtSDT,
+            CheckBox chkTrangThai)
+        {
+            BindingSource bs = new BindingSource();
+            bs.DataSource = factory.DanhSachNguoiDung();
+
+            txtTenDangNhap.DataBindings.Clear();
+            txtTenDangNhap.DataBindings.Add("Text", bs, "TEN_DANG_NHAP");
+
+            txtMatKhau.DataBindings.Clear();
+            txtMatKhau.DataBindings.Add("Text", bs, "MAT_KHAU_HASH");
+
+            cmbVaiTro.DataBindings.Clear();
+            cmbVaiTro.DataBindings.Add("Text", bs, "VAI_TRO");
+
+            txtTenNguoiDung.DataBindings.Clear();
+            txtTenNguoiDung.DataBindings.Add("Text", bs, "TEN_NGUOI_DUNG");
+
+            txtEmail.DataBindings.Clear();
+            txtEmail.DataBindings.Add("Text", bs, "EMAIL");
+
+            txtSDT.DataBindings.Clear();
+            txtSDT.DataBindings.Add("Text", bs, "SO_DIEN_THOAI");
+
+            chkTrangThai.DataBindings.Clear();
+            chkTrangThai.DataBindings.Add("Checked", bs, "TRANG_THAI");
+
+            bn.BindingSource = bs;
+            dg.DataSource = bs;
+        }
 
         public DataTable DanhSachNguoiDung()
         {
-            return m_NguoiDung.DanhSachNguoiDung();
-        }
-
-        public DataTable LayNguoiDungTheoTenDangNhap(string tenDangNhap)
-        {
-            return m_NguoiDung.LayNguoiDungTheoTenDangNhap(tenDangNhap);
-        }
-
-        public bool ThemNguoiDung(string vaiTro, string tenDangNhap, string matKhauHash, string tenNguoiDung, string email, string soDienThoai, bool trangThai)
-        {
-            return m_NguoiDung.ThemNguoiDung(vaiTro, tenDangNhap, matKhauHash, tenNguoiDung, email, soDienThoai, trangThai);
-        }
-
-        public bool XoaNguoiDung(int userId)
-        {
-            return m_NguoiDung.XoaNguoiDung(userId);
-        }
-
-        public bool SuaNguoiDung(int id, string vaiTro, string tenDangNhap, string matKhauHash, string tenNguoiDung, string email, string soDienThoai, bool trangThai)
-        {
-            return m_NguoiDung.SuaNguoiDung(id, vaiTro, tenDangNhap, matKhauHash, tenNguoiDung, email, soDienThoai, trangThai);
+            return factory.DanhSachNguoiDung();
         }
 
         public bool KiemTraDangNhap(string tenDangNhap, string matKhau, out string vaiTro, out string tenNguoiDung)
         {
             vaiTro = "";
             tenNguoiDung = "";
-            DataTable dt = m_NguoiDung.LayNguoiDungTheoTenDangNhap(tenDangNhap);
+
+            DataTable dt = factory.LayNguoiDungTheoTenDangNhap(tenDangNhap);
             if (dt.Rows.Count == 0) return false;
             if (!(bool)dt.Rows[0]["TRANG_THAI"]) return false;
 
@@ -55,23 +77,20 @@ namespace CuahangNongduoc.BusinessLayer
             return false;
         }
 
-        public void CapNhatTrangThai(string userId, bool trangThai)
+        public DataRow NewRow()
         {
-            NguoiDungFactory.CapNhatTrangThai(userId, trangThai);
+            return factory.NewRow();
         }
 
-        public bool CapNhatMatKhau(int userId, string matKhauMoi)
+        public void Add(DataRow row)
         {
-            string hash = HashSHA256(matKhauMoi);
-            NguoiDungFactory.CapNhatMatKhau(userId, hash);
-            return true;
+            factory.Add(row);
         }
 
-        public void CapNhatThongTin(string userId, string tenNguoiDung, string email, string soDienThoai)
+        public bool Save()
         {
-            NguoiDungFactory.CapNhatThongTin(userId, tenNguoiDung, email, soDienThoai);
+            return factory.Save();
         }
-
 
         private string HashSHA256(string text)
         {

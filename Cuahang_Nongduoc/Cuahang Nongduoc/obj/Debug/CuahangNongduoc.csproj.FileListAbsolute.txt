@@ -311,3 +311,4 @@ C:\Users\Admin\Documents\DPM225422\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\o
 C:\Users\Admin\Documents\DPM225422\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.exe
 C:\Users\Admin\Documents\DPM225422\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.pdb
 C:\Users\Admin\Documents\DPM225422\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.frmNguoiDung.resources
+C:\Users\Admin\Documents\DPM225422\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.frmDangNhap.resources

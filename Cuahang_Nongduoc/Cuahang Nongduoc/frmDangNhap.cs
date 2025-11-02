@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using CuahangNongduoc.BusinessLayer;
+using CuahangNongduoc.Controller;
 
 namespace CuahangNongduoc
 {
@@ -30,6 +30,7 @@ namespace CuahangNongduoc
 
             if (nguoiDungCtrl.KiemTraDangNhap(tenDangNhap, matKhau, out vaiTro, out tenNguoiDung))
             {
+                MessageBox.Show("Đăng nhập thành công!", "Thông báo");
                 this.Hide();
                 frmMain main = new frmMain(vaiTro, tenNguoiDung);
                 main.ShowDialog();

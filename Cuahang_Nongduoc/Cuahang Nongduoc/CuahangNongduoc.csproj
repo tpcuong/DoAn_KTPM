@@ -341,6 +341,9 @@
     <Compile Include="Num2Str.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmDangNhap.resx">
+      <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInDichVu.resx">
       <DependentUpon>frmInDichVu.cs</DependentUpon>
     </EmbeddedResource>
