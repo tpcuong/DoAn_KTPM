@@ -44,8 +44,7 @@
             this.toolThoat = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTextBox1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.toolTimMaSanPham = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTimTenSanPham = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTimMaNguoiDung = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTimSanPham = new System.Windows.Forms.ToolStripTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.txtSDT = new System.Windows.Forms.TextBox();
@@ -62,6 +61,7 @@
             this.txtMatKhau = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTenDangNhap = new System.Windows.Forms.TextBox();
+            this.toolTimTenNguoiDung = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNguoiDung)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).BeginInit();
@@ -344,26 +344,21 @@
             // toolStripTextBox1
             // 
             this.toolStripTextBox1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolTimMaSanPham,
-            this.toolTimTenSanPham});
+            this.toolTimMaNguoiDung,
+            this.toolTimTenNguoiDung});
             this.toolStripTextBox1.Image = global::CuahangNongduoc.Properties.Resources.find;
             this.toolStripTextBox1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripTextBox1.Name = "toolStripTextBox1";
             this.toolStripTextBox1.Size = new System.Drawing.Size(38, 48);
             // 
-            // toolTimMaSanPham
+            // toolTimMaNguoiDung
             // 
-            this.toolTimMaSanPham.Checked = true;
-            this.toolTimMaSanPham.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.toolTimMaSanPham.Name = "toolTimMaSanPham";
-            this.toolTimMaSanPham.Size = new System.Drawing.Size(183, 26);
-            this.toolTimMaSanPham.Text = "Mã sản phẩm";
-            // 
-            // toolTimTenSanPham
-            // 
-            this.toolTimTenSanPham.Name = "toolTimTenSanPham";
-            this.toolTimTenSanPham.Size = new System.Drawing.Size(183, 26);
-            this.toolTimTenSanPham.Text = "Tên sản phẩm";
+            this.toolTimMaNguoiDung.Checked = true;
+            this.toolTimMaNguoiDung.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.toolTimMaNguoiDung.Name = "toolTimMaNguoiDung";
+            this.toolTimMaNguoiDung.Size = new System.Drawing.Size(224, 26);
+            this.toolTimMaNguoiDung.Text = "Mã người dùng";
+            this.toolTimMaNguoiDung.Click += new System.EventHandler(this.toolTimMaNguoiDung_Click);
             // 
             // toolTimSanPham
             // 
@@ -372,6 +367,9 @@
             this.toolTimSanPham.Name = "toolTimSanPham";
             this.toolTimSanPham.Size = new System.Drawing.Size(132, 51);
             this.toolTimSanPham.Text = "Tìm theo mã";
+            this.toolTimSanPham.Enter += new System.EventHandler(this.toolTimNguoiDung_Enter);
+            this.toolTimSanPham.Leave += new System.EventHandler(this.toolTimNguoiDung_Leave);
+            this.toolTimSanPham.KeyDown += new System.Windows.Forms.KeyEventHandler(this.toolTimNguoiDung_KeyDown);
             // 
             // groupBox2
             // 
@@ -530,6 +528,13 @@
             this.txtTenDangNhap.Size = new System.Drawing.Size(175, 22);
             this.txtTenDangNhap.TabIndex = 0;
             // 
+            // toolTimTenNguoiDung
+            // 
+            this.toolTimTenNguoiDung.Name = "toolTimTenNguoiDung";
+            this.toolTimTenNguoiDung.Size = new System.Drawing.Size(224, 26);
+            this.toolTimTenNguoiDung.Text = "Tên người dùng";
+            this.toolTimTenNguoiDung.Click += new System.EventHandler(this.mnuTimTenNguoiDung_Click);
+            // 
             // frmNguoiDung
             // 
             this.ClientSize = new System.Drawing.Size(1007, 615);
@@ -569,8 +574,7 @@
         private System.Windows.Forms.ToolStripButton toolThoat;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripDropDownButton toolStripTextBox1;
-        private System.Windows.Forms.ToolStripMenuItem toolTimMaSanPham;
-        private System.Windows.Forms.ToolStripMenuItem toolTimTenSanPham;
+        private System.Windows.Forms.ToolStripMenuItem toolTimMaNguoiDung;
         private System.Windows.Forms.ToolStripTextBox toolTimSanPham;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label7;
@@ -594,5 +598,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colGiabanLe;
         private System.Windows.Forms.DataGridViewTextBoxColumn SO_DIEN_THOAI;
         private System.Windows.Forms.DataGridViewTextBoxColumn TRANG_THAI;
+        private System.Windows.Forms.ToolStripMenuItem toolTimTenNguoiDung;
     }
 }

@@ -47,6 +47,28 @@ namespace CuahangNongduoc.DataLayer
             return m_Ds;
         }
 
+        public DataTable TimMaNguoiDung(String id)
+        {
+            //OleDbCommand cmd = new OleDbCommand("SELECT * FROM SAN_PHAM WHERE ID LIKE '%' + @id + '%'");
+            //cmd.Parameters.Add("id", OleDbType.VarChar).Value = id;
+            SqlCommand cmd = new SqlCommand("SELECT * FROM NGUOI_DUNG WHERE ID LIKE '%' + @id + '%'");
+            cmd.Parameters.Add("id", SqlDbType.VarChar).Value = id;
+            m_Ds.Load(cmd);
+
+            return m_Ds;
+        }
+
+        public DataTable TimTenNguoiDung(String ten)
+        {
+            //OleDbCommand cmd = new OleDbCommand("SELECT * FROM SAN_PHAM WHERE ID LIKE '%' + @id + '%'");
+            //cmd.Parameters.Add("id", OleDbType.VarChar).Value = id;
+            SqlCommand cmd = new SqlCommand("SELECT * FROM NGUOI_DUNG WHERE TEN_NGUOI_DUNG LIKE '%' + @ten + '%'");
+            cmd.Parameters.Add("ten", SqlDbType.VarChar).Value = ten;
+            m_Ds.Load(cmd);
+
+            return m_Ds;
+        }
+
         public bool Save()
         {
             if (adapter == null) return false;

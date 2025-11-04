@@ -92,6 +92,15 @@ namespace CuahangNongduoc.Controller
             return factory.Save();
         }
 
+        public void TimMaNguoiDung(String ma)
+        {
+            factory.TimMaNguoiDung(ma);
+        }
+        public void TimTenNguoiDung(String ten)
+        {
+            factory.TimTenNguoiDung(ten);
+        }
+
         private string HashSHA256(string text)
         {
             using (SHA256 sha = SHA256.Create())

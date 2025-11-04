@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
@@ -75,6 +76,20 @@ namespace CuahangNongduoc
             txtTenDangNhap.Focus();
         }
 
+        private void toolTimMaNguoiDung_Click(object sender, EventArgs e)
+        {
+            toolTimMaNguoiDung.Checked = true;
+            toolTimTenNguoiDung.Checked = false;
+            toolTimSanPham.Text = "";
+
+        }
+
+        private void mnuTimTenNguoiDung_Click(object sender, EventArgs e)
+        {
+            toolTimMaNguoiDung.Checked = false;
+            toolTimTenNguoiDung.Checked = true;
+            toolTimSanPham.Text = "";
+        }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
@@ -82,6 +97,36 @@ namespace CuahangNongduoc
             {
                 bindingNavigator.BindingSource.RemoveCurrent();
             }
+        }
+        private void toolTimNguoiDung_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                TimNguoiDung();
+            }
+        }
+
+        void TimNguoiDung()
+        {
+            if (toolTimMaNguoiDung.Checked == true)
+            {
+                ctrl.TimMaNguoiDung(toolTimSanPham.Text);
+            }
+            else
+            {
+                ctrl.TimTenNguoiDung(toolTimSanPham.Text);
+            }
+        }
+
+        private void toolTimNguoiDung_Leave(object sender, EventArgs e)
+        {
+            TimNguoiDung();
+        }
+
+        private void toolTimNguoiDung_Enter(object sender, EventArgs e)
+        {
+            toolTimSanPham.Text = "";
+            toolTimSanPham.ForeColor = Color.Black;
         }
 
         private string HashSHA256(string text)
