@@ -44,7 +44,7 @@ namespace CuahangNongduoc
             this.tenNguoiDungHienTai = tenNguoiDung;
 
             // Đặt tên thanh tiêu đề để chào mừng người dùng
-            this.Text = "Cửa hàng Nông dược - Chào " + this.tenNguoiDungHienTai;
+            this.Text = "Cửa hàng Nông dược - Chào " + this.tenNguoiDungHienTai + " - Chức vụ: " + this.vaiTroHienTai;
         }
 
 
@@ -93,14 +93,14 @@ namespace CuahangNongduoc
                     break;
 
                 default:
-                    expando1.Visible = false;
-                    toolSanPham.Visible = false;
-                    toolKhachHang.Visible = false;
-                    toolDaiLy.Visible = false;
-                    toolNhaCungCap.Visible = false;
-                    mnuBaocao.Visible = false;
-                    mnuQuanLy.Visible = false;
-                    expando3.Visible = false;
+                    expando1.Enabled = false;
+                    toolSanPham.Enabled = false;
+                    toolKhachHang.Enabled = false;
+                    toolDaiLy.Enabled = false;
+                    toolNhaCungCap.Enabled = false;
+                    mnuBaocao.Enabled = false;
+                    mnuQuanLy.Enabled = false;
+                    expando3.Enabled = false;
                     break;
             }
         }
