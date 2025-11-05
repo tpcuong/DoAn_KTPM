@@ -36,7 +36,7 @@ namespace CuahangNongduoc.DataLayer
                 @"SELECT PB.* 
                   FROM PHIEU_BAN PB 
                   INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG = KH.ID 
-                  WHERE KH.LOAI_KH = FALSE");
+                  WHERE KH.LOAI_KH = 0");
             m_Ds.Load(cmd);
             return m_Ds;
         }
@@ -52,7 +52,7 @@ namespace CuahangNongduoc.DataLayer
                 @"SELECT PB.* 
                   FROM PHIEU_BAN PB 
                   INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG = KH.ID 
-                  WHERE KH.LOAI_KH = TRUE");
+                  WHERE KH.LOAI_KH = 1");
             m_Ds.Load(cmd);
             return m_Ds;
         }
@@ -75,8 +75,8 @@ namespace CuahangNongduoc.DataLayer
             WHERE PB.NGAY_BAN >= @tuNgay AND PB.NGAY_BAN <= @denNgay
             GROUP BY PB.ID_KHACH_HANG, PB.NGAY_BAN";
             SqlCommand cmd = new SqlCommand(query);
-            cmd.Parameters.Add("?", SqlDbType.Date).Value = tuNgay;
-            cmd.Parameters.Add("?", SqlDbType.Date).Value = denNgay;
+            cmd.Parameters.Add("tuNgay", SqlDbType.Date).Value = tuNgay;
+            cmd.Parameters.Add("denNgay", SqlDbType.Date).Value = denNgay;
 
             m_Ds.Load(cmd);
             return m_Ds;

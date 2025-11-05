@@ -93,14 +93,14 @@ namespace CuahangNongduoc
                     break;
 
                 default:
-                    //expando1.Enabled = false;
-                    //toolSanPham.Enabled = false;
-                    //toolKhachHang.Enabled = false;
-                    //toolDaiLy.Enabled = false;
-                    //toolNhaCungCap.Enabled = false;
-                    //mnuBaocao.Enabled = false;
-                    //mnuQuanLy.Enabled = false;
-                    //expando3.Enabled = false;
+                    expando1.Enabled = false;
+                    toolSanPham.Enabled = false;
+                    toolKhachHang.Enabled = false;
+                    toolDaiLy.Enabled = false;
+                    toolNhaCungCap.Enabled = false;
+                    mnuBaocao.Enabled = false;
+                    mnuQuanLy.Enabled = false;
+                    expando3.Enabled = false;
                     break;
             }
         }
@@ -352,6 +352,19 @@ namespace CuahangNongduoc
             }
             else
                 NguoiDung.Activate();
+        }
+
+        frmInDichVu dichVu = null;
+        private void mnuDichVuPhatSinh_Click(object sender, EventArgs e)
+        {
+            if (dichVu == null || dichVu.IsDisposed)
+            {
+                dichVu = new frmInDichVu();
+                dichVu.MdiParent = this;
+                dichVu.Show();
+            }
+            else
+                dichVu.Activate();
         }
     }
 }
