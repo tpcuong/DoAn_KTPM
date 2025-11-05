@@ -93,14 +93,14 @@ namespace CuahangNongduoc
                     break;
 
                 default:
-                    expando1.Enabled = false;
-                    toolSanPham.Enabled = false;
-                    toolKhachHang.Enabled = false;
-                    toolDaiLy.Enabled = false;
-                    toolNhaCungCap.Enabled = false;
-                    mnuBaocao.Enabled = false;
-                    mnuQuanLy.Enabled = false;
-                    expando3.Enabled = false;
+                    //expando1.Enabled = false;
+                    //toolSanPham.Enabled = false;
+                    //toolKhachHang.Enabled = false;
+                    //toolDaiLy.Enabled = false;
+                    //toolNhaCungCap.Enabled = false;
+                    //mnuBaocao.Enabled = false;
+                    //mnuQuanLy.Enabled = false;
+                    //expando3.Enabled = false;
                     break;
             }
         }

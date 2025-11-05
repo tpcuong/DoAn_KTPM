@@ -65,7 +65,7 @@ namespace CuahangNongduoc.Controller
             if (dt.Rows.Count == 0) return false;
             if (!(bool)dt.Rows[0]["TRANG_THAI"]) return false;
 
-            string hashMatKhau = dt.Rows[0]["MAT_KHAU_HASH"].ToString();
+            string hashMatKhau = dt.Rows[0]["MAT_KHAU"].ToString();
             string inputHash = HashSHA256(matKhau);
 
             if (string.Equals(hashMatKhau, inputHash, StringComparison.OrdinalIgnoreCase))

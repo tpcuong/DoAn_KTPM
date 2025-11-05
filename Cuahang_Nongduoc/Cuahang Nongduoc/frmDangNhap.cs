@@ -30,7 +30,7 @@ namespace CuahangNongduoc
 
             if (nguoiDungCtrl.KiemTraDangNhap(tenDangNhap, matKhau, out vaiTro, out tenNguoiDung))
             {
-                MessageBox.Show("Đăng nhập thành công!", "Thông báo");
+                //MessageBox.Show("Đăng nhập thành công!", "Thông báo");
                 this.Hide();
                 frmMain main = new frmMain(vaiTro, tenNguoiDung);
                 main.ShowDialog();
@@ -46,6 +46,19 @@ namespace CuahangNongduoc
         private void btnThoat_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void frmDangNhap_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtMatKhau_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                btnDangNhap_Click(sender, e);
+            }    
         }
     }
 }

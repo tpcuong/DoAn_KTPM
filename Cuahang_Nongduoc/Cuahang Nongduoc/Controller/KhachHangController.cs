@@ -14,7 +14,7 @@ namespace CuahangNongduoc.Controller
 
         public void HienthiAutoComboBox(System.Windows.Forms.ComboBox cmb, bool loai)
         {
-            cmb.DataSource = factory.DanhsachKhachHang(loai);
+            cmb.DataSource = factory.DanhsachKhachHang(false);
             cmb.DisplayMember = "HO_TEN";
             cmb.ValueMember = "ID";
         }
@@ -29,7 +29,7 @@ namespace CuahangNongduoc.Controller
         {
             System.Windows.Forms.BindingSource bs = new System.Windows.Forms.BindingSource();
             DataTable tbl = factory.DanhsachKhachHang(false);
-            tbl.Columns[4].DefaultValue = false;
+            tbl.Columns[3].DefaultValue = 0;
             bs.DataSource = tbl;
             bn.BindingSource = bs;
             dg.DataSource = bs;
@@ -71,7 +71,7 @@ namespace CuahangNongduoc.Controller
         {
             System.Windows.Forms.BindingSource bs = new System.Windows.Forms.BindingSource();
             DataTable tbl = factory.DanhsachKhachHang(true);
-            tbl.Columns[4].DefaultValue = true;
+            tbl.Columns[3].DefaultValue = true;
             bs.DataSource = tbl;
             bn.BindingSource = bs;
             dg.DataSource = bs;

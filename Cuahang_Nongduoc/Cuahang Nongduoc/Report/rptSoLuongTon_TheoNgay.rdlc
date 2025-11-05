@@ -104,6 +104,7 @@
                     <Value>=Parameters!Ngay.Value</Value>
                     <Style>
                       <FontStyle>Italic</FontStyle>
+                      <FontFamily>times New Roman</FontFamily>
                       <FontSize>11pt</FontSize>
                     </Style>
                   </TextRun>
