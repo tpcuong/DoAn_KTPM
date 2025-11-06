@@ -50,26 +50,6 @@ namespace CuahangNongduoc.BusinessObject
             get { return m_ConNo; }
             set { m_ConNo = value; }
         }
-        private long m_PhiDichVu;
-        public long PhiDichVu
-        {
-            get { return m_PhiDichVu; }
-            set { m_PhiDichVu = value; }
-        }
-
-        private long m_GiamGia;
-        public long GiamGia
-        {
-            get { return m_GiamGia; }
-            set { m_GiamGia = value; }
-        }
-        public long TongTienCuoi
-        {
-            get
-            {
-                return m_TongTien + m_PhiDichVu - m_GiamGia;
-            }
-        }
 
         private IList<ChiTietPhieuBan> m_ChiTiet;
 
@@ -79,6 +59,32 @@ namespace CuahangNongduoc.BusinessObject
             set { m_ChiTiet = value; }
         }
 
+        private long m_giamGia;
+        public long GiamGia
+        {
+            get { return m_giamGia; }
+            set { m_giamGia = value; }
+        }
 
+        private long m_phiDichVu;
+        public long PhiDichVu
+        {
+            get { return m_phiDichVu; }
+            set { m_phiDichVu = value; }
+        }
+
+        private long m_phiVanChuyen;
+        public long PhiVanChuyen
+        {
+            get { return m_phiVanChuyen; }
+            set { m_phiVanChuyen = value; }
+        }
+
+        private int m_idDichVu;
+        public int IdDichVu
+        {
+            get { return m_idDichVu; }
+            set { m_idDichVu = value; }
+        }
     }
 }

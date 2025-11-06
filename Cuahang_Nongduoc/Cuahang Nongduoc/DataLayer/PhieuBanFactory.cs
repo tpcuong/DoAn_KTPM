@@ -1,4 +1,4 @@
-using Microsoft.ReportingServices.Diagnostics.Internal;
+﻿using Microsoft.ReportingServices.Diagnostics.Internal;
 using System;
 using System.Data;
 using System.Data.OleDb;
@@ -7,106 +7,71 @@ namespace CuahangNongduoc.DataLayer
 {
     public class PhieuBanFactory
     {
-        private readonly DataService m_Ds = new DataService();
+        // DataService m_Ds = new DataService(); 
 
-        public DataTable TimPhieuBan(string idKh, DateTime dt)
+        // private string connectionString = DataService.m_ConnectString; 
+        public DataTable TimPhieuBan(String idKh, DateTime dt)
         {
-            //OleDbCommand cmd = new OleDbCommand(
-            //    "SELECT * FROM PHIEU_BAN WHERE NGAY_BAN = @ngay AND ID_KHACH_HANG = @kh");
-            //cmd.Parameters.Add("ngay", OleDbType.Date).Value = dt;
-            //cmd.Parameters.Add("kh", OleDbType.VarChar, 50).Value = idKh;
-
-            SqlCommand cmd = new SqlCommand(
-                "SELECT * FROM PHIEU_BAN WHERE NGAY_BAN = @ngay AND ID_KHACH_HANG = @kh");
-            cmd.Parameters.Add("ngay", SqlDbType.Date).Value = dt;
-            cmd.Parameters.Add("kh", SqlDbType.VarChar, 50).Value = idKh;
-            m_Ds.Load(cmd);
-            return m_Ds;
+            DataService ds = new DataService(); // Tạo mới
+            SqlCommand cmd = new SqlCommand("SELECT * FROM PHIEU_BAN WHERE CONVERT(date, NGAY_BAN) = CONVERT(date, @ngay) AND ID_KHACH_HANG=@kh");
+            cmd.Parameters.Add("@ngay", SqlDbType.Date).Value = dt.Date;
+            cmd.Parameters.Add("@kh", SqlDbType.VarChar).Value = idKh;
+            ds.Load(cmd);
+            return ds; // Trả về ds mới
         }
 
         public DataTable DanhsachPhieuBanLe()
         {
-            //OleDbCommand cmd = new OleDbCommand(
-            //    @"SELECT PB.* 
-            //      FROM PHIEU_BAN PB 
-            //      INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG = KH.ID 
-            //      WHERE KH.LOAI_KH = FALSE");
-
-            SqlCommand cmd = new SqlCommand(
-                @"SELECT PB.* 
-                  FROM PHIEU_BAN PB 
-                  INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG = KH.ID 
-                  WHERE KH.LOAI_KH = 0");
-            m_Ds.Load(cmd);
-            return m_Ds;
+            DataService ds_le = new DataService();
+            SqlCommand cmd = new SqlCommand("SELECT PB.* FROM PHIEU_BAN PB INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG=KH.ID WHERE KH.LOAI_KH = 0");
+            ds_le.Load(cmd);
+            return ds_le;
         }
-
         public DataTable DanhsachPhieuBanSi()
         {
-            //OleDbCommand cmd = new OleDbCommand(
-            //    @"SELECT PB.* 
-            //      FROM PHIEU_BAN PB 
-            //      INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG = KH.ID 
-            //      WHERE KH.LOAI_KH = TRUE");
-            SqlCommand cmd = new SqlCommand(
-                @"SELECT PB.* 
-                  FROM PHIEU_BAN PB 
-                  INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG = KH.ID 
-                  WHERE KH.LOAI_KH = 1");
-            m_Ds.Load(cmd);
-            return m_Ds;
+            DataService ds_si = new DataService();
+            SqlCommand cmd = new SqlCommand("SELECT PB.* FROM PHIEU_BAN PB INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG=KH.ID WHERE KH.LOAI_KH = 1");
+            ds_si.Load(cmd);
+            return ds_si;
         }
 
-        public DataTable LayPhieuBan(string id)
+
+        public DataTable LayPhieuBan(String id)
         {
-            //OleDbCommand cmd = new OleDbCommand("SELECT * FROM PHIEU_BAN WHERE ID = @id");
-            //cmd.Parameters.Add("id", OleDbType.VarChar, 50).Value = id;
+            DataService ds = new DataService(); 
             SqlCommand cmd = new SqlCommand("SELECT * FROM PHIEU_BAN WHERE ID = @id");
-            cmd.Parameters.Add("id", SqlDbType.VarChar, 50).Value = id;
-            m_Ds.Load(cmd);
-            return m_Ds;
+            cmd.Parameters.Add("@id", SqlDbType.VarChar, 50).Value = id;
+            ds.Load(cmd);
+            return ds; 
         }
-        //them
-        public DataTable LayPhieuBan(DateTime tuNgay, DateTime denNgay)
+
+        public DataTable LayBaoCaoPhieuBanTheoNgay(DateTime tuNgay, DateTime denNgay)
         {
+            DataService ds = new DataService(); 
             string query = @"
-            SELECT PB.ID_KHACH_HANG, PB.NGAY_BAN, SUM(PB.TONG_TIEN) AS TONG_TIEN, SUM(PB.PHI_DICH_VU) AS PHI_DICH_VU, SUM(PB.GIAM_GIA) AS GIAM_GIA
+            SELECT *
             FROM PHIEU_BAN PB
-            WHERE PB.NGAY_BAN >= @tuNgay AND PB.NGAY_BAN <= @denNgay
-            GROUP BY PB.ID_KHACH_HANG, PB.NGAY_BAN";
+            WHERE PB.NGAY_BAN >= @tuNgay AND PB.NGAY_BAN <= @denNgay";
             SqlCommand cmd = new SqlCommand(query);
             cmd.Parameters.Add("tuNgay", SqlDbType.Date).Value = tuNgay;
             cmd.Parameters.Add("denNgay", SqlDbType.Date).Value = denNgay;
 
-            m_Ds.Load(cmd);
-            return m_Ds;
+            ds.Load(cmd);
+            return ds; 
         }
 
-        public DataTable LayChiTietPhieuBan(string idPhieuBan)
+        public DataTable LayChiTietPhieuBan(String idPhieuBan)
         {
-            //OleDbCommand cmd = new OleDbCommand(
-            //    "SELECT * FROM CHI_TIET_PHIEU_BAN WHERE ID_PHIEU_BAN = @id");
-            //cmd.Parameters.Add("id", OleDbType.VarChar, 50).Value = idPhieuBan;
-            SqlCommand cmd = new SqlCommand(
-                "SELECT * FROM CHI_TIET_PHIEU_BAN WHERE ID_PHIEU_BAN = @id");
+            DataService ds = new DataService(); 
+            SqlCommand cmd = new SqlCommand("SELECT * FROM CHI_TIET_PHIEU_BAN WHERE ID_PHIEU_BAN = @id");
             cmd.Parameters.Add("id", SqlDbType.VarChar, 50).Value = idPhieuBan;
-            m_Ds.Load(cmd);
-            return m_Ds;
+            ds.Load(cmd);
+            return ds; 
         }
 
-        public static long LayConNo(string kh, int thang, int nam)
+        public static long LayConNo(String kh, int thang, int nam)
         {
             DataService ds = new DataService();
-            //OleDbCommand cmd = new OleDbCommand(
-            //    @"SELECT SUM(CON_NO) 
-            //      FROM PHIEU_BAN 
-            //      WHERE ID_KHACH_HANG = @kh 
-            //            AND MONTH(NGAY_BAN) = @thang 
-            //            AND YEAR(NGAY_BAN) = @nam");
-            //cmd.Parameters.Add("kh", OleDbType.VarChar, 50).Value = kh;
-            //cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
-            //cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
-            
             SqlCommand cmd = new SqlCommand(
                 @"SELECT SUM(CON_NO) 
                   FROM PHIEU_BAN 
@@ -120,117 +85,111 @@ namespace CuahangNongduoc.DataLayer
             object obj = ds.ExecuteScalar(cmd);
             if (obj == null || obj == DBNull.Value)
                 return 0;
-            return Convert.ToInt64(obj);
+            else
+                return Convert.ToInt64(obj);
         }
 
         public static int LaySoPhieu()
         {
             DataService ds = new DataService();
-            //OleDbCommand cmd = new OleDbCommand("SELECT COUNT(*) FROM PHIEU_BAN");
             SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM PHIEU_BAN");
             object obj = ds.ExecuteScalar(cmd);
             if (obj == null || obj == DBNull.Value)
                 return 0;
-            return Convert.ToInt32(obj);
+            else
+                return Convert.ToInt32(obj);
         }
-        public bool InsertPhieuBan(string id, string idKhachHang, DateTime ngayBan,
-            long tongTien, long daTra, long conNo, long phiDichVu, long giamGia)
+
+        public bool InsertPhieuBan(DataRow row)
         {
             DataService ds = new DataService();
-            //OleDbCommand cmd = new OleDbCommand(
-            //    @"INSERT INTO PHIEU_BAN 
-            //        (ID, ID_KHACH_HANG, NGAY_BAN, TONG_TIEN, DA_TRA, CON_NO, PHI_DICH_VU, GIAM_GIA)
-            //      VALUES 
-            //        (@id, @idKhachHang, @ngayBan, @tongTien, @daTra, @conNo, @phiDichVu, @giamGia)");
+            try
+            {
+                SqlCommand cmd = new SqlCommand(@"
+                    INSERT INTO PHIEU_BAN
+                    (ID, ID_NGUOI_DUNG, ID_KHACH_HANG, NGAY_BAN, TONG_TIEN, DA_TRA, CON_NO, 
+                     GIAM_GIA, PHI_DICH_VU, PHI_VAN_CHUYEN, ID_DICH_VU, TrangThai)
+                    VALUES
+                    (@ID, @ID_NGUOI_DUNG, @ID_KHACH_HANG, @NGAY_BAN, @TONG_TIEN, @DA_TRA, @CON_NO,
+                     @GIAM_GIA, @PHI_DICH_VU, @PHI_VAN_CHUYEN, @ID_DICH_VU, 1)");
 
-            //cmd.Parameters.Add("id", OleDbType.VarChar, 50).Value = id;
-            //cmd.Parameters.Add("idKhachHang", OleDbType.VarChar, 50).Value = idKhachHang;
-            //cmd.Parameters.Add("ngayBan", OleDbType.Date).Value = ngayBan;
-            //cmd.Parameters.Add("tongTien", OleDbType.BigInt).Value = tongTien;
-            //cmd.Parameters.Add("daTra", OleDbType.BigInt).Value = daTra;
-            //cmd.Parameters.Add("conNo", OleDbType.BigInt).Value = conNo;
-            //cmd.Parameters.Add("phiDichVu", OleDbType.BigInt).Value = phiDichVu;
-            //cmd.Parameters.Add("giamGia", OleDbType.BigInt).Value = giamGia;
-            SqlCommand cmd = new SqlCommand(
-                @"INSERT INTO PHIEU_BAN 
-                    (ID, ID_KHACH_HANG, NGAY_BAN, TONG_TIEN, DA_TRA, CON_NO, PHI_DICH_VU, GIAM_GIA)
-                  VALUES 
-                    (@id, @idKhachHang, @ngayBan, @tongTien, @daTra, @conNo, @phiDichVu, @giamGia)");
+                cmd.Parameters.AddWithValue("@ID", row["ID"]);
+                cmd.Parameters.AddWithValue("@ID_NGUOI_DUNG", row["ID_NGUOI_DUNG"]);
+                cmd.Parameters.AddWithValue("@ID_KHACH_HANG", row["ID_KHACH_HANG"] ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@NGAY_BAN", row["NGAY_BAN"]);
+                cmd.Parameters.AddWithValue("@TONG_TIEN", row["TONG_TIEN"]);
+                cmd.Parameters.AddWithValue("@DA_TRA", row["DA_TRA"]);
+                cmd.Parameters.AddWithValue("@CON_NO", row["CON_NO"]);
+                cmd.Parameters.AddWithValue("@GIAM_GIA", row["GIAM_GIA"]);
+                cmd.Parameters.AddWithValue("@PHI_DICH_VU", row["PHI_DICH_VU"]);
+                cmd.Parameters.AddWithValue("@PHI_VAN_CHUYEN", row["PHI_VAN_CHUYEN"]);
+                cmd.Parameters.AddWithValue("@ID_DICH_VU", row["ID_DICH_VU"] ?? (object)DBNull.Value);
 
-            cmd.Parameters.Add("id", SqlDbType.VarChar, 50).Value = id;
-            cmd.Parameters.Add("idKhachHang", SqlDbType.VarChar, 50).Value = idKhachHang;
-            cmd.Parameters.Add("ngayBan", SqlDbType.Date).Value = ngayBan;
-            cmd.Parameters.Add("tongTien", SqlDbType.BigInt).Value = tongTien;
-            cmd.Parameters.Add("daTra", SqlDbType.BigInt).Value = daTra;
-            cmd.Parameters.Add("conNo", SqlDbType.BigInt).Value = conNo;
-            cmd.Parameters.Add("phiDichVu", SqlDbType.BigInt).Value = phiDichVu;
-            cmd.Parameters.Add("giamGia", SqlDbType.BigInt).Value = giamGia;
-
-            return ds.ExecuteNoneQuery(cmd) > 0;
+                return ds.ExecuteNoneQuery(cmd) > 0;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Lỗi khi Insert PHIEU_BAN: " + ex.Message);
+                return false;
+            }
         }
 
-        public bool UpdatePhieuBan(string id, long tongTien, long daTra,
-            long conNo, long phiDichVu, long giamGia)
+        public bool UpdatePhieuBan(DataRow row)
         {
             DataService ds = new DataService();
-            //OleDbCommand cmd = new OleDbCommand(
-            //    @"UPDATE PHIEU_BAN 
-            //      SET TONG_TIEN = @tongTien, 
-            //          DA_TRA = @daTra, 
-            //          CON_NO = @conNo, 
-            //          PHI_DICH_VU = @phiDichVu, 
-            //          GIAM_GIA = @giamGia
-            //      WHERE ID = @id");
+            try
+            {
+                SqlCommand cmd = new SqlCommand(@"
+                    UPDATE PHIEU_BAN SET
+                        ID_KHACH_HANG = @ID_KHACH_HANG,
+                        NGAY_BAN = @NGAY_BAN,
+                        TONG_TIEN = @TONG_TIEN,
+                        DA_TRA = @DA_TRA,
+                        CON_NO = @CON_NO,
+                        GIAM_GIA = @GIAM_GIA,
+                        PHI_DICH_VU = @PHI_DICH_VU,
+                        PHI_VAN_CHUYEN = @PHI_VAN_CHUYEN,
+                        ID_DICH_VU = @ID_DICH_VU,
+                        ID_NGUOI_DUNG = @ID_NGUOI_DUNG
+                    WHERE ID = @ID");
 
-            //cmd.Parameters.Add("tongTien", OleDbType.BigInt).Value = tongTien;
-            //cmd.Parameters.Add("daTra", OleDbType.BigInt).Value = daTra;
-            //cmd.Parameters.Add("conNo", OleDbType.BigInt).Value = conNo;
-            //cmd.Parameters.Add("phiDichVu", OleDbType.BigInt).Value = phiDichVu;
-            //cmd.Parameters.Add("giamGia", OleDbType.BigInt).Value = giamGia;
-            //cmd.Parameters.Add("id", OleDbType.VarChar, 50).Value = id;
-            
-            SqlCommand cmd = new SqlCommand(
-                @"UPDATE PHIEU_BAN 
-                  SET TONG_TIEN = @tongTien, 
-                      DA_TRA = @daTra, 
-                      CON_NO = @conNo, 
-                      PHI_DICH_VU = @phiDichVu, 
-                      GIAM_GIA = @giamGia
-                  WHERE ID = @id");
+                cmd.Parameters.AddWithValue("@ID_KHACH_HANG", row["ID_KHACH_HANG"] ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@NGAY_BAN", row["NGAY_BAN"]);
+                cmd.Parameters.AddWithValue("@TONG_TIEN", row["TONG_TIEN"]);
+                cmd.Parameters.AddWithValue("@DA_TRA", row["DA_TRA"]);
+                cmd.Parameters.AddWithValue("@CON_NO", row["CON_NO"]);
+                cmd.Parameters.AddWithValue("@GIAM_GIA", row["GIAM_GIA"]);
+                cmd.Parameters.AddWithValue("@PHI_DICH_VU", row["PHI_DICH_VU"]);
+                cmd.Parameters.AddWithValue("@PHI_VAN_CHUYEN", row["PHI_VAN_CHUYEN"]);
+                cmd.Parameters.AddWithValue("@ID_DICH_VU", row["ID_DICH_VU"] ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@ID_NGUOI_DUNG", row["ID_NGUOI_DUNG"]);
 
-            cmd.Parameters.Add("tongTien", SqlDbType.BigInt).Value = tongTien;
-            cmd.Parameters.Add("daTra", SqlDbType.BigInt).Value = daTra;
-            cmd.Parameters.Add("conNo", SqlDbType.BigInt).Value = conNo;
-            cmd.Parameters.Add("phiDichVu", SqlDbType.BigInt).Value = phiDichVu;
-            cmd.Parameters.Add("giamGia", SqlDbType.BigInt).Value = giamGia;
-            cmd.Parameters.Add("id", SqlDbType.VarChar, 50).Value = id;
+                cmd.Parameters.AddWithValue("@ID", row["ID"]); // Tham số cho WHERE
 
-            return ds.ExecuteNoneQuery(cmd) > 0;
+                return ds.ExecuteNoneQuery(cmd) > 0;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Lỗi khi Update PHIEU_BAN: " + ex.Message);
+                return false;
+            }
         }
+
 
         public bool DeletePhieuBan(string id)
         {
             DataService ds = new DataService();
-            //OleDbCommand cmd = new OleDbCommand("DELETE FROM PHIEU_BAN WHERE ID = @id");
-            //cmd.Parameters.Add("id", OleDbType.VarChar, 50).Value = id;
-            SqlCommand cmd = new SqlCommand("DELETE FROM PHIEU_BAN WHERE ID = @id");
-            cmd.Parameters.Add("id", SqlDbType.VarChar, 50).Value = id;
-            return ds.ExecuteNoneQuery(cmd) > 0;
-        }
-
-        public DataRow NewRow()
-        {
-            return m_Ds.NewRow();
-        }
-
-        public void Add(DataRow row)
-        {
-            m_Ds.Rows.Add(row);
-        }
-
-        public bool Save()
-        {
-            return m_Ds.ExecuteNoneQuery() > 0;
+            try
+            {
+                SqlCommand cmd = new SqlCommand("DELETE FROM PHIEU_BAN WHERE ID = @id");
+                cmd.Parameters.Add("@id", SqlDbType.VarChar, 50).Value = id;
+                return ds.ExecuteNoneQuery(cmd) > 0;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Lỗi khi Delete PHIEU_BAN: " + ex.Message);
+                return false;
+            }
         }
     }
 }

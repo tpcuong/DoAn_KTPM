@@ -19,9 +19,11 @@ namespace CuahangNongduoc
 
         PhieuBanController ctrl = new PhieuBanController();
         KhachHangController ctrlKH = new KhachHangController();
+        DichVuController ctrlDV = new DichVuController();
         private void frmDanhsachPhieuNhap_Load(object sender, EventArgs e)
         {
             ctrlKH.HienthiKhachHangDataGridviewComboBox(colKhachhang);
+            ctrlDV.HienthiDichVuDataGridviewComboBox(colDichVu);
             ctrl.HienthiPhieuBanLe(bindingNavigator, dataGridView);
         }
         frmBanLe BanLe = null;
@@ -93,11 +95,13 @@ namespace CuahangNongduoc
             {
                 PhieuBanController ctrlPB = new PhieuBanController();
                 String ma_phieu = row["ID"].ToString();
-                CuahangNongduoc.BusinessObject.PhieuBan ph = ctrlPB.LayPhieuBan(ma_phieu);
+                //CuahangNongduoc.BusinessObject.PhieuBan ph = ctrlPB.LayPhieuBan(ma_phieu);
+                CuahangNongduoc.BusinessObject.PhieuBan ph = ctrlPB.LayPhieuBan(DateTime.Today, ma_phieu);
                 frmInPhieuBan PhieuBan = new frmInPhieuBan(ph);
                 PhieuBan.Show();
             }
         }
+
 
         private void toolTimKiem_Click(object sender, EventArgs e)
         {

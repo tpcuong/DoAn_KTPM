@@ -14,7 +14,9 @@ namespace CuahangNongduoc.Controller
 
         public void HienthiAutoComboBox(System.Windows.Forms.ComboBox cmb, bool loai)
         {
-            cmb.DataSource = factory.DanhsachKhachHang(false);
+            // ---- ĐÃ SỬA ----
+            // Truyền biến 'loai' (true/false) thay vì hard-code 'false'
+            cmb.DataSource = factory.DanhsachKhachHang(loai);
             cmb.DisplayMember = "HO_TEN";
             cmb.ValueMember = "ID";
         }
@@ -28,12 +30,13 @@ namespace CuahangNongduoc.Controller
         public void HienthiKhachHangDataGridview(System.Windows.Forms.DataGridView dg, System.Windows.Forms.BindingNavigator bn)
         {
             System.Windows.Forms.BindingSource bs = new System.Windows.Forms.BindingSource();
+            // Hàm này dành riêng cho khách lẻ (LOAI_KH = 0)
             DataTable tbl = factory.DanhsachKhachHang(false);
             tbl.Columns[4].DefaultValue = false;
             bs.DataSource = tbl;
             bn.BindingSource = bs;
             dg.DataSource = bs;
-            
+
         }
 
         public void HienthiKhachHangChungDataGridviewComboBox(System.Windows.Forms.DataGridViewComboBoxColumn cmb)
@@ -49,7 +52,7 @@ namespace CuahangNongduoc.Controller
 
         public void HienthiKhachHangDataGridviewComboBox(System.Windows.Forms.DataGridViewComboBoxColumn cmb)
         {
-        
+            // Hàm này dành riêng cho khách lẻ (LOAI_KH = 0)
             cmb.DataSource = factory.DanhsachKhachHang(false);
             cmb.DisplayMember = "HO_TEN";
             cmb.ValueMember = "ID";
@@ -59,7 +62,7 @@ namespace CuahangNongduoc.Controller
         }
         public void HienthiDaiLyDataGridviewComboBox(System.Windows.Forms.DataGridViewComboBoxColumn cmb)
         {
-
+            // Hàm này dành riêng cho đại lý (LOAI_KH = 1)
             cmb.DataSource = factory.DanhsachKhachHang(true);
             cmb.DisplayMember = "HO_TEN";
             cmb.ValueMember = "ID";
@@ -70,6 +73,7 @@ namespace CuahangNongduoc.Controller
         public void HienthiDaiLyDataGridview(System.Windows.Forms.DataGridView dg, System.Windows.Forms.BindingNavigator bn)
         {
             System.Windows.Forms.BindingSource bs = new System.Windows.Forms.BindingSource();
+            // Hàm này dành riêng cho đại lý (LOAI_KH = 1)
             DataTable tbl = factory.DanhsachKhachHang(true);
             tbl.Columns[4].DefaultValue = true;
             bs.DataSource = tbl;
@@ -86,7 +90,7 @@ namespace CuahangNongduoc.Controller
         {
             factory.TimDiaChi(diachi, loai);
         }
-        
+
         public KhachHang LayKhachHang(String id)
         {
             DataTable tbl = factory.LayKhachHang(id);
