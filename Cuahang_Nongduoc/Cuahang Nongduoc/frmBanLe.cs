@@ -16,12 +16,12 @@ namespace CuahangNongduoc
         KhachHangController ctrlKhachHang = new KhachHangController();
         MaSanPhamController ctrlMaSanPham = new MaSanPhamController();
         PhieuBanController ctrlPhieuBan = new PhieuBanController();
+        DichVuController dvController = new DichVuController();
         ChiTietPhieuBanController ctrlChiTiet = new ChiTietPhieuBanController();
+
         IList<MaSanPham> deleted = new List<MaSanPham>();
         Controll status = Controll.Normal;
-        // Vị trí lô hiện tại của từng sản phẩm
         Dictionary<string, int> viTriLo = new Dictionary<string, int>();
-        // Số lượng còn lại trong lô hiện tại (nên dùng decimal để khớp với NumericUpDown)
         Dictionary<string, decimal> soLuongLo = new Dictionary<string, decimal>();
         Decimal bqgq;
 
@@ -42,23 +42,39 @@ namespace CuahangNongduoc
         private void frmNhapHang_Load(object sender, EventArgs e)
         {
             ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
+            dvController.HienthiAutoComboBox(cmbDichVu);
             dgvDanhsachSP.AutoGenerateColumns = false; ;
             cmbSanPham.SelectedIndexChanged += new EventHandler(cmbSanPham_SelectedIndexChanged);
 
             ctrlKhachHang.HienthiAutoComboBox(cmbKhachHang, false);
 
-            // CẬP NHẬT: Thêm các control phí, giảm giá, đã trả, còn nợ vào binding
-            ctrlPhieuBan.HienthiPhieuBan(bindingNavigator, cmbKhachHang, txtMaPhieu, dtNgayLapPhieu, numPhiDichVu, numGiamGia, numTongTien, numDaTra, numConNo);
+            // ctrlPhieuBan.HienthiPhieuBan(bindingNavigator, cmbKhachHang, txtMaPhieu, dtNgayLapPhieu, numGiamGia, numTongTien, numDaTra, numConNo); /
+            ctrlPhieuBan.HienthiPhieuBan(
+                bindingNavigator,
+                cmbKhachHang,
+                txtMaPhieu,
+                dtNgayLapPhieu,
+                cmbDichVu,
+                numPhiDichVu,
+                numPhiVanChuyen,
+                numGiamGia,
+                numTongTien,
+                numDaTra,
+                numConNo
+            );
 
             bindingNavigator.BindingSource.CurrentChanged -= new EventHandler(BindingSource_CurrentChanged);
             bindingNavigator.BindingSource.CurrentChanged += new EventHandler(BindingSource_CurrentChanged);
 
             ctrlChiTiet.HienThiChiTiet(dgvDanhsachSP, txtMaPhieu.Text);
 
-            // CẬP NHẬT: Gán sự kiện ValueChanged để tự động tính toán lại
-            numPhiDichVu.ValueChanged += new EventHandler(RecalculateTotal);
-            numGiamGia.ValueChanged += new EventHandler(RecalculateTotal);
-            numDaTra.ValueChanged += new EventHandler(RecalculateTotal);
+            numPhiVanChuyen.ValueChanged += new EventHandler(CacChiPhi_ValueChanged);
+            numPhiDichVu.ValueChanged += new EventHandler(CacChiPhi_ValueChanged);
+            numGiamGia.ValueChanged += new EventHandler(CacChiPhi_ValueChanged);
+            numDaTra.ValueChanged += new EventHandler(CacChiPhi_ValueChanged);
+            cmbDichVu.SelectedIndexChanged += new EventHandler(cmbDichVu_SelectedIndexChanged); // Thêm
+            numDonGia.ValueChanged += new EventHandler(UpdateThanhTien); // Thêm
+            numSoLuong.ValueChanged += new EventHandler(UpdateThanhTien); // Thêm
 
 
             if (status == Controll.AddNew)
@@ -122,18 +138,19 @@ namespace CuahangNongduoc
 
             string idSP = cmbSanPham.SelectedValue.ToString();
             List<MaSanPham> danhSachLo = ctrlMaSanPham.LayDanhSachMaSanPham(idSP);
-
             decimal soLuongCanXuat = numSoLuong.Value;
 
             if (!viTriLo.ContainsKey(idSP))
                 viTriLo.Add(idSP, 0);
 
+       
             foreach (MaSanPham lo in danhSachLo)
             {
                 if (!soLuongLo.ContainsKey(lo.Id))
                     soLuongLo.Add(lo.Id, lo.SoLuong);
             }
 
+        
             while (soLuongCanXuat > 0 && viTriLo[idSP] < danhSachLo.Count)
             {
                 int viTriHienTai = viTriLo[idSP];
@@ -168,15 +185,13 @@ namespace CuahangNongduoc
                 }
             }
 
-            // CẬP NHẬT: Gọi hàm tính tổng tiền thay vì gán trực tiếp
-            CapNhatTongTienVaCongNo();
+            TinhToanTongTienCuoiCung();
 
             numSoLuong.Value = 0;
             numThanhTien.Value = 0;
         }
-
-        // MỚI: Hàm tính toán tổng tiền tập trung
-        private void CapNhatTongTienVaCongNo()
+   
+        private void TinhToanTongTienCuoiCung()
         {
             decimal tongTienSP = 0;
             DataTable tbl = null;
@@ -203,21 +218,55 @@ namespace CuahangNongduoc
             decimal phiDichVu = numPhiDichVu.Value;
             decimal giamGia = numGiamGia.Value;
             decimal daTra = numDaTra.Value;
+            decimal phiVanChuyen = numPhiVanChuyen.Value; // Thêm
 
-            decimal tongTienCuoiCung = tongTienSP + phiDichVu - giamGia;
+            decimal tongTienCuoiCung = tongTienSP + phiDichVu + phiVanChuyen - giamGia; // Sửa
 
-            // Cập nhật vào UI mà không gây ra vòng lặp sự kiện
-            if (numTongTien.Value != tongTienCuoiCung)
-                numTongTien.Value = tongTienCuoiCung;
+            // Tắt sự kiện để tránh lặp vô hạn
+            numTongTien.ValueChanged -= CacChiPhi_ValueChanged;
+            numConNo.ValueChanged -= CacChiPhi_ValueChanged;
 
+            numTongTien.Value = tongTienCuoiCung;
             numConNo.Value = tongTienCuoiCung - daTra;
+
+            // Bật lại sự kiện
+            numTongTien.ValueChanged += CacChiPhi_ValueChanged;
+            numConNo.ValueChanged += CacChiPhi_ValueChanged;
         }
 
-        // MỚI: Hàm xử lý sự kiện khi giá trị thay đổi
-        private void RecalculateTotal(object sender, EventArgs e)
+        // SỬA LẠI: Tên hàm và logic
+        private void CacChiPhi_ValueChanged(object sender, EventArgs e)
         {
-            CapNhatTongTienVaCongNo();
+            TinhToanTongTienCuoiCung();
         }
+
+        private void TinhToanConNo()
+        {
+            numConNo.Value = numTongTien.Value - numDaTra.Value;
+        }
+
+        private void cmbDichVu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbDichVu.SelectedItem != null && cmbDichVu.SelectedValue != null)
+            {
+                try
+                {
+                    DataRowView drv = (DataRowView)cmbDichVu.SelectedItem;
+                    numPhiDichVu.Value = Convert.ToDecimal(drv.Row["GIA_MAC_DINH"]);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Không thể lấy giá dịch vụ: " + ex.Message);
+                    numPhiDichVu.Value = 0;
+                }
+            }
+        }
+
+        private void UpdateThanhTien(object sender, EventArgs e)
+        {
+            numThanhTien.Value = numDonGia.Value * numSoLuong.Value;
+        }
+
 
         public decimal BinhQuanGiaQuyen(string idSP)
         {
@@ -281,15 +330,11 @@ namespace CuahangNongduoc
             dgvDanhsachSP.DataSource = tbl;
             dgvDanhsachSP.Refresh();
         }
-        private void numDonGia_ValueChanged(object sender, EventArgs e)
-        {
-            numThanhTien.Value = numDonGia.Value * numSoLuong.Value;
-        }
 
-        // BỎ: Hàm này không cần thiết vì đã có RecalculateTotal xử lý
-        // private void numTongTien_ValueChanged(object sender, EventArgs e)
+
+       // private void numTongTien_ValueChanged(object sender, EventArgs e)
         // {
-        //     numConNo.Value = numTongTien.Value - numDaTra.Value;
+        //    TinhToanConNo();
         // }
 
         private void toolLuu_Click(object sender, EventArgs e)
@@ -312,7 +357,6 @@ namespace CuahangNongduoc
             }
         }
 
-        // CẬP NHẬT: Sửa lại hàm Cập nhật
         void CapNhat()
         {
             foreach (MaSanPham masp in deleted)
@@ -323,63 +367,61 @@ namespace CuahangNongduoc
 
             ctrlChiTiet.Save();
 
-            // Cập nhật lại các giá trị tiền vào DataRow trước khi lưu
             DataRowView currentRow = (DataRowView)bindingNavigator.BindingSource.Current;
+
+            currentRow["ID_KHACH_HANG"] = cmbKhachHang.SelectedValue;
+            currentRow["NGAY_BAN"] = dtNgayLapPhieu.Value.Date;
             currentRow["TONG_TIEN"] = numTongTien.Value;
             currentRow["DA_TRA"] = numDaTra.Value;
             currentRow["CON_NO"] = numConNo.Value;
             currentRow["PHI_DICH_VU"] = numPhiDichVu.Value;
             currentRow["GIAM_GIA"] = numGiamGia.Value;
+            currentRow["PHI_VAN_CHUYEN"] = numPhiVanChuyen.Value;
+            currentRow["ID_DICH_VU"] = cmbDichVu.SelectedValue;
 
-            ctrlPhieuBan.Update();
+
+            ctrlPhieuBan.CapNhatPhieuBan(currentRow.Row);
         }
 
-        // CẬP NHẬT: Sửa lại hàm Thêm mới
         void ThemMoi()
         {
-            DataRow row = ctrlPhieuBan.NewRow();
+            DataTable tbl = new DataTable();
+            tbl.Columns.Add("ID");
+            tbl.Columns.Add("ID_NGUOI_DUNG", typeof(int));
+            tbl.Columns.Add("ID_KHACH_HANG");
+            tbl.Columns.Add("NGAY_BAN", typeof(DateTime));
+            tbl.Columns.Add("TONG_TIEN", typeof(long));
+            tbl.Columns.Add("DA_TRA", typeof(long));
+            tbl.Columns.Add("CON_NO", typeof(long));
+            tbl.Columns.Add("GIAM_GIA", typeof(long));
+            tbl.Columns.Add("PHI_DICH_VU", typeof(long));
+            tbl.Columns.Add("PHI_VAN_CHUYEN", typeof(long));
+            tbl.Columns.Add("ID_DICH_VU", typeof(int));
+
+            DataRow row = tbl.NewRow();
+
             row["ID"] = txtMaPhieu.Text;
             row["ID_KHACH_HANG"] = cmbKhachHang.SelectedValue;
             row["NGAY_BAN"] = dtNgayLapPhieu.Value.Date;
+            row["TONG_TIEN"] = numTongTien.Value;
+            row["DA_TRA"] = numDaTra.Value;
+            row["CON_NO"] = numConNo.Value;
+            row["PHI_DICH_VU"] = numPhiDichVu.Value;
+            row["GIAM_GIA"] = numGiamGia.Value;
+            row["PHI_VAN_CHUYEN"] = numPhiVanChuyen.Value;
+            row["ID_DICH_VU"] = cmbDichVu.SelectedValue;
+            row["ID_NGUOI_DUNG"] = 1; // Tạm gán cứng ID 1, bạn cần sửa lại theo người dùng đăng nhập
 
-            // --- Lấy các giá trị từ form ---
-            decimal tongTienSP = 0;
-            // Tính lại tổng tiền sản phẩm một lần nữa cho chắc chắn
-            foreach (DataGridViewRow dgvRow in dgvDanhsachSP.Rows)
-            {
-                if (dgvRow.Cells["colThanhTien"].Value != null)
-                {
-                    tongTienSP += Convert.ToDecimal(dgvRow.Cells["colThanhTien"].Value);
-                }
-            }
 
-            decimal phiDichVu = numPhiDichVu.Value;
-            decimal giamGia = numGiamGia.Value;
-            decimal daTra = numDaTra.Value;
-
-            // --- Tính lại tổng tiền và công nợ ---
-            decimal tongTienSauDieuChinh = tongTienSP + phiDichVu - giamGia;
-            decimal conNo = tongTienSauDieuChinh - daTra;
-
-            // --- Gán toàn bộ các cột cho DataRow ---
-            row["TONG_TIEN"] = tongTienSauDieuChinh;
-            row["DA_TRA"] = daTra;
-            row["CON_NO"] = conNo;
-            row["PHI_DICH_VU"] = phiDichVu;
-            row["GIAM_GIA"] = giamGia;
-
-            // --- Thêm vào DataSet ---
-            ctrlPhieuBan.Add(row);
-
-            // --- Kiểm tra trùng mã phiếu ---
             PhieuBanController ctrl = new PhieuBanController();
-            if (ctrl.LayPhieuBan(txtMaPhieu.Text) != null)
+
+            // if (ctrl.LayPhieuBan(txtMaPhieu.Text) != null) // Hàm cũ
+            if (ctrl.LayPhieuBan(DateTime.MinValue, txtMaPhieu.Text) != null) // Hàm mới
             {
                 MessageBox.Show("Mã Phiếu bán này đã tồn tại!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // --- Cập nhật số thứ tự phiếu ---
             if (ThamSo.LaSoNguyen(txtMaPhieu.Text))
             {
                 long so = Convert.ToInt64(txtMaPhieu.Text);
@@ -389,8 +431,9 @@ namespace CuahangNongduoc
                 }
             }
 
-            // --- Lưu về CSDL ---
-            ctrlPhieuBan.Save();
+
+            ctrlPhieuBan.LuuPhieuBanMoi(row);
+
             ctrlChiTiet.Save();
 
             MessageBox.Show("Lưu phiếu bán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -401,7 +444,16 @@ namespace CuahangNongduoc
             ctrlPhieuBan = new PhieuBanController();
             status = Controll.AddNew;
             txtMaPhieu.Text = ThamSo.LayMaPhieuBan().ToString();
+
             numTongTien.Value = 0;
+            numPhiDichVu.Value = 0;
+            numPhiVanChuyen.Value = 0;
+            numGiamGia.Value = 0;
+            numDaTra.Value = 0;
+            numConNo.Value = 0;
+            if (cmbDichVu.Items.Count > 0) cmbDichVu.SelectedIndex = 0;
+            if (cmbKhachHang.Items.Count > 0) cmbKhachHang.SelectedIndex = 0;
+
             ctrlChiTiet.HienThiChiTiet(dgvDanhsachSP, txtMaPhieu.Text);
             this.Allow(true);
         }
@@ -424,8 +476,7 @@ namespace CuahangNongduoc
 
                     dgvDanhsachSP.Rows.Remove(dgvDanhsachSP.SelectedRows[0]);
 
-                    // CẬP NHẬT: Gọi hàm tính tổng tiền
-                    CapNhatTongTienVaCongNo();
+                    TinhToanTongTienCuoiCung();
 
                     if (!string.IsNullOrEmpty(idSP))
                     {
@@ -449,32 +500,39 @@ namespace CuahangNongduoc
             {
                 BindingSource bs = ((BindingSource)dgvDanhsachSP.DataSource);
                 DataRowView row = (DataRowView)bs.Current;
-                // CẬP NHẬT: Trừ tiền khỏi tổng
-                numTongTien.Value -= Convert.ToDecimal(row["THANH_TIEN"]);
                 deleted.Add(new MaSanPham(Convert.ToString(row["ID_MA_SAN_PHAM"]), Convert.ToInt32(row["SO_LUONG"])));
+
+                
+                this.BeginInvoke(new Action(TinhToanTongTienCuoiCung));
             }
         }
 
-        // ... Các hàm khác giữ nguyên ...
-
-        // CẬP NHẬT: Sửa lại hàm Allow
         void Allow(bool val)
         {
-            cmbKhachHang.Enabled = val;
+            // txtMaPhieu.Enabled = val; // Mã phiếu không nên sửa
             dtNgayLapPhieu.Enabled = val;
-            numPhiDichVu.Enabled = val;
+            // numTongTien.Enabled = val; // Tổng tiền nên bị khóa
+
+            cmbKhachHang.Enabled = val;
+            numPhiVanChuyen.Enabled = val;
             numGiamGia.Enabled = val;
             numDaTra.Enabled = val;
+            cmbDichVu.Enabled = val;
+            numPhiDichVu.Enabled = val;
+
             btnAdd.Enabled = val;
             btnRemove.Enabled = val;
             dgvDanhsachSP.Enabled = val;
+
             cmbSanPham.Enabled = val;
             numSoLuong.Enabled = val;
             numDonGia.Enabled = val;
         }
+        private void numDonGia_ValueChanged(object sender, EventArgs e)
+        {
+            numThanhTien.Value = numDonGia.Value * numSoLuong.Value;
+        }
 
-        // ... Các hàm còn lại giữ nguyên như cũ ...
-        #region Các hàm không đổi
         private void toolLuuIn_Click(object sender, EventArgs e)
         {
             if (status != Controll.Normal)
@@ -487,7 +545,8 @@ namespace CuahangNongduoc
 
                 PhieuBanController ctrlPB = new PhieuBanController();
 
-                CuahangNongduoc.BusinessObject.PhieuBan ph = ctrlPB.LayPhieuBan(ma_phieu);
+                // CuahangNongduoc.BusinessObject.PhieuBan ph = ctrlPB.LayPhieuBan(ma_phieu); // Hàm cũ
+                CuahangNongduoc.BusinessObject.PhieuBan ph = ctrlPB.LayPhieuBan(DateTime.MinValue, ma_phieu); // Hàm mới
 
                 frmInPhieuBan InPhieuBan = new frmInPhieuBan(ph);
 
@@ -504,7 +563,7 @@ namespace CuahangNongduoc
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void toolChinhSua_Click(object sender, EventArgs e)
@@ -538,8 +597,12 @@ namespace CuahangNongduoc
                     {
                         CuahangNongduoc.DataLayer.MaSanPhanFactory.CapNhatSoLuong(ct.MaSanPham.Id, Convert.ToInt32(ct.SoLuong));
                     }
+
+                    ctrlPhieuBan.XoaPhieuBan(view["ID"].ToString());
+
                     bindingNavigator.BindingSource.RemoveCurrent();
-                    ctrlPhieuBan.Save();
+
+                  
                 }
             }
         }
@@ -557,6 +620,5 @@ namespace CuahangNongduoc
             SanPham.ShowDialog();
             ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
         }
-        #endregion
     }
 }
