@@ -55,6 +55,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1652.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
@@ -86,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObject\ChiTietPhieuBan.cs" />
+    <Compile Include="Controller\PhieuBanController.cs" />
+    <Compile Include="DataLayer\ChiTietPhieuBanFactory.cs" />
+    <Compile Include="DataLayer\DichVuFactory.cs" />
     <Compile Include="BusinessObject\PhieuChi.cs" />
     <Compile Include="BusinessObject\LyDoChi.cs" />
     <Compile Include="BusinessObject\NhaCungCap.cs" />
@@ -100,6 +104,7 @@
     <Compile Include="BusinessObject\SanPham.cs" />
     <Compile Include="BusinessObject\SoLuongTon.cs" />
     <Compile Include="Controller\ChiTietPhieuBanController.cs" />
+    <Compile Include="Controller\DichVuController.cs" />
     <Compile Include="Controller\NguoiDungController.cs" />
     <Compile Include="Controller\PhieuChiController.cs" />
     <Compile Include="Controller\LyDoChiController.cs" />
@@ -109,7 +114,6 @@
     <Compile Include="Controller\PhieuNhapController.cs" />
     <Compile Include="Controller\KhachHangController.cs" />
     <Compile Include="Controller\MaSanPhamController.cs" />
-    <Compile Include="Controller\PhieuBanController.cs" />
     <Compile Include="Controller\SanPhamController.cs" />
     <Compile Include="Controller\DonViTinhController.cs" />
     <Compile Include="DataLayer\NguoiDungFactory.cs" />
@@ -119,11 +123,35 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CHNDDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="frmBanLe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBanLe.Designer.cs">
+      <DependentUpon>frmBanLe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmBanSi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBanSi.Designer.cs">
+      <DependentUpon>frmBanSi.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmDangNhap.Designer.cs">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDanhsachPhieuBanLe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDanhsachPhieuBanLe.Designer.cs">
+      <DependentUpon>frmDanhsachPhieuBanLe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmDanhsachPhieuBanSi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDanhsachPhieuBanSi.Designer.cs">
+      <DependentUpon>frmDanhsachPhieuBanSi.cs</DependentUpon>
     </Compile>
     <Compile Include="frmInDichVu.cs">
       <SubType>Form</SubType>
@@ -165,35 +193,10 @@
     <Compile Include="DataLayer\NhaCungCapFactory.cs" />
     <Compile Include="DataLayer\DuNoKhachHangFactory.cs" />
     <Compile Include="DataLayer\PhieuThanhToanFactory.cs" />
-    <Compile Include="frmBanSi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmBanSi.Designer.cs">
-      <DependentUpon>frmBanSi.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmDanhsachPhieuBanSi.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmDanhsachPhieuBanSi.Designer.cs">
-      <DependentUpon>frmDanhsachPhieuBanSi.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmDanhsachPhieuBanLe.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmDanhsachPhieuBanLe.Designer.cs">
-      <DependentUpon>frmDanhsachPhieuBanLe.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataLayer\ChiTietPhieuBanFactory.cs" />
     <Compile Include="DataLayer\ChiTietPhieuNhapFactory.cs" />
     <Compile Include="DataLayer\PhieuNhapFactory.cs" />
     <Compile Include="DataLayer\MaSanPhanFactory.cs" />
     <Compile Include="DataLayer\PhieuBanFactory.cs" />
-    <Compile Include="frmBanLe.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmBanLe.Designer.cs">
-      <DependentUpon>frmBanLe.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmDaiLy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,8 +350,20 @@
     <Compile Include="Num2Str.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmBanLe.resx">
+      <DependentUpon>frmBanLe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmBanSi.resx">
+      <DependentUpon>frmBanSi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDanhsachPhieuBanLe.resx">
+      <DependentUpon>frmDanhsachPhieuBanLe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDanhsachPhieuBanSi.resx">
+      <DependentUpon>frmDanhsachPhieuBanSi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInDichVu.resx">
       <DependentUpon>frmInDichVu.cs</DependentUpon>
@@ -369,22 +384,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLyDoChi.resx">
       <DependentUpon>frmLyDoChi.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBanSi.resx">
-      <DependentUpon>frmBanSi.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmDanhsachPhieuBanSi.resx">
-      <DependentUpon>frmDanhsachPhieuBanSi.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmDanhsachPhieuBanLe.resx">
-      <DependentUpon>frmDanhsachPhieuBanLe.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmBanLe.resx">
-      <DependentUpon>frmBanLe.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDaiLy.resx">

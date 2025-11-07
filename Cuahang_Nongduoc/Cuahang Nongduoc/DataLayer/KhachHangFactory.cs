@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
@@ -24,7 +24,9 @@ namespace CuahangNongduoc.DataLayer
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM KHACH_HANG WHERE HO_TEN LIKE '%' + @hoten + '%' AND LOAI_KH = " + loai);
             //cmd.Parameters.Add("hoten", OleDbType.VarChar).Value = hoten;
-            SqlCommand cmd = new SqlCommand("SELECT SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG KH WHERE HO_TEN LIKE N'%' + @hoten + '%' AND LOAI_KH = @loai");
+
+            // ---- ĐÃ SỬA ---- (Bỏ chữ SELECT thừa)
+            SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG KH WHERE HO_TEN LIKE N'%' + @hoten + '%' AND LOAI_KH = @loai");
             cmd.Parameters.Add("hoten", SqlDbType.VarChar).Value = hoten;
             cmd.Parameters.Add("loai", SqlDbType.Bit).Value = loai;
             m_Ds.Load(cmd);
@@ -36,7 +38,9 @@ namespace CuahangNongduoc.DataLayer
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM KHACH_HANG WHERE DIA_CHI LIKE '%' + @diachi + '%' AND LOAI_KH = " + loai);
             //cmd.Parameters.Add("diachi", OleDbType.VarChar).Value = diachi;
-            SqlCommand cmd = new SqlCommand("SELECT SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG WHERE DIA_CHI LIKE N'%' + @diachi + '%' AND LOAI_KH = @loai");
+
+            // ---- ĐÃ SỬA ---- (Bỏ chữ SELECT thừa)
+            SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG WHERE DIA_CHI LIKE N'%' + @diachi + '%' AND LOAI_KH = @loai");
             cmd.Parameters.Add("diachi", SqlDbType.VarChar).Value = diachi;
             cmd.Parameters.Add("loai", SqlDbType.Bit).Value = loai;
             m_Ds.Load(cmd);

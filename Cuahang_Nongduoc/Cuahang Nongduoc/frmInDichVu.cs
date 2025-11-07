@@ -27,19 +27,20 @@ namespace CuahangNongduoc
         PhieuBanController ctrl = new PhieuBanController();
         private void btnXemNgay_Click(object sender, EventArgs e)
         {
-            var data = ctrl.LayPhieuBan(dtpTuNgay.Value, dtpDenNgay.Value).Select(r => new
-            {
-                r.Id,
-                KhachHang = r.KhachHang.HoTen,
-                r.NgayBan,
-                r.GiamGia,
-                r.PhiDichVu,
-                TongTienCuoi = r.TongTien + r.PhiDichVu - r.GiamGia,
-                //r.ChiTiet,
-                r.TongTien,
-                r.DaTra,
-                r.ConNo
-            }).ToList();
+            var data = ctrl.LayPhieuBan(dtpTuNgay.Value, dtpDenNgay.Value)
+                .Cast<dynamic>() 
+                .Select(r => new
+                {
+                    r.Id,
+                    KhachHang = r.KhachHang.HoTen,
+                    r.NgayBan,
+                    r.GiamGia,
+                    r.PhiDichVu,
+                    TongTienCuoi = r.TongTien + r.PhiDichVu - r.GiamGia,
+                    r.TongTien,
+                    r.DaTra,
+                    r.ConNo
+                }).ToList();
 
             phieuBanDataTable.Clear();
             foreach (var row in data)
