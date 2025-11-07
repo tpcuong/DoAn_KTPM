@@ -131,6 +131,12 @@
     <Compile Include="frmInDichVu.Designer.cs">
       <DependentUpon>frmInDichVu.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmInPhieuBanGiamGia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInPhieuBanGiamGia.Designer.cs">
+      <DependentUpon>frmInPhieuBanGiamGia.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmInPhieuChi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,6 +353,9 @@
     <EmbeddedResource Include="frmInDichVu.resx">
       <DependentUpon>frmInDichVu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmInPhieuBanGiamGia.resx">
+      <DependentUpon>frmInPhieuBanGiamGia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmInPhieuChi.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmInPhieuChi.cs</DependentUpon>
@@ -482,6 +491,7 @@
     <EmbeddedResource Include="Report\rptChiTietPhieuBan.rdlc" />
     <EmbeddedResource Include="Report\rptChiTietPhieuNhap.rdlc" />
     <EmbeddedResource Include="Report\rptDsDuNoKhachHang.rdlc" />
+    <EmbeddedResource Include="Report\rptDsPhieuBanGiamGia.rdlc" />
     <EmbeddedResource Include="Report\rptDuNoKhachHang.rdlc" />
     <EmbeddedResource Include="Report\rptInDichVu.rdlc" />
     <EmbeddedResource Include="Report\rptPhieuBan.rdlc" />

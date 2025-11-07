@@ -1,5 +1,4 @@
-﻿using CuahangNongduoc.BusinessObject;
-using CuahangNongduoc.Controller;
+﻿using CuahangNongduoc.Controller;
 using CuahangNongduoc.DataSet;
 using Microsoft.Reporting.WinForms;
 using System;
@@ -12,18 +11,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static CuahangNongduoc.DataSet.CHNDDataSet;
 
 namespace CuahangNongduoc
 {
-    public partial class frmInDichVu : Form
+    public partial class frmInPhieuBanGiamGia : Form
     {
-        CHNDDataSet.PhieuBanDataTable phieuBanDataTable = new CHNDDataSet.PhieuBanDataTable();
-        public frmInDichVu()
+        CHNDDataSet.PhieuBanGiamGiaDataTable phieuBanGiamGiaTable = new CHNDDataSet.PhieuBanGiamGiaDataTable();
+        string reportFolder = Application.StartupPath.Replace("\\bin\\Debug", "\\Report");
+        public frmInPhieuBanGiamGia()
         {
             InitializeComponent();
         }
-        string reportFolder = Application.StartupPath.Replace("\\bin\\Debug", "\\Report");
 
+        private void frmInPhieuBanGiamGia_Load(object sender, EventArgs e)
+        {
+
+        }
         PhieuBanController ctrl = new PhieuBanController();
         private void btnXemNgay_Click(object sender, EventArgs e)
         {
@@ -41,7 +45,7 @@ namespace CuahangNongduoc
                 r.ConNo
             }).ToList();
 
-            phieuBanDataTable.Clear();
+            phieuBanGiamGiaTable.Clear();
             foreach (var row in data)
             {
                 //phieuBanDataTable.AddPhieuBanRow(row.Id,
@@ -55,14 +59,14 @@ namespace CuahangNongduoc
                 //    row.TongTien);
             }
             ReportDataSource reportDataSource = new ReportDataSource();
-            reportDataSource.Name = "dsPhieuBan";
-            reportDataSource.Value = phieuBanDataTable;
+            reportDataSource.Name = "dsPhieuBanGiamGia";
+            reportDataSource.Value = phieuBanGiamGiaTable;
 
             reportViewer.LocalReport.DataSources.Clear();
             reportViewer.LocalReport.DataSources.Add(reportDataSource);
-            reportViewer.LocalReport.ReportPath = Path.Combine(reportFolder, "rptInDichVu.rdlc");
+            reportViewer.LocalReport.ReportPath = Path.Combine(reportFolder, "rptDsPhieuBanGiamGia.rdlc");
 
-            ReportParameter reportParameter = new ReportParameter("Ngay", "Từ ngày: " + dtpTuNgay.Text + " - Đến ngày: " + dtpDenNgay.Text);
+            ReportParameter reportParameter = new ReportParameter("ngay", "Từ ngày: " + dtpTuNgay.Text + " - Đến ngày: " + dtpDenNgay.Text);
             reportViewer.LocalReport.SetParameters(reportParameter);
 
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
