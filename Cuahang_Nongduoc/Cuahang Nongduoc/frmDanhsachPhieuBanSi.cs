@@ -24,6 +24,7 @@ namespace CuahangNongduoc
         {
             ctrlKH.HienthiDaiLyDataGridviewComboBox(colKhachhang);
             ctrlDV.HienthiDichVuDataGridviewComboBox(colDichVu);
+            dataGridView.AutoGenerateColumns = false;
             ctrl.HienthiPhieuBanSi(bindingNavigator, dataGridView);
         }
         frmBanSi BanLe = null;

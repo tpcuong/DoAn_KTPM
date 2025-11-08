@@ -14,7 +14,7 @@ namespace CuahangNongduoc
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmInPhieuBanGiamGia());
+            Application.Run(new frmMain());
         }
     }
 }

@@ -23,6 +23,7 @@ namespace CuahangNongduoc
         private void frmDanhsachPhieuNhap_Load(object sender, EventArgs e)
         {
             ctrlKH.HienthiKhachHangDataGridviewComboBox(colKhachhang);
+            dataGridView.AutoGenerateColumns = false;
             ctrlDV.HienthiDichVuDataGridviewComboBox(colDichVu);
             ctrl.HienthiPhieuBanLe(bindingNavigator, dataGridView);
         }
