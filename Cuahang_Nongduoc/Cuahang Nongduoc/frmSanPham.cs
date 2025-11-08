@@ -30,24 +30,32 @@ namespace CuahangNongduoc
 
         private void toolLuu_Click(object sender, EventArgs e)
         {
+            txtMaSanPham.BringToFront();
+            DataRow row = ctrl.NewRow();
+            long maso = ThamSo.SanPham;
+            ThamSo.SanPham = maso + 1;
+            row["ID"] = maso;
+            row["TEN_SAN_PHAM"] = txtTenSanPham.Text.Trim();
+            row["SO_LUONG"] = 0;
+            row["DON_GIA_NHAP"] = numDonGiaNhap.Value;
+            row["GIA_BAN_SI"] = numGiaBanSi.Value;
+            row["GIA_BAN_LE"] = numGiaBanLe.Value;
+            row["ID_DON_VI_TINH"] = cmbDVT.SelectedValue;
+            row["GIA_BINH_QUAN"] = 0;
+            ctrl.Add(row);
+            bindingNavigator.BindingSource.MoveLast();
             bindingNavigatorPositionItem.Focus();
             ctrl.Save();
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            DataRow row = ctrl.NewRow();
-            long maso = ThamSo.SanPham;
-            ThamSo.SanPham = maso + 1;
-            row["ID"] = maso;
-            row["TEN_SAN_PHAM"] = "";
-            row["SO_LUONG"] = 0;
-            row["DON_GIA_NHAP"] = 0;
-            row["GIA_BAN_SI"] = 0;
-            row["GIA_BAN_LE"] = 0;
-            ctrl.Add(row);
-            bindingNavigator.BindingSource.MoveLast();
-
+            txtMaGia.BringToFront();
+            txtMaGia.Text = ThamSo.SanPham.ToString();
+            numDonGiaNhap.Value = 0;
+            numGiaBanSi.Value = 0;
+            numGiaBanLe.Value = 0;
+            cmbDVT.SelectedIndex = 0;
         }
 
 
@@ -124,7 +132,6 @@ namespace CuahangNongduoc
             toolTimSanPham.ForeColor = Color.Black;
         }
 
-
-
+  
     }
 }
