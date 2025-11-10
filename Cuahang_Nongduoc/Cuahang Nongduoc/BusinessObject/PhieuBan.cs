@@ -86,5 +86,19 @@ namespace CuahangNongduoc.BusinessObject
             get { return m_idDichVu; }
             set { m_idDichVu = value; }
         }
+
+        private int m_TrangThai;
+        public int TrangThai
+        {
+            get { return m_TrangThai; }
+            set { m_TrangThai = value; }
+        }
+        private NguoiDung m_NgDung;
+
+        public NguoiDung NgDung
+        {
+            get { return m_NgDung; }
+            set { m_NgDung = value; }
+        }
     }
 }

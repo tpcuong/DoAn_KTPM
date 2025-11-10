@@ -33,6 +33,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPhieuChi));
             this.panel1 = new System.Windows.Forms.Panel();
             this.grpThongtin = new System.Windows.Forms.GroupBox();
+            this.cmbNV = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.btnThemLyDoChi = new System.Windows.Forms.Button();
             this.txtMaPhieu = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,6 +49,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.colMaPhieu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNguoiDung = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colLyDoChi = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colSotien = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNgayChi = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,6 +90,8 @@
             // 
             // grpThongtin
             // 
+            this.grpThongtin.Controls.Add(this.cmbNV);
+            this.grpThongtin.Controls.Add(this.label19);
             this.grpThongtin.Controls.Add(this.btnThemLyDoChi);
             this.grpThongtin.Controls.Add(this.txtMaPhieu);
             this.grpThongtin.Controls.Add(this.label4);
@@ -106,10 +111,28 @@
             this.grpThongtin.TabStop = false;
             this.grpThongtin.Text = "Thông tin";
             // 
+            // cmbNV
+            // 
+            this.cmbNV.Enabled = false;
+            this.cmbNV.FormattingEnabled = true;
+            this.cmbNV.Location = new System.Drawing.Point(388, 45);
+            this.cmbNV.Name = "cmbNV";
+            this.cmbNV.Size = new System.Drawing.Size(106, 21);
+            this.cmbNV.TabIndex = 61;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(295, 51);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(59, 13);
+            this.label19.TabIndex = 60;
+            this.label19.Text = "Nhân viên:";
+            // 
             // btnThemLyDoChi
             // 
             this.btnThemLyDoChi.Image = global::CuahangNongduoc.Properties.Resources.add_16;
-            this.btnThemLyDoChi.Location = new System.Drawing.Point(268, 54);
+            this.btnThemLyDoChi.Location = new System.Drawing.Point(263, 44);
             this.btnThemLyDoChi.Name = "btnThemLyDoChi";
             this.btnThemLyDoChi.Size = new System.Drawing.Size(24, 24);
             this.btnThemLyDoChi.TabIndex = 59;
@@ -118,7 +141,8 @@
             // 
             // txtMaPhieu
             // 
-            this.txtMaPhieu.Location = new System.Drawing.Point(114, 29);
+            this.txtMaPhieu.Enabled = false;
+            this.txtMaPhieu.Location = new System.Drawing.Point(109, 19);
             this.txtMaPhieu.Name = "txtMaPhieu";
             this.txtMaPhieu.Size = new System.Drawing.Size(153, 20);
             this.txtMaPhieu.TabIndex = 14;
@@ -126,7 +150,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 29);
+            this.label4.Location = new System.Drawing.Point(8, 19);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(51, 13);
             this.label4.TabIndex = 13;
@@ -134,16 +158,16 @@
             // 
             // txtGhiChu
             // 
-            this.txtGhiChu.Location = new System.Drawing.Point(393, 58);
+            this.txtGhiChu.Location = new System.Drawing.Point(515, 25);
             this.txtGhiChu.Multiline = true;
             this.txtGhiChu.Name = "txtGhiChu";
-            this.txtGhiChu.Size = new System.Drawing.Size(112, 45);
+            this.txtGhiChu.Size = new System.Drawing.Size(130, 90);
             this.txtGhiChu.TabIndex = 12;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(323, 72);
+            this.label2.Location = new System.Drawing.Point(512, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(44, 13);
             this.label2.TabIndex = 11;
@@ -152,7 +176,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(292, 35);
+            this.label5.Location = new System.Drawing.Point(287, 25);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 13);
             this.label5.TabIndex = 10;
@@ -162,14 +186,14 @@
             // 
             this.dtNgayChi.CustomFormat = "dd/MM/yyyy";
             this.dtNgayChi.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtNgayChi.Location = new System.Drawing.Point(393, 29);
+            this.dtNgayChi.Location = new System.Drawing.Point(388, 19);
             this.dtNgayChi.Name = "dtNgayChi";
             this.dtNgayChi.Size = new System.Drawing.Size(106, 20);
             this.dtNgayChi.TabIndex = 8;
             // 
             // numTongTien
             // 
-            this.numTongTien.Location = new System.Drawing.Point(115, 82);
+            this.numTongTien.Location = new System.Drawing.Point(110, 72);
             this.numTongTien.Maximum = new decimal(new int[] {
             1000000000,
             0,
@@ -184,7 +208,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 89);
+            this.label3.Location = new System.Drawing.Point(8, 79);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 13);
             this.label3.TabIndex = 4;
@@ -193,7 +217,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 58);
+            this.label1.Location = new System.Drawing.Point(8, 48);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 1;
@@ -201,8 +225,9 @@
             // 
             // cmbLyDoChi
             // 
+            this.cmbLyDoChi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLyDoChi.FormattingEnabled = true;
-            this.cmbLyDoChi.Location = new System.Drawing.Point(115, 55);
+            this.cmbLyDoChi.Location = new System.Drawing.Point(110, 45);
             this.cmbLyDoChi.Name = "cmbLyDoChi";
             this.cmbLyDoChi.Size = new System.Drawing.Size(152, 21);
             this.cmbLyDoChi.TabIndex = 0;
@@ -226,6 +251,7 @@
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colMaPhieu,
+            this.colNguoiDung,
             this.colLyDoChi,
             this.colSotien,
             this.colNgayChi,
@@ -233,16 +259,25 @@
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(3, 62);
             this.dataGridView.Name = "dataGridView";
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(645, 195);
             this.dataGridView.TabIndex = 1;
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
             this.dataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
             // 
             // colMaPhieu
             // 
             this.colMaPhieu.DataPropertyName = "ID";
             this.colMaPhieu.HeaderText = "Mã phiếu";
             this.colMaPhieu.Name = "colMaPhieu";
+            // 
+            // colNguoiDung
+            // 
+            this.colNguoiDung.DataPropertyName = "ID_NGUOI_DUNG";
+            this.colNguoiDung.HeaderText = "Nhân viên";
+            this.colNguoiDung.Name = "colNguoiDung";
+            this.colNguoiDung.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colNguoiDung.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // colLyDoChi
             // 
@@ -340,6 +375,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -379,7 +415,7 @@
             this.toolAdd.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolAdd.Name = "toolAdd";
             this.toolAdd.RightToLeftAutoMirrorImage = true;
-            this.toolAdd.Size = new System.Drawing.Size(42, 43);
+            this.toolAdd.Size = new System.Drawing.Size(41, 43);
             this.toolAdd.Text = "Thêm";
             this.toolAdd.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolAdd.Click += new System.EventHandler(this.toolAdd_Click);
@@ -417,7 +453,7 @@
             this.toolIn.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolIn.Name = "toolIn";
-            this.toolIn.Size = new System.Drawing.Size(55, 43);
+            this.toolIn.Size = new System.Drawing.Size(53, 43);
             this.toolIn.Text = "Trang in";
             this.toolIn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolIn.Click += new System.EventHandler(this.toolIn_Click);
@@ -428,7 +464,7 @@
             this.toolTimKiem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolTimKiem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolTimKiem.Name = "toolTimKiem";
-            this.toolTimKiem.Size = new System.Drawing.Size(61, 43);
+            this.toolTimKiem.Size = new System.Drawing.Size(60, 43);
             this.toolTimKiem.Text = "Tìm kiếm";
             this.toolTimKiem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolTimKiem.Click += new System.EventHandler(this.toolTimKiem_Click);
@@ -490,12 +526,15 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolIn;
+        private System.Windows.Forms.Button btnThemLyDoChi;
+        private System.Windows.Forms.ToolStripButton toolTimKiem;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMaPhieu;
+        private System.Windows.Forms.DataGridViewComboBoxColumn colNguoiDung;
         private System.Windows.Forms.DataGridViewComboBoxColumn colLyDoChi;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSotien;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNgayChi;
         private System.Windows.Forms.DataGridViewTextBoxColumn colGhiChu;
-        private System.Windows.Forms.Button btnThemLyDoChi;
-        private System.Windows.Forms.ToolStripButton toolTimKiem;
+        private System.Windows.Forms.ComboBox cmbNV;
+        private System.Windows.Forms.Label label19;
     }
 }

@@ -37,11 +37,13 @@ namespace CuahangNongduoc
                 m_PhieuThanhToan.GhiChu,
                 KhachHang = m_PhieuThanhToan.KhachHang.HoTen,
                 DienThoai = m_PhieuThanhToan.KhachHang.DienThoai,
-                DiaChi = m_PhieuThanhToan.KhachHang.DiaChi
+                DiaChi = m_PhieuThanhToan.KhachHang.DiaChi,
+                NguoiDung = m_PhieuThanhToan.NgDung.TenNguoiDung,
             };
 
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("dienthoai_kh", data.DienThoai));
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("diachi_kh", data.DiaChi));
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("nhan_vien", data.NguoiDung));
 
             this.reportViewer.LocalReport.SetParameters(param);
             this.PhieuThanhToanBindingSource.DataSource = data;

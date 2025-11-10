@@ -128,8 +128,10 @@
                                 <TextRun>
                                   <Value>=Parameters!ngay.Value</Value>
                                   <Style>
-                                    <FontFamily />
-                                    <FontWeight>Bold</FontWeight>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -372,7 +374,8 @@
                                 <TextRun>
                                   <Value>STT</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -409,7 +412,8 @@
                                 <TextRun>
                                   <Value>Mã sản phẩm</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -446,7 +450,8 @@
                                 <TextRun>
                                   <Value>Đơn giá bán</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -483,7 +488,8 @@
                                 <TextRun>
                                   <Value>Số lượng</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -520,7 +526,8 @@
                                 <TextRun>
                                   <Value>Thành tiền</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -562,7 +569,8 @@
                                 <TextRun>
                                   <Value>=RowNumber(nothing)</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -598,7 +606,8 @@
                                 <TextRun>
                                   <Value>=Fields!MaSanPham.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -631,7 +640,8 @@
                                 <TextRun>
                                   <Value>=Fields!DonGia.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <Format>#,###0</Format>
                                   </Style>
                                 </TextRun>
@@ -668,7 +678,8 @@
                                 <TextRun>
                                   <Value>=Fields!SoLuong.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <Format>#,###0</Format>
                                   </Style>
                                 </TextRun>
@@ -705,7 +716,8 @@
                                 <TextRun>
                                   <Value>=Fields!ThanhTien.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <Format>#,###0</Format>
                                   </Style>
                                 </TextRun>

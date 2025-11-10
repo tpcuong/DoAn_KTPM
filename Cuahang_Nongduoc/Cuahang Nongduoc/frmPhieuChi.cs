@@ -13,6 +13,7 @@ namespace CuahangNongduoc
     {
         LyDoChiController ctrlLyDo = new LyDoChiController();
         PhieuChiController ctrl = new PhieuChiController();
+        NguoiDungController ctrlND = new NguoiDungController();
         public frmPhieuChi()
         {
             InitializeComponent();
@@ -20,22 +21,27 @@ namespace CuahangNongduoc
 
         private void frmThanhToan_Load(object sender, EventArgs e)
         {
+            dataGridView.AutoGenerateColumns = false;
             ctrlLyDo.HienthiAutoComboBox(cmbLyDoChi);
             ctrlLyDo.HienthiDataGridviewComboBox(colLyDoChi);
-            ctrl.HienthiPhieuChi(bindingNavigator, dataGridView, cmbLyDoChi, txtMaPhieu, dtNgayChi, numTongTien, txtGhiChu);
+            ctrlND.HienthiAutoComboBox(cmbNV);
+            ctrlND.HienthiNguoiDungDataGridviewComboBox(colNguoiDung);
+            ctrl.HienthiPhieuChi(bindingNavigator, dataGridView,cmbNV, cmbLyDoChi, txtMaPhieu, dtNgayChi, numTongTien, txtGhiChu);
         }
 
         private void toolAdd_Click(object sender, EventArgs e)
-        {
+        {   
+            MessageBox.Show("Hãy nhập dữ liệu rồi ấn lưu","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
             long maphieu = ThamSo.PhieuChi;
-            ThamSo.PhieuChi=maphieu+1;
-
-            DataRow row = ctrl.NewRow();
-            row["ID"] = maphieu;
-            row["NGAY_CHI"] = dtNgayChi.Value.Date;
-            row["TONG_TIEN"] = numTongTien.Value;
-            ctrl.Add(row);
-            bindingNavigator.BindingSource.MoveLast();
+            cmbLyDoChi.Text = "";
+            numTongTien.Value = 0;
+            txtGhiChu.Text = "";
+            txtMaPhieu.Text = (maphieu+1).ToString();
+            DataTable dt = ctrlND.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
+            if(dt.Rows.Count > 0)
+            {
+                cmbNV.SelectedValue = Convert.ToInt64(dt.Rows[0]["ID"]);
+            }
         }
 
         private void dataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -50,13 +56,45 @@ namespace CuahangNongduoc
         {
             if (MessageBox.Show("Bạn chắc chắn xóa phiếu chi này không?", "Phieu Chi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                bindingNavigator.BindingSource.RemoveCurrent();
-                ctrl.Save();
+                //Xoá phiếu bán ( cập nhật trạng thái)
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    try
+                    {
+
+                    
+                    DataGridViewRow row = dataGridView.SelectedRows[0];
+                    string id = row.Cells["colMaPhieu"].Value.ToString();
+                    ThamSo.Delete(id, "PHIEU_CHI");
+                    
+                        MessageBox.Show("Xóa thành công!", "Phieu chi ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        frmThanhToan_Load(sender, e);
+}
+                    catch 
+                    {
+                        MessageBox.Show("Xóa thất bại!");
+                    }
+
+                    
+
+                }
+                //bindingNavigator.BindingSource.RemoveCurrent();
+                //ctrl.Save();
             }
         }
 
         private void toolSave_Click(object sender, EventArgs e)
         {
+            ThamSo.PhieuChi = Convert.ToInt64(txtMaPhieu.Text);
+            DataRow row = ctrl.NewRow();
+            row["ID"] = txtMaPhieu.Text;
+            row["NGAY_CHI"] = dtNgayChi.Value.Date;
+            row["TONG_TIEN"] = numTongTien.Value;
+            row["GHI_CHU"] = txtGhiChu.Text;
+            row["ID_LY_DO_CHI"] = cmbLyDoChi.SelectedValue;
+            row["ID_NGUOI_DUNG"] = cmbNV.SelectedValue;
+            ctrl.Add(row);
+            bindingNavigator.BindingSource.MoveLast();
             txtMaPhieu.Focus();
             bindingNavigator.BindingSource.MoveNext();
             ctrl.Save();
@@ -101,5 +139,7 @@ namespace CuahangNongduoc
                 
             }
         }
+
+
     }
 }

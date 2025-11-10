@@ -17,6 +17,7 @@ namespace CuahangNongduoc
         MaSanPhamController ctrlMaSanPham = new MaSanPhamController();
         PhieuBanController ctrlPhieuBan = new PhieuBanController();
         DichVuController dvController = new DichVuController();
+        NguoiDungController ctrlNguoiDung = new NguoiDungController();
         ChiTietPhieuBanController ctrlChiTiet = new ChiTietPhieuBanController();
 
         IList<MaSanPham> deleted = new List<MaSanPham>();
@@ -43,6 +44,8 @@ namespace CuahangNongduoc
         {
             ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
             dvController.HienthiAutoComboBox(cmbDichVu);
+            ctrlNguoiDung.HienthiAutoComboBox(cmbNV);
+
             dgvDanhsachSP.AutoGenerateColumns = false; ;
             cmbSanPham.SelectedIndexChanged += new EventHandler(cmbSanPham_SelectedIndexChanged);
 
@@ -51,6 +54,7 @@ namespace CuahangNongduoc
             // ctrlPhieuBan.HienthiPhieuBan(bindingNavigator, cmbKhachHang, txtMaPhieu, dtNgayLapPhieu, numGiamGia, numTongTien, numDaTra, numConNo); /
             ctrlPhieuBan.HienthiPhieuBan(
                 bindingNavigator,
+                cmbNV,
                 cmbKhachHang,
                 txtMaPhieu,
                 dtNgayLapPhieu,
@@ -80,6 +84,15 @@ namespace CuahangNongduoc
             if (status == Controll.AddNew)
             {
                 txtMaPhieu.Text = ThamSo.LayMaPhieuBan().ToString();
+                DataTable dt = ctrlNguoiDung.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
+                if (dt.Rows.Count > 0)
+                {
+                    cmbNV.ValueMember = "ID";
+                    cmbNV.DisplayMember = "TEN_NGUOI_DUNG";
+                    cmbNV.DataSource = dt;
+                    cmbNV.SelectedValue = int.Parse(dt.Rows[0]["ID"].ToString());
+                    cmbNV.Text = dt.Rows[0]["TEN_NGUOI_DUNG"].ToString();
+                }
             }
             else
             {
@@ -343,6 +356,26 @@ namespace CuahangNongduoc
             this.Luu();
             status = Controll.Normal;
             this.Allow(false);
+            DataTable dt = ctrlMaSanPham.DanhSachMSP();
+            Dictionary<string, long> tongTheoMaSP = new Dictionary<string, long>();
+
+            foreach (DataRow row in dt.Rows)
+            {
+                string maSP = row["ID_SAN_PHAM"].ToString();
+                long soLuong = Convert.ToInt64(row["SO_LUONG"]);
+
+                if (tongTheoMaSP.ContainsKey(maSP))
+                    tongTheoMaSP[maSP] += soLuong;
+                else
+                    tongTheoMaSP[maSP] = soLuong;
+            }
+            // Sau khi cộng dồn xong, với mỗi sản phẩm trùng, cộng lại vào tồn kho
+            foreach (var item in tongTheoMaSP)
+            {
+                // Giả sử UpdateSoLuong(maSP, soLuong) là hàm "cập nhật tồn kho"
+                // bạn nên tạo riêng một hàm kiểu: Cộng lại tồn kho
+                ctrlSanPham.UpdateSoLuong(item.Key, item.Value);
+            }
         }
 
         void Luu()
@@ -410,7 +443,7 @@ namespace CuahangNongduoc
             row["GIAM_GIA"] = numGiamGia.Value;
             row["PHI_VAN_CHUYEN"] = numPhiVanChuyen.Value;
             row["ID_DICH_VU"] = cmbDichVu.SelectedValue;
-            row["ID_NGUOI_DUNG"] = 1; // Tạm gán cứng ID 1, bạn cần sửa lại theo người dùng đăng nhập
+            row["ID_NGUOI_DUNG"] = cmbNV.SelectedValue; // Tạm gán cứng ID 1, bạn cần sửa lại theo người dùng đăng nhập
 
 
             PhieuBanController ctrl = new PhieuBanController();
@@ -432,11 +465,19 @@ namespace CuahangNongduoc
             }
 
 
-            ctrlPhieuBan.LuuPhieuBanMoi(row);
-
+           if (ctrlPhieuBan.LuuPhieuBanMoi(row))
+            { 
             ctrlChiTiet.Save();
-
             MessageBox.Show("Lưu phiếu bán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            }
+            else
+            {
+                MessageBox.Show("Lưu phiếu bán thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
         }
 
         private void toolLuu_Them_Click(object sender, EventArgs e)
@@ -591,18 +632,34 @@ namespace CuahangNongduoc
             {
                 if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Phieu Ban Le", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
-                    IList<ChiTietPhieuBan> ds = ctrl.ChiTietPhieuBan(view["ID"].ToString());
-                    foreach (ChiTietPhieuBan ct in ds)
+                    //ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
+                    //IList<ChiTietPhieuBan> ds = ctrl.ChiTietPhieuBan(view["ID"].ToString());
+                    //foreach (ChiTietPhieuBan ct in ds)
+                    //{
+                    //    CuahangNongduoc.DataLayer.MaSanPhanFactory.CapNhatSoLuong(ct.MaSanPham.Id, Convert.ToInt32(ct.SoLuong));
+                    //}
+
+                    ////ctrlPhieuBan.XoaPhieuBan(view["ID"].ToString());
+
+                    //bindingNavigator.BindingSource.RemoveCurrent();
+                    string idLo = dgvDanhsachSP.SelectedRows[0].Cells["colMaSanPham"].Value.ToString();
+                    decimal soLuongXoa = Convert.ToDecimal(dgvDanhsachSP.SelectedRows[0].Cells["colSoLuong"].Value);
+
+                    if (soLuongLo.ContainsKey(idLo))
                     {
-                        CuahangNongduoc.DataLayer.MaSanPhanFactory.CapNhatSoLuong(ct.MaSanPham.Id, Convert.ToInt32(ct.SoLuong));
+                        soLuongLo[idLo] += soLuongXoa;
                     }
 
-                    ctrlPhieuBan.XoaPhieuBan(view["ID"].ToString());
+                    dgvDanhsachSP.Rows.Remove(dgvDanhsachSP.SelectedRows[0]);
 
-                    bindingNavigator.BindingSource.RemoveCurrent();
+                    if (cmbSanPham.SelectedValue != null)
+                    {
+                        string idSP = cmbSanPham.SelectedValue.ToString();
+                        viTriLo[idSP] = 0;
+                    }
+                    TinhToanTongTienCuoiCung(); // Thêm
 
-                  
+
                 }
             }
         }

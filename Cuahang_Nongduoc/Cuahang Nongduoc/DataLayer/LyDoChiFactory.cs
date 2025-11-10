@@ -14,7 +14,7 @@ namespace CuahangNongduoc.DataLayer
         public DataTable DanhsachLyDo()
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM LY_DO_CHI");
-            SqlCommand cmd = new SqlCommand("SELECT * FROM LY_DO_CHI");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM LY_DO_CHI WHERE Trang_Thai = 1");
             m_Ds.Load(cmd);
 
             return m_Ds;

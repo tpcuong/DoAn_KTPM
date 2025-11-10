@@ -26,7 +26,7 @@ namespace CuahangNongduoc.DataLayer
         public DataTable DanhsachPhieuChi()
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM PHIEU_CHI ");
-            SqlCommand cmd = new SqlCommand("SELECT * FROM PHIEU_CHI ");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM PHIEU_CHI  WHERE Trang_Thai = 1 ");
             m_Ds.Load(cmd);
             return m_Ds;
         }

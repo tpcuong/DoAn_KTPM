@@ -17,6 +17,7 @@ namespace CuahangNongduoc
         PhieuNhapController ctrl = new PhieuNhapController();
         MaSanPhamController ctrlMaSP = new MaSanPhamController();
         NhaCungCapController ctrlNCC = new NhaCungCapController();
+        NguoiDungController ctrlND = new NguoiDungController();
         PhieuNhap m_PhieuNhap = null;
 
 
@@ -43,13 +44,13 @@ namespace CuahangNongduoc
       
         private void frmNhapHang_Load(object sender, EventArgs e)
         {
-            
+            dataGridView.AutoGenerateColumns = false;
             ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
             ctrlSanPham.HienthiDataGridViewComboBoxColumn(colSanPham);
             ctrlNCC.HienthiAutoComboBox(cmbNhaCungCap);
+            ctrlND.HienthiAutoComboBox(cmbNV); //Người lập
 
 
-            
             ctrl.HienthiPhieuNhap(bindingNavigator, txtMaPhieu,cmbNhaCungCap, dtNgayNhap, numTongTien, numDaTra, numConNo);
             bindingNavigator.BindingSource.CurrentChanged -= new EventHandler(BindingSource_CurrentChanged);
             bindingNavigator.BindingSource.CurrentChanged += new EventHandler(BindingSource_CurrentChanged);
@@ -59,6 +60,12 @@ namespace CuahangNongduoc
             if (status == Controll.AddNew)
             {
                 txtMaPhieu.Text = ThamSo.LayMaPhieuNhap().ToString();
+               DataTable dt = ctrlND.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
+                if(dt.Rows.Count > 0)
+                {
+                    cmbNV.SelectedValue = dt.Rows[0]["ID"].ToString();
+                    
+                }
                 Allow(true);
             }
             else
@@ -107,17 +114,26 @@ namespace CuahangNongduoc
                 }
                 else
                 {
-                    numTongTien.Value += numThanhTien.Value;
-                    DataRow row = ctrlMaSP.NewRow();
-                    row["ID_SAN_PHAM"] = cmbSanPham.SelectedValue;
-                    row["ID_PHIEU_NHAP"] = txtMaPhieu.Text;
-                    row["ID"] = txtMaSo.Text;
-                    row["DON_GIA_NHAP"] = numGiaNhap.Value;
-                    row["SO_LUONG"] = numSoLuong.Value;
-                    row["NGAY_NHAP"] = dtNgaySanXuat.Value.Date;
-                    row["NGAY_SAN_XUAT"] = dtNgaySanXuat.Value.Date;
-                    row["NGAY_HET_HAN"] = dtNgayHetHan.Value.Date;
-                    ctrlMaSP.Add(row);
+                    try
+                    {
+                        numTongTien.Value += numThanhTien.Value;
+                        DataRow row = ctrlMaSP.NewRow();
+                        row["ID_SAN_PHAM"] = cmbSanPham.SelectedValue;
+                        row["ID_PHIEU_NHAP"] = txtMaPhieu.Text;
+                        row["ID"] = txtMaSo.Text;
+                        row["DON_GIA_NHAP"] = numGiaNhap.Value;
+                        row["SO_LUONG"] = numSoLuong.Value;
+                        row["NGAY_NHAP"] = dtNgaySanXuat.Value.Date;
+                        row["NGAY_SAN_XUAT"] = dtNgaySanXuat.Value.Date;
+                        row["NGAY_HET_HAN"] = dtNgayHetHan.Value.Date;
+
+                        ctrlMaSP.Add(row);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Lỗi thêm mã sản phẩm!", "Mã sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                     
                 }
             }
@@ -142,6 +158,12 @@ namespace CuahangNongduoc
             this.Luu();
             status = Controll.Normal;
             this.Allow(false);
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                CapNhapGiaBinhQUan(Convert.ToString(row.Cells["colSanPham"].Value),
+                    Convert.ToInt32(row.Cells["colSoLuong"].Value),
+                    Convert.ToDecimal(row.Cells["colDonGiaNhap"].Value));
+            }
         }
 
         void Luu()
@@ -171,6 +193,8 @@ namespace CuahangNongduoc
             row["ID_NHA_CUNG_CAP"] = cmbNhaCungCap.SelectedValue;
             row["DA_TRA"] = numDaTra.Value;
             row["CON_NO"] = numConNo.Value;
+            row["ID_NGUOI_DUNG"] = cmbNV.SelectedValue;
+
             ctrl.Add(row);
 
             PhieuNhapController ctrlPN = new PhieuNhapController();
@@ -285,11 +309,17 @@ namespace CuahangNongduoc
 
         private void btnRemove_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn chắc chắn xóa Phiếu Nhập này không?", "Phieu Nhap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            if (dataGridView.SelectedRows.Count > 0)
             {
-                DataRowView row = (DataRowView)bindingNavigator.BindingSource.Current;
-                numTongTien.Value -= Convert.ToInt64(row["DON_GIA_NHAP"]) * Convert.ToInt64(row["SO_LUONG"]);
+                if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+
+                    numTongTien.Value -= Convert.ToInt64(dataGridView.SelectedRows[0].Cells["colDonGiaNhap"].Value) * Convert.ToInt64(dataGridView.SelectedRows[0].Cells["colSoLuong"].Value);
+                    dataGridView.Rows.RemoveAt(dataGridView.SelectedRows[0].Index);
+
+                }
             }
+
         }
 
         private void dataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -308,8 +338,9 @@ namespace CuahangNongduoc
         {
             if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Phieu Nhap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                bindingNavigator.BindingSource.RemoveCurrent();
-                ctrl.Save();
+                btnRemove_Click(sender, e);
+                //bindingNavigator.BindingSource.RemoveCurrent();
+                //ctrl.Save();
             }
         }
 
@@ -324,8 +355,21 @@ namespace CuahangNongduoc
             NCC.ShowDialog();
             ctrlNCC.HienthiAutoComboBox(cmbNhaCungCap);
         }
-    
-     
+        private void CapNhapGiaBinhQUan(string id, int soluong, decimal giaNhap)
+        {
+            DataTable dt = ctrlSanPham.LaySanPhamTheoID(id);
+            if (dt.Rows.Count > 0)
+            {
+                decimal soLuongTon = Convert.ToDecimal(dt.Rows[0]["SO_LUONG"]);
+                decimal giaBinhQuanCu = Convert.ToDecimal(dt.Rows[0]["GIA_BINH_QUAN"]);
+
+                decimal giaBinhQuanMoi =
+                    ((soLuongTon * giaBinhQuanCu) + (soluong * giaNhap))
+                    / (soLuongTon + soluong);
+
+                ctrlSanPham.CapNhatGiaBinhQuan(id, giaBinhQuanMoi);
+            }
+        }
 
     }
 }

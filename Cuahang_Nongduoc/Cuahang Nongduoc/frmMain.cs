@@ -5,6 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using CuahangNongduoc.Controller;
+using CuahangNongduoc.DataLayer;
 using Microsoft.Win32;
 
 namespace CuahangNongduoc
@@ -13,9 +15,12 @@ namespace CuahangNongduoc
     {
         private string vaiTroHienTai;
         private string tenNguoiDungHienTai;
-
+        frmDangNhap DangNhap = null;
+        NguoiDungController ctrlNguoiDung = new NguoiDungController();
         public frmMain()
         {
+            Flash flash = new Flash();
+            flash.ShowDialog();
             InitializeComponent();
         }
         frmDonViTinh DonViTinh = null;
@@ -78,18 +83,102 @@ namespace CuahangNongduoc
             //    MessageBox.Show("Không thể kết nối dữ liệu!", "Cua hang Nong duoc", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //    this.Close();
             //}
-
+            dangNhap();
             DataService.OpenConnection();
             PhanQuyenNguoiDung(vaiTroHienTai);
 
         }
+        private void dangNhap()
+        {
+            while (true)
+            {
+                DangNhap = new frmDangNhap();
+                if (DangNhap.ShowDialog() == DialogResult.OK)
+                {
+                    string tenDangNhap = DangNhap.txtTenDangNhap.Text.Trim();
+                    string matKhau = DangNhap.txtMatKhau.Text.Trim();
+
+                    if (string.IsNullOrEmpty(tenDangNhap))
+                    {
+                        MessageBox.Show("Tên đăng nhập không được bỏ trống!");
+                        continue;
+                    }
+
+                    if (string.IsNullOrEmpty(matKhau))
+                    {
+                        MessageBox.Show("Mật khẩu không được bỏ trống!");
+                        continue;
+                    }
+
+                    string vaiTro, tenNguoiDung;
+                    if (ctrlNguoiDung.KiemTraDangNhap(tenDangNhap, matKhau, out vaiTro, out tenNguoiDung))
+                    {
+                        //MessageBox.Show("Đăng nhập thành công!", "Thông báo");
+                        vaiTroHienTai = vaiTro;
+                        tenNguoiDungHienTai = tenNguoiDung;
+                        ThamSo.Session.TenDangNhap = tenDangNhap;
+                        PhanQuyenNguoiDung(vaiTro);
+                        this.Text = $"Cửa hàng Nông dược - Chào {tenNguoiDung} - Chức vụ: {vaiTro}";
+                        break; // THOÁT vòng lặp
+                    }
+                    else
+                    {
+                        MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác.");
+                    }
+                }
+                else
+                {
+                    // Người dùng ấn Thoát
+                    Application.Exit();
+                    break;
+                }
+            }
+        }
+
 
         private void PhanQuyenNguoiDung(string vaiTro)
         {
             switch (vaiTro)
             {
                 case "Admin":
-                    
+                    expando1.Enabled = true;
+                    toolSanPham.Enabled = true;
+                    toolKhachHang.Enabled = true;
+                    toolDaiLy.Enabled = true;
+                    toolNhaCungCap.Enabled = true;
+                    mnuBaocao.Enabled = true;
+                    mnuQuanLy.Enabled = true;
+                    expando3.Enabled = true;
+                    toolBanLe.Enabled = true;
+                    toolBanSi.Enabled = true;
+                    toolNhapHang.Enabled = true;
+                    toolPhieuChi.Enabled = true;
+                    mnuHienThi.Enabled = true;
+                    toolTonKho.Enabled = true;
+                    toolThanhtoan.Enabled = true;
+                    ToolDangXuat.Enabled = true;
+                    ToolDangNhap.Enabled = false;
+                    break;
+
+                case "Nhan vien":
+                    expando1.Enabled = false;
+                    toolSanPham.Enabled = false;
+                    toolKhachHang.Enabled = false;
+                    toolDaiLy.Enabled = false;
+                    toolNhaCungCap.Enabled = false;
+                    mnuBaocao.Enabled = true;
+                    mnuQuanLy.Enabled = false;
+                    expando3.Enabled = true;
+                    ToolDangXuat.Enabled = true;
+                    ToolDangNhap.Enabled = false;
+                    toolNhapHang.Enabled = true;
+                    toolBanLe.Enabled = true;
+                    toolBanSi.Enabled = true;
+                    toolPhieuChi.Enabled = true;
+                    mnuHienThi.Enabled = true;
+                    toolTonKho.Enabled = true;
+                    toolThanhtoan.Enabled = true;
+
                     break;
 
                 default:
@@ -101,6 +190,15 @@ namespace CuahangNongduoc
                     mnuBaocao.Enabled = false;
                     mnuQuanLy.Enabled = false;
                     expando3.Enabled = false;
+                    toolBanLe.Enabled = false;
+                    toolBanSi.Enabled = false;
+                    toolNhapHang.Enabled = false;
+                    toolPhieuChi.Enabled = false;
+                    mnuHienThi.Enabled = false;
+                    toolTonKho.Enabled = false;
+                    toolThanhtoan.Enabled = false;
+                    ToolDangXuat.Enabled = false;
+                    ToolDangNhap.Enabled = true;
                     break;
             }
         }
@@ -354,17 +452,51 @@ namespace CuahangNongduoc
                 NguoiDung.Activate();
         }
 
-        frmInDichVu dichVu = null;
-        private void mnuDichVuPhatSinh_Click(object sender, EventArgs e)
+
+
+        private void ToolDangNhap_Click(object sender, EventArgs e)
         {
-            if (dichVu == null || dichVu.IsDisposed)
+            dangNhap();
+        }
+
+        private void ToolDangXuat_Click(object sender, EventArgs e)
+        {
+            foreach (Form f in this.MdiChildren)
             {
-                dichVu = new frmInDichVu();
-                dichVu.MdiParent = this;
-                dichVu.Show();
+                f.Close();
+            }
+
+            // Reset quyền
+            PhanQuyenNguoiDung("");
+            this.Text = "Cửa hàng Nông dược";
+
+            // Gọi lại đăng nhập
+            dangNhap();
+        }
+        frmInDichVu frmInDichVu = null;
+        frmInPhieuBanGiamGia frmInPhieuBanGiamGia = null;
+        private void mnuDichVuPhatSinh_Click_1(object sender, EventArgs e)
+        {
+            if (frmInDichVu == null || frmInDichVu.IsDisposed)
+            {
+                frmInDichVu = new frmInDichVu();
+                frmInDichVu.MdiParent = this;
+                frmInDichVu.Show();
             }
             else
-                dichVu.Activate();
+                frmInDichVu.Activate();
+        }
+
+        private void mnuHDGiamGIa_Click(object sender, EventArgs e)
+        {
+            if (frmInPhieuBanGiamGia == null || frmInPhieuBanGiamGia.IsDisposed)
+            {
+                frmInPhieuBanGiamGia = new frmInPhieuBanGiamGia();
+                frmInPhieuBanGiamGia.MdiParent = this;
+                frmInPhieuBanGiamGia.Show();
+            }
+            else
+                frmInPhieuBanGiamGia.Activate();
         }
     }
 }

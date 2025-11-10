@@ -72,6 +72,25 @@ namespace CuahangNongduoc.Controller
             }
             return ds;
         }
+
+        //design pattern DTO
+        public IList<ChiTietPhieuBanDTO> ChiTietPhieuBanDTO(DateTime dtNgayBan)
+        {
+            IList<ChiTietPhieuBanDTO> ds = new List<ChiTietPhieuBanDTO>();
+            DataTable tbl = factory.LayChiTietPhieuBan(dtNgayBan);
+            foreach (DataRow row in tbl.Rows) 
+            {
+                var ct = new ChiTietPhieuBanDTO 
+                {
+                    MaSanPham = Convert.ToString(row["ID_MA_SAN_PHAM"]),
+                    DonGia = Convert.ToInt64(row["DON_GIA"]),
+                    SoLuong = Convert.ToInt32(row["SO_LUONG"]),
+                    ThanhTien = Convert.ToInt64(row["THANH_TIEN"])
+                };
+                ds.Add(ct);
+            }
+            return ds;
+        }
         public IList<ChiTietPhieuBan> ChiTietPhieuBan(int thang, int nam)
         {
             IList<ChiTietPhieuBan> ds = new List<ChiTietPhieuBan>();

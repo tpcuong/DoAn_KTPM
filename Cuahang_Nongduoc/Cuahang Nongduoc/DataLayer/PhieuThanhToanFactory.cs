@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
@@ -9,15 +9,13 @@ namespace CuahangNongduoc.DataLayer
     public class PhieuThanhToanFactory
     {
         DataService m_Ds = new DataService();
-
         public DataTable DanhsachPhieuThanhToan()
         {
-            //OleDbCommand cmd = new OleDbCommand("SELECT * FROM PHIEU_THANH_TOAN ");
-            SqlCommand cmd = new SqlCommand("SELECT * FROM PHIEU_THANH_TOAN ");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM PHIEU_THANH_TOAN WHERE Trang_Thai = 1");
             m_Ds.Load(cmd);
-
             return m_Ds;
         }
+
         public DataTable TimPhieuThanhToan(String kh, DateTime ngay)
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM PHIEU_THANH_TOAN WHERE ID_KHACH_HANG=@kh AND NGAY_THANH_TOAN = @ngay");

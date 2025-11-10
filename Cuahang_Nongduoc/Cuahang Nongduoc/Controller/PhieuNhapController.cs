@@ -56,6 +56,8 @@ namespace CuahangNongduoc.Controller
                 ph.NhaCungCap = ctrlNCC.LayNCC(Convert.ToString(tbl.Rows[0]["ID_NHA_CUNG_CAP"]));
                 MaSanPhamController ctrl = new MaSanPhamController();
                 ph.ChiTiet = ctrl.ChiTietPhieuNhap(ph.Id);
+                NguoiDungController ctrlND = new NguoiDungController();
+                ph.NgDung = ctrlND.LayTenNguoiDung(Convert.ToString(tbl.Rows[0]["ID_NGUOI_DUNG"]));
             }
             return ph;
         }

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using CuahangNongduoc.DataLayer;
@@ -40,11 +40,12 @@ namespace CuahangNongduoc.Controller
                 ph.NgayThanhToan = Convert.ToDateTime(tbl.Rows[0]["NGAY_THANH_TOAN"]);
                 ph.TongTien = Convert.ToInt64(tbl.Rows[0]["TONG_TIEN"]);
                 ph.GhiChu = Convert.ToString(tbl.Rows[0]["GHI_CHU"]);
+                NguoiDungController ctrlND = new NguoiDungController();
+                ph.NgDung = ctrlND.LayTenNguoiDung(Convert.ToString(tbl.Rows[0]["ID_NGUOI_DUNG"]));
             }
             return ph;
         }
-        
-        public void HienthiPhieuThanhToan(BindingNavigator bn, DataGridView dg,ComboBox cmb, TextBox txt, DateTimePicker dt, NumericUpDown numTongTien, TextBox txtGhichu)
+        public void HienthiPhieuThanhToan(BindingNavigator bn, DataGridView dg,ComboBox cmbNV, ComboBox cmb, TextBox txt, DateTimePicker dt, NumericUpDown numTongTien, TextBox txtGhichu)
         {
             BindingSource bs = new BindingSource();
             bs.DataSource = factory.DanhsachPhieuThanhToan();
@@ -54,6 +55,9 @@ namespace CuahangNongduoc.Controller
             
             txt.DataBindings.Clear();
             txt.DataBindings.Add("Text", bs, "ID");
+
+            cmbNV.DataBindings.Clear();
+            cmbNV.DataBindings.Add("SelectedValue", bs, "ID_NGUOI_DUNG");
 
             cmb.DataBindings.Clear();
             cmb.DataBindings.Add("SelectedValue", bs, "ID_KHACH_HANG");
@@ -69,7 +73,7 @@ namespace CuahangNongduoc.Controller
 
 
         }
-        public void TimPhieuThanhToan(BindingNavigator bn, DataGridView dg, ComboBox cmb, TextBox txt, DateTimePicker dt, NumericUpDown numTongTien, TextBox txtGhichu,
+        public void TimPhieuThanhToan(BindingNavigator bn, DataGridView dg,ComboBox cmbNV, ComboBox cmb, TextBox txt, DateTimePicker dt, NumericUpDown numTongTien, TextBox txtGhichu,
             String idKH, DateTime dtNgayThu)
         {
             
@@ -81,6 +85,9 @@ namespace CuahangNongduoc.Controller
 
             txt.DataBindings.Clear();
             txt.DataBindings.Add("Text", bs, "ID");
+
+            cmbNV.DataBindings.Clear();
+            cmbNV.DataBindings.Add("SelectedValue", bs, "ID_NGUOI_DUNG");
 
             cmb.DataBindings.Clear();
             cmb.DataBindings.Add("SelectedValue", bs, "ID_KHACH_HANG");

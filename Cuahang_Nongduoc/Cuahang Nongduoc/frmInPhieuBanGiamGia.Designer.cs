@@ -29,22 +29,28 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource3 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            this.SoLuongTonBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dtpDenNgay = new System.Windows.Forms.DateTimePicker();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpTuNgay = new System.Windows.Forms.DateTimePicker();
+            this.btnXemNgay = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.reportViewer = new Microsoft.Reporting.WinForms.ReportViewer();
-            this.SoLuongTonBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnXemNgay = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbNhanVien = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.SoLuongTonBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SoLuongTonBindingSource)).BeginInit();
             this.SuspendLayout();
+            // 
+            // SoLuongTonBindingSource
+            // 
+            this.SoLuongTonBindingSource.DataSource = typeof(CuahangNongduoc.BusinessObject.SoLuongTon);
             // 
             // panel1
             // 
@@ -59,6 +65,8 @@
             // groupBox2
             // 
             this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox2.Controls.Add(this.cmbNhanVien);
+            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.dtpDenNgay);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.dtpTuNgay);
@@ -103,6 +111,20 @@
             this.dtpTuNgay.Size = new System.Drawing.Size(210, 31);
             this.dtpTuNgay.TabIndex = 6;
             // 
+            // btnXemNgay
+            // 
+            this.btnXemNgay.Image = global::CuahangNongduoc.Properties.Resources.reload;
+            this.btnXemNgay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnXemNgay.Location = new System.Drawing.Point(483, 81);
+            this.btnXemNgay.Margin = new System.Windows.Forms.Padding(6);
+            this.btnXemNgay.Name = "btnXemNgay";
+            this.btnXemNgay.Size = new System.Drawing.Size(160, 46);
+            this.btnXemNgay.TabIndex = 7;
+            this.btnXemNgay.Text = "Xem";
+            this.btnXemNgay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnXemNgay.UseVisualStyleBackColor = true;
+            this.btnXemNgay.Click += new System.EventHandler(this.btnXemNgay_Click);
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -127,9 +149,9 @@
             // reportViewer
             // 
             this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource3.Name = "CuahangNongduoc_BusinessObject_SoLuongTon";
-            reportDataSource3.Value = this.SoLuongTonBindingSource;
-            this.reportViewer.LocalReport.DataSources.Add(reportDataSource3);
+            reportDataSource1.Name = "CuahangNongduoc_BusinessObject_SoLuongTon";
+            reportDataSource1.Value = this.SoLuongTonBindingSource;
+            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer.LocalReport.ReportEmbeddedResource = "CuahangNongduoc.Report.rptSoLuongTon.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(0, 173);
             this.reportViewer.Margin = new System.Windows.Forms.Padding(6);
@@ -138,23 +160,23 @@
             this.reportViewer.Size = new System.Drawing.Size(1427, 585);
             this.reportViewer.TabIndex = 0;
             // 
-            // SoLuongTonBindingSource
+            // label3
             // 
-            this.SoLuongTonBindingSource.DataSource = typeof(CuahangNongduoc.BusinessObject.SoLuongTon);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(22, 92);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(115, 25);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Nhân viên:";
             // 
-            // btnXemNgay
+            // cmbNhanVien
             // 
-            this.btnXemNgay.Image = global::CuahangNongduoc.Properties.Resources.reload;
-            this.btnXemNgay.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnXemNgay.Location = new System.Drawing.Point(282, 77);
-            this.btnXemNgay.Margin = new System.Windows.Forms.Padding(6);
-            this.btnXemNgay.Name = "btnXemNgay";
-            this.btnXemNgay.Size = new System.Drawing.Size(160, 46);
-            this.btnXemNgay.TabIndex = 7;
-            this.btnXemNgay.Text = "Xem";
-            this.btnXemNgay.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnXemNgay.UseVisualStyleBackColor = true;
-            this.btnXemNgay.Click += new System.EventHandler(this.btnXemNgay_Click);
+            this.cmbNhanVien.FormattingEnabled = true;
+            this.cmbNhanVien.Location = new System.Drawing.Point(146, 89);
+            this.cmbNhanVien.Name = "cmbNhanVien";
+            this.cmbNhanVien.Size = new System.Drawing.Size(269, 33);
+            this.cmbNhanVien.TabIndex = 11;
             // 
             // frmInPhieuBanGiamGia
             // 
@@ -165,11 +187,11 @@
             this.Name = "frmInPhieuBanGiamGia";
             this.Text = "PHIEU BAN GIAM GIA";
             this.Load += new System.EventHandler(this.frmInPhieuBanGiamGia_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.SoLuongTonBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.SoLuongTonBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -186,5 +208,7 @@
         private System.Windows.Forms.BindingSource SoLuongTonBindingSource;
         private System.Windows.Forms.Panel panel2;
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer;
+        private System.Windows.Forms.ComboBox cmbNhanVien;
+        private System.Windows.Forms.Label label3;
     }
 }

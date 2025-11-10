@@ -23,14 +23,14 @@ namespace CuahangNongduoc.DataLayer
         public DataTable DanhsachPhieuBanLe()
         {
             DataService ds_le = new DataService();
-            SqlCommand cmd = new SqlCommand("SELECT PB.* FROM PHIEU_BAN PB INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG=KH.ID WHERE KH.LOAI_KH = 0");
+            SqlCommand cmd = new SqlCommand("SELECT PB.*,KH.*,ND.*,DV.* FROM PHIEU_BAN PB, KHACH_HANG KH, NGUOI_DUNG ND, DICH_VU DV WHERE PB.ID_DICH_VU = DV.ID AND PB.ID_KHACH_HANG=KH.ID AND ND.ID = PB.ID_NGUOI_DUNG AND KH.LOAI_KH = 0 AND PB.Trang_Thai = 1");
             ds_le.Load(cmd);
             return ds_le;
         }
         public DataTable DanhsachPhieuBanSi()
         {
             DataService ds_si = new DataService();
-            SqlCommand cmd = new SqlCommand("SELECT PB.* FROM PHIEU_BAN PB INNER JOIN KHACH_HANG KH ON PB.ID_KHACH_HANG=KH.ID WHERE KH.LOAI_KH = 1");
+            SqlCommand cmd = new SqlCommand("SELECT PB.*,KH.*,ND.*,DV.* FROM PHIEU_BAN PB, KHACH_HANG KH, NGUOI_DUNG ND, DICH_VU DV WHERE PB.ID_DICH_VU = DV.ID AND PB.ID_KHACH_HANG=KH.ID AND ND.ID = PB.ID_NGUOI_DUNG AND KH.LOAI_KH = 1 AND PB.Trang_Thai = 1");
             ds_si.Load(cmd);
             return ds_si;
         }
@@ -44,20 +44,37 @@ namespace CuahangNongduoc.DataLayer
             ds.Load(cmd);
             return ds; 
         }
-
+        // thêm
         public DataTable LayBaoCaoPhieuBanTheoNgay(DateTime tuNgay, DateTime denNgay)
         {
             DataService ds = new DataService(); 
             string query = @"
             SELECT *
             FROM PHIEU_BAN PB
-            WHERE PB.NGAY_BAN >= @tuNgay AND PB.NGAY_BAN <= @denNgay";
+            WHERE PB.NGAY_BAN >= @tuNgay AND PB.NGAY_BAN <= @denNgay
+            ORDER BY NGAY_BAN";
             SqlCommand cmd = new SqlCommand(query);
             cmd.Parameters.Add("tuNgay", SqlDbType.Date).Value = tuNgay;
             cmd.Parameters.Add("denNgay", SqlDbType.Date).Value = denNgay;
 
             ds.Load(cmd);
             return ds; 
+        }
+        // thêm
+        public DataTable LayPhieuBanNguoiDungTheoNgay(DateTime tuNgay, DateTime denNgay, string idNgDung)
+        {
+            DataService ds = new DataService();
+            string query = @"
+            SELECT *
+            FROM PHIEU_BAN
+            WHERE NGAY_BAN >= @tuNgay AND NGAY_BAN <= @denNgay AND ID_NGUOI_DUNG = @idNgDung
+            ORDER BY NGAY_BAN";
+            SqlCommand cmd = new SqlCommand(query);
+            cmd.Parameters.Add("tuNgay", SqlDbType.Date).Value = tuNgay;
+            cmd.Parameters.Add("denNgay", SqlDbType.Date).Value = denNgay;
+            cmd.Parameters.Add("idNgDung", SqlDbType.VarChar,50).Value = idNgDung;
+            ds.Load(cmd);
+            return ds;
         }
 
         public DataTable LayChiTietPhieuBan(String idPhieuBan)
@@ -108,10 +125,10 @@ namespace CuahangNongduoc.DataLayer
                 SqlCommand cmd = new SqlCommand(@"
                     INSERT INTO PHIEU_BAN
                     (ID, ID_NGUOI_DUNG, ID_KHACH_HANG, NGAY_BAN, TONG_TIEN, DA_TRA, CON_NO, 
-                     GIAM_GIA, PHI_DICH_VU, PHI_VAN_CHUYEN, ID_DICH_VU, TrangThai)
+                     GIAM_GIA, PHI_DICH_VU, PHI_VAN_CHUYEN, ID_DICH_VU,Trang_Thai)
                     VALUES
                     (@ID, @ID_NGUOI_DUNG, @ID_KHACH_HANG, @NGAY_BAN, @TONG_TIEN, @DA_TRA, @CON_NO,
-                     @GIAM_GIA, @PHI_DICH_VU, @PHI_VAN_CHUYEN, @ID_DICH_VU, 1)");
+                     @GIAM_GIA, @PHI_DICH_VU, @PHI_VAN_CHUYEN, @ID_DICH_VU,1)");
 
                 cmd.Parameters.AddWithValue("@ID", row["ID"]);
                 cmd.Parameters.AddWithValue("@ID_NGUOI_DUNG", row["ID_NGUOI_DUNG"]);
@@ -176,20 +193,6 @@ namespace CuahangNongduoc.DataLayer
         }
 
 
-        public bool DeletePhieuBan(string id)
-        {
-            DataService ds = new DataService();
-            try
-            {
-                SqlCommand cmd = new SqlCommand("DELETE FROM PHIEU_BAN WHERE ID = @id");
-                cmd.Parameters.Add("@id", SqlDbType.VarChar, 50).Value = id;
-                return ds.ExecuteNoneQuery(cmd) > 0;
-            }
-            catch (Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show("Lỗi khi Delete PHIEU_BAN: " + ex.Message);
-                return false;
-            }
-        }
+
     }
 }

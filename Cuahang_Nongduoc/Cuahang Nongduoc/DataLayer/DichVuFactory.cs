@@ -14,7 +14,7 @@ namespace CuahangNongduoc.DataLayer
         public DataTable LayDsDichVu()
         {
 
-            SqlCommand cmd = new SqlCommand("SELECT * FROM DICH_VU WHERE TrangThai = 1");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM DICH_VU WHERE Trang_Thai = 1");
 
             m_Ds.Load(cmd);
             return m_Ds;

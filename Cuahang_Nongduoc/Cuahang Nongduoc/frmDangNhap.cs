@@ -16,36 +16,12 @@ namespace CuahangNongduoc
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            string tenDangNhap = txtTenDangNhap.Text.Trim();
-            string matKhau = txtMatKhau.Text.Trim();
-
-            if (string.IsNullOrEmpty(tenDangNhap) || string.IsNullOrEmpty(matKhau))
-            {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin đăng nhập!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string vaiTro, tenNguoiDung;
-
-            if (nguoiDungCtrl.KiemTraDangNhap(tenDangNhap, matKhau, out vaiTro, out tenNguoiDung))
-            {
-                //MessageBox.Show("Đăng nhập thành công!", "Thông báo");
-                this.Hide();
-                frmMain main = new frmMain(vaiTro, tenNguoiDung);
-                main.ShowDialog();
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không chính xác.", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            this.DialogResult = DialogResult.OK;
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void frmDangNhap_Load(object sender, EventArgs e)

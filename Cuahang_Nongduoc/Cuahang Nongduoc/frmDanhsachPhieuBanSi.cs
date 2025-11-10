@@ -20,11 +20,14 @@ namespace CuahangNongduoc
         PhieuBanController ctrl = new PhieuBanController();
         KhachHangController ctrlKH = new KhachHangController();
         DichVuController ctrlDV = new DichVuController();
+        NguoiDungController ctrND = new NguoiDungController();
         private void frmDanhsachPhieuNhap_Load(object sender, EventArgs e)
         {
+            dataGridView.AutoGenerateColumns = false;
+
             ctrlKH.HienthiDaiLyDataGridviewComboBox(colKhachhang);
             ctrlDV.HienthiDichVuDataGridviewComboBox(colDichVu);
-            dataGridView.AutoGenerateColumns = false;
+            ctrND.HienthiNguoiDungDataGridviewComboBox(colNguoiDung); //Người lập
             ctrl.HienthiPhieuBanSi(bindingNavigator, dataGridView);
         }
         frmBanSi BanLe = null;
@@ -74,17 +77,33 @@ namespace CuahangNongduoc
              DataRowView view =  (DataRowView)bindingNavigator.BindingSource.Current;
              if (view != null)
              {
-                 if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Phieu Ban Le", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                 if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Phieu Ban Si", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                  {
-                     ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
-                     IList<ChiTietPhieuBan> ds = ctrl.ChiTietPhieuBan(view["ID"].ToString());
-                     foreach (ChiTietPhieuBan ct in ds)
-                     {
-                         CuahangNongduoc.DataLayer.MaSanPhanFactory.CapNhatSoLuong(ct.MaSanPham.Id, ct.SoLuong);
-                     }
-                     bindingNavigator.BindingSource.RemoveCurrent();
-                     ctrl.Save();
-                 }
+                    //ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
+                    //IList<ChiTietPhieuBan> ds = ctrl.ChiTietPhieuBan(view["ID"].ToString());
+                    //foreach (ChiTietPhieuBan ct in ds)
+                    //{
+                    //    CuahangNongduoc.DataLayer.MaSanPhanFactory.CapNhatSoLuong(ct.MaSanPham.Id, ct.SoLuong);
+                    //}
+                    //bindingNavigator.BindingSource.RemoveCurrent();
+                    //ctrl.Save();
+                    //Xoá phiếu bán ( cập nhật trạng thái)
+                    if (dataGridView.SelectedRows.Count > 0)
+                    {
+                        DataGridViewRow row = dataGridView.SelectedRows[0];
+                        string id = row.Cells["colid"].Value.ToString();
+                        if (ThamSo.Delete(id, "PHIEU_BAN"))
+                        {
+                            MessageBox.Show("Xóa thành công!", "Phieu Ban Le", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            frmDanhsachPhieuNhap_Load(sender, e);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Xóa thất bại!");
+                        }
+
+                    }
+                }
              }
         }
 

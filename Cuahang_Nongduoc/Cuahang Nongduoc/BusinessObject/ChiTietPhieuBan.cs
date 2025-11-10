@@ -48,4 +48,13 @@ namespace CuahangNongduoc.BusinessObject
             set { m_NgayHetHan = value; }
         }
     }
+    //design pattern DTO
+    public class ChiTietPhieuBanDTO 
+    {
+        public string MaSanPham { get; set; }
+        public long DonGia { get; set; }
+        public int SoLuong { get; set; }
+        public long ThanhTien { get; set; }
+
+    }
 }

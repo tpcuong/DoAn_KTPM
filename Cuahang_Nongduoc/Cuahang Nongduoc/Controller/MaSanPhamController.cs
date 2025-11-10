@@ -158,6 +158,10 @@ namespace CuahangNongduoc.Controller
             }
             return lst;
         }
+        public DataTable DanhSachMSP()
+        {
+            return factory.DanhsachMaSanPham();
+        }
 
         #endregion
 

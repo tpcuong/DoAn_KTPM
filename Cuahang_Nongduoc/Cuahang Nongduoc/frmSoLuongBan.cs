@@ -32,7 +32,7 @@ namespace CuahangNongduoc
         private void btnXemNgay_Click(object sender, EventArgs e)
         {
             IList<Microsoft.Reporting.WinForms.ReportParameter> param = new List<Microsoft.Reporting.WinForms.ReportParameter>();
-            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("ngay", "Ngày " + dtNgay.Value.Date.ToString("dd/MM/yyyy")));
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("ngay", "Ngày: " + dtNgay.Value.Date.ToString("dd/MM/yyyy")));
 
             this.reportViewer.LocalReport.SetParameters(param);
 
@@ -43,20 +43,25 @@ namespace CuahangNongduoc
                     r.DonGia,
                     r.SoLuong,
                     r.ThanhTien
-                }); ;
-            this.ChiTietPhieuBanBindingSource.DataSource = data;
+                }); 
+            // Design pattern DTO
+            this.ChiTietPhieuBanBindingSource.DataSource = ctrl.ChiTietPhieuBanDTO(dtNgay.Value.Date);
 
-            reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
-            reportViewer.ZoomMode = ZoomMode.Percent;
-            reportViewer.ZoomPercent = 100;
-            this.reportViewer.RefreshReport();
+            //Problem 
+            //reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            //reportViewer.ZoomMode = ZoomMode.Percent;
+            //reportViewer.ZoomPercent = 100;
+            //this.reportViewer.RefreshReport();
+
+            //Sololution: Extract Method
+            SetUpReport();
         }
 
         private void btnXemThang_Click(object sender, EventArgs e)
         {
             IList<Microsoft.Reporting.WinForms.ReportParameter> param = new List<Microsoft.Reporting.WinForms.ReportParameter>();
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("ngay",
-                "Tháng " + Convert.ToString(cmbThang.SelectedIndex + 1) + "/" + numNam.Value.ToString()));
+                "Tháng: " + Convert.ToString(cmbThang.SelectedIndex + 1) + "/" + numNam.Value.ToString()));
 
             this.reportViewer.LocalReport.SetParameters(param);
 
@@ -70,6 +75,18 @@ namespace CuahangNongduoc
                 });
             this.ChiTietPhieuBanBindingSource.DataSource = data;
 
+            //Problem 
+            //reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
+            //reportViewer.ZoomMode = ZoomMode.Percent;
+            //reportViewer.ZoomPercent = 100;
+            //this.reportViewer.RefreshReport();
+            
+            //Sololution: Extract Method
+            SetUpReport();
+        }
+
+        public void SetUpReport()
+        {
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);
             reportViewer.ZoomMode = ZoomMode.Percent;
             reportViewer.ZoomPercent = 100;
