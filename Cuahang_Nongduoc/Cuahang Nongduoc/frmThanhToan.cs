@@ -12,6 +12,7 @@ namespace CuahangNongduoc
     public partial class frmThanhToan : Form
     {
         KhachHangController ctrlKH = new KhachHangController();
+        NguoiDungController ctrlND = new NguoiDungController();
         PhieuThanhToanController ctrl = new PhieuThanhToanController();
         public frmThanhToan()
         {
@@ -20,9 +21,12 @@ namespace CuahangNongduoc
 
         private void frmThanhToan_Load(object sender, EventArgs e)
         {
+            dataGridView.AutoGenerateColumns = false;
             ctrlKH.HienthiChungAutoComboBox(cmbKhachHang);
             ctrlKH.HienthiKhachHangChungDataGridviewComboBox(colKhachHang);
-            ctrl.HienthiPhieuThanhToan(bindingNavigator, dataGridView, cmbKhachHang, txtMaPhieu, dtNgayThanhToan, numTongTien, txtGhiChu);
+           ctrlND.HienthiAutoComboBox(cmbNV);
+            ctrlND.HienthiNguoiDungDataGridviewComboBox(colNguoiDung); //Người lập
+            ctrl.HienthiPhieuThanhToan(bindingNavigator, dataGridView,cmbNV, cmbKhachHang, txtMaPhieu, dtNgayThanhToan, numTongTien, txtGhiChu);
             bindingNavigator.BindingSource.AddingNew += new AddingNewEventHandler(BindingSource_AddingNew);
         }
 
@@ -33,15 +37,17 @@ namespace CuahangNongduoc
 
         private void toolAdd_Click(object sender, EventArgs e)
         {
-            long maphieu = ThamSo.LayMaPhieuThanhToan();;
-            ThamSo.GanMaPhieuThanhToan(maphieu+1);
-
-            DataRow row = ctrl.NewRow();
-            row["ID"] = maphieu;
-            row["NGAY_THANH_TOAN"] = DateTime.Now.Date;
-            row["TONG_TIEN"] = numTongTien.Value;
-            ctrl.Add(row);
-            bindingNavigator.BindingSource.MoveLast();
+            MessageBox.Show("Hãy nhập dữ liệu rồi ấn lưu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            long maphieu = ThamSo.LayMaPhieuThanhToan();
+            txtGhiChu.Text = "";
+            cmbKhachHang.Text = ""; 
+            numTongTien.Value = 0;
+            txtMaPhieu.Text = (maphieu + 1).ToString();
+            DataTable dt = ctrlND.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
+            if (dt.Rows.Count > 0)
+            {
+                cmbNV.SelectedValue = Convert.ToInt64(dt.Rows[0]["ID"]);
+            }
         }
 
         private void dataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -56,16 +62,61 @@ namespace CuahangNongduoc
         {
             if (MessageBox.Show("Bạn chắc chắn xóa phiếu thanh toán này không?", "Phieu Thanh Toan", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                bindingNavigator.BindingSource.RemoveCurrent();
-                ctrl.Save();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    try
+                    {
+
+
+                        DataGridViewRow row = dataGridView.SelectedRows[0];
+                        string id = row.Cells["colMaPhieu"].Value.ToString();
+                        ThamSo.Delete(id, "PHIEU_THANH_TOAN");
+
+                        MessageBox.Show("Xóa thành công!", "Phieu thanh toan", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        frmThanhToan_Load(sender, e);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Xóa thất bại!");
+                    }
+
+
+
+                }
+                //bindingNavigator.BindingSource.RemoveCurrent();
+                //ctrl.Save();
             }
         }
 
         private void toolSave_Click(object sender, EventArgs e)
         {
-            txtMaPhieu.Focus();
-            bindingNavigator.BindingSource.MoveNext();
-            ctrl.Save();
+
+            try
+            {
+                long maphieu = ThamSo.LayMaPhieuThanhToan(); ;
+                ThamSo.GanMaPhieuThanhToan(maphieu + 1);
+
+                DataRow row = ctrl.NewRow();
+                row["ID"] = maphieu;
+                row["NGAY_THANH_TOAN"] = dtNgayThanhToan.Value;
+                row["TONG_TIEN"] = numTongTien.Value;
+                row["GHI_CHU"] = txtGhiChu.Text;
+                row["ID_KHACH_HANG"] = cmbKhachHang.SelectedValue;
+                row["ID_NGUOI_DUNG"] = cmbNV.SelectedValue;
+
+                ctrl.Add(row);
+                bindingNavigator.BindingSource.MoveLast();
+                txtMaPhieu.Focus();
+                bindingNavigator.BindingSource.MoveNext();
+                ctrl.Save();
+                
+                MessageBox.Show("Lưu phiếu thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lưu phiếu thanh toán: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            frmThanhToan_Load(sender, e);
         }
 
         private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -96,7 +147,7 @@ namespace CuahangNongduoc
             Tim.ShowDialog();
             if (Tim.DialogResult == DialogResult.OK)
             {
-                ctrl.TimPhieuThanhToan(bindingNavigator, dataGridView, cmbKhachHang, txtMaPhieu, dtNgayThanhToan, numTongTien, txtGhiChu,
+                ctrl.TimPhieuThanhToan(bindingNavigator, dataGridView,cmbNV, cmbKhachHang, txtMaPhieu, dtNgayThanhToan, numTongTien, txtGhiChu,
                     Tim.cmbKhachHang.SelectedValue.ToString(), Tim.dtNgayThu.Value.Date);
             }
         }

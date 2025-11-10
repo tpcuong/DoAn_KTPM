@@ -78,7 +78,7 @@ namespace CuahangNongduoc
                 reportViewer.LocalReport.DataSources.Add(reportDataSource);
                 reportViewer.LocalReport.ReportPath = Path.Combine(reportFolder, "rptDsDuNoKhachHang.rdlc");
 
-                ReportParameter reportParameter = new ReportParameter("ngay", DateTime.Now.ToString("dd/MM/yyyy"));
+                ReportParameter reportParameter = new ReportParameter("ngay", "Ngày: "+DateTime.Now.ToString("dd/MM/yyyy"));
                 reportViewer.LocalReport.SetParameters(reportParameter);
             }
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);

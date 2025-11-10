@@ -855,7 +855,7 @@ namespace CuahangNongduoc.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PhieuBanRow AddPhieuBanRow(string Id, string KhachHang, System.DateTime NgayBan, double TongTienCuoi, double DaTra, double ConNo, double PhiDichVu, double GiamGia, double TongTien, string PhiVanChuyen) {
+            public PhieuBanRow AddPhieuBanRow(string Id, string KhachHang, System.DateTime NgayBan, double TongTienCuoi, double DaTra, double ConNo, double PhiDichVu, double GiamGia, double TongTien, double PhiVanChuyen) {
                 PhieuBanRow rowPhieuBanRow = ((PhieuBanRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Id,
@@ -923,7 +923,7 @@ namespace CuahangNongduoc.DataSet {
                 base.Columns.Add(this.columnGiamGia);
                 this.columnTongTien = new global::System.Data.DataColumn("TongTien", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTongTien);
-                this.columnPhiVanChuyen = new global::System.Data.DataColumn("PhiVanChuyen", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnPhiVanChuyen = new global::System.Data.DataColumn("PhiVanChuyen", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPhiVanChuyen);
                 this.columnKhachHang.Caption = "ID";
                 this.columnNgayBan.Caption = "ID";
@@ -1807,10 +1807,10 @@ namespace CuahangNongduoc.DataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string PhiVanChuyen {
+            public double PhiVanChuyen {
                 get {
                     try {
-                        return ((string)(this[this.tablePhieuBan.PhiVanChuyenColumn]));
+                        return ((double)(this[this.tablePhieuBan.PhiVanChuyenColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'PhiVanChuyen\' in table \'PhieuBan\' is DBNull.", e);

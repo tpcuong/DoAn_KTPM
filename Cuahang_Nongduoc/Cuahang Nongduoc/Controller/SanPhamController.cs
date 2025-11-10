@@ -19,8 +19,16 @@ namespace CuahangNongduoc.Controller
             cmb.DataSource = tbl;
             cmb.DisplayMember = "TEN_SAN_PHAM";
             cmb.ValueMember = "ID";
-            cmb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            cmb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            //cmb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            //cmb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+        }
+        public bool CapNhatGiaBinhQuan(string id, decimal giaBinhQuan)
+        {
+            return factory.CapNhatGiaBinhQuan(id, giaBinhQuan);
+        }
+        public DataTable LaySanPhamTheoID(string id)
+        {
+            return factory.LaySanPham(id);
         }
         public List<SanPham> DanhSachSanPham()
         {
@@ -58,7 +66,7 @@ namespace CuahangNongduoc.Controller
         }
 
         public void HienthiDataGridview(System.Windows.Forms.DataGridView dg, System.Windows.Forms.BindingNavigator bn,
-            TextBox txtMaSp, TextBox txtTenSp, ComboBox cmbDVT, NumericUpDown numSL, NumericUpDown numDonGiaNhap, NumericUpDown numGiaBanSi, NumericUpDown numGiaBanLe)
+            TextBox txtMaSp, TextBox txtTenSp, ComboBox cmbDVT, NumericUpDown numDonGiaNhap, NumericUpDown numGiaBanSi, NumericUpDown numGiaBanLe)
         {
             System.Windows.Forms.BindingSource bs = new System.Windows.Forms.BindingSource();
             bs.DataSource = factory.DanhsachSanPham();
@@ -71,9 +79,6 @@ namespace CuahangNongduoc.Controller
 
             cmbDVT.DataBindings.Clear();
             cmbDVT.DataBindings.Add("SelectedValue", bs, "ID_DON_VI_TINH");
-
-            numSL.DataBindings.Clear();
-            numSL.DataBindings.Add("Value", bs, "SO_LUONG");
 
             numDonGiaNhap.DataBindings.Clear();
             numDonGiaNhap.DataBindings.Add("Value", bs, "DON_GIA_NHAP");
@@ -180,7 +185,10 @@ namespace CuahangNongduoc.Controller
             return ds;
 
         }
-
+        public bool UpdateSoLuong(string id, long so_luong)
+        {
+            return factory.UpdateSoLuong(id, so_luong);
+        }
         public DataRow NewRow()
         {
             return factory.NewRow();

@@ -172,6 +172,8 @@
                                 <TextRun>
                                   <Value>STT</Value>
                                   <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -206,6 +208,8 @@
                                 <TextRun>
                                   <Value>Mã Sản Phẩm</Value>
                                   <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -240,6 +244,8 @@
                                 <TextRun>
                                   <Value>Tên Sản Phẩm</Value>
                                   <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -274,6 +280,8 @@
                                 <TextRun>
                                   <Value>DVT</Value>
                                   <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -308,6 +316,8 @@
                                 <TextRun>
                                   <Value>Tồn đầu</Value>
                                   <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -342,6 +352,8 @@
                                 <TextRun>
                                   <Value>Nhập trong kỳ</Value>
                                   <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -376,6 +388,8 @@
                                 <TextRun>
                                   <Value>Bán trong kỳ</Value>
                                   <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -410,6 +424,8 @@
                                 <TextRun>
                                   <Value>SL tồn</Value>
                                   <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -448,7 +464,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Rownumber(nothing)</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -480,7 +499,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!MaSanPham.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -512,7 +534,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!TenSanPham.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -544,7 +569,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!DonViTinh.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -576,7 +604,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!DonGiaNhap.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -608,7 +639,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!GiaBanLe.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -640,7 +674,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!GiaBanSi.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -672,7 +709,10 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!SoLuongTon.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>

@@ -19,6 +19,7 @@ namespace CuahangNongduoc
 
         private void frmDonViTinh_Load(object sender, EventArgs e)
         {
+            dataGridView.AutoGenerateColumns = false;
             ctrl.HienthiDataGridview(dataGridView, bindingNavigator);
         }
 

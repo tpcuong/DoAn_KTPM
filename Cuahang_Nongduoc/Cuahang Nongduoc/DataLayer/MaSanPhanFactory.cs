@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
 using System.Data.OleDb;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 namespace CuahangNongduoc.DataLayer
 {
     public class MaSanPhanFactory
@@ -96,7 +97,14 @@ namespace CuahangNongduoc.DataLayer
         }
         public void Add(DataRow row)
         {
-            m_Ds.Rows.Add(row);
+            try
+            {
+                m_Ds.Rows.Add(row);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Lỗi thêm mã sản phẩm!", "Mã sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         public bool Save()
         {

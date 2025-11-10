@@ -789,7 +789,7 @@
                       <FontStyle>Italic</FontStyle>
                       <FontFamily>times New Roman</FontFamily>
                       <FontSize>11pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
+                      <FontWeight>Normal</FontWeight>
                     </Style>
                   </TextRun>
                 </TextRuns>

@@ -110,6 +110,7 @@
                                   <Value>STT</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -147,6 +148,7 @@
                                   <Value>Sản phẩm</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -184,6 +186,7 @@
                                   <Value>Mã số</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -221,6 +224,7 @@
                                   <Value>Giá nhập</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -258,6 +262,7 @@
                                   <Value>Số lượng</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -295,6 +300,7 @@
                                   <Value>Thành tiền</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -333,6 +339,7 @@
 sản xuất</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -371,6 +378,7 @@ sản xuất</Value>
 hết hạn</Value>
                                   <Style>
                                     <FontFamily>Times New Roman</FontFamily>
+                                    <FontSize>11pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -434,7 +442,6 @@ hết hạn</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

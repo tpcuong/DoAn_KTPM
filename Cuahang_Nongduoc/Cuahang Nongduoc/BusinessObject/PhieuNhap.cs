@@ -65,7 +65,12 @@ namespace CuahangNongduoc.BusinessObject
             get { return m_ChiTiet; }
             set { m_ChiTiet = value; }
         }
+        private NguoiDung m_NgDung;
 
-	
+        public NguoiDung NgDung
+        {
+            get { return m_NgDung; }
+            set { m_NgDung = value; }
+        }
     }
 }

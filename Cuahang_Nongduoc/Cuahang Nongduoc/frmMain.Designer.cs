@@ -32,6 +32,8 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.mnuHeThong = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuThoat = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolDangNhap = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolDangXuat = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHienThi = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuThanhCongCu = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuThanhChucNang = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,6 +59,8 @@
             this.mnuSoLuongBan = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuSanphamHethan = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuDichVuPhatSinh = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHDGiamGIa = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTuychinh = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTuychinhThongtin = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTrogiup = new System.Windows.Forms.ToolStripMenuItem();
@@ -124,7 +128,9 @@
             // mnuHeThong
             // 
             this.mnuHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuThoat});
+            this.mnuThoat,
+            this.ToolDangNhap,
+            this.ToolDangXuat});
             this.mnuHeThong.Name = "mnuHeThong";
             this.mnuHeThong.Size = new System.Drawing.Size(69, 20);
             this.mnuHeThong.Text = "Hệ thống";
@@ -133,9 +139,23 @@
             // 
             this.mnuThoat.Image = global::CuahangNongduoc.Properties.Resources.Thoat;
             this.mnuThoat.Name = "mnuThoat";
-            this.mnuThoat.Size = new System.Drawing.Size(105, 22);
+            this.mnuThoat.Size = new System.Drawing.Size(135, 22);
             this.mnuThoat.Text = "Thoát";
             this.mnuThoat.Click += new System.EventHandler(this.mnuThoat_Click);
+            // 
+            // ToolDangNhap
+            // 
+            this.ToolDangNhap.Name = "ToolDangNhap";
+            this.ToolDangNhap.Size = new System.Drawing.Size(135, 22);
+            this.ToolDangNhap.Text = "Đăng nhập ";
+            this.ToolDangNhap.Click += new System.EventHandler(this.ToolDangNhap_Click);
+            // 
+            // ToolDangXuat
+            // 
+            this.ToolDangXuat.Name = "ToolDangXuat";
+            this.ToolDangXuat.Size = new System.Drawing.Size(135, 22);
+            this.ToolDangXuat.Text = "Đăng xuất";
+            this.ToolDangXuat.Click += new System.EventHandler(this.ToolDangXuat_Click);
             // 
             // mnuHienThi
             // 
@@ -151,14 +171,14 @@
             this.mnuThanhCongCu.Checked = true;
             this.mnuThanhCongCu.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mnuThanhCongCu.Name = "mnuThanhCongCu";
-            this.mnuThanhCongCu.Size = new System.Drawing.Size(167, 22);
+            this.mnuThanhCongCu.Size = new System.Drawing.Size(166, 22);
             this.mnuThanhCongCu.Text = "Thanh công cụ";
             this.mnuThanhCongCu.Click += new System.EventHandler(this.mnuThanhCongCu_Click);
             // 
             // mnuThanhChucNang
             // 
             this.mnuThanhChucNang.Name = "mnuThanhChucNang";
-            this.mnuThanhChucNang.Size = new System.Drawing.Size(167, 22);
+            this.mnuThanhChucNang.Size = new System.Drawing.Size(166, 22);
             this.mnuThanhChucNang.Text = "Thanh chức năng";
             this.mnuThanhChucNang.Click += new System.EventHandler(this.mnuThanhChucNang_Click);
             // 
@@ -246,7 +266,7 @@
             // 
             this.mnuNhapHang.Image = global::CuahangNongduoc.Properties.Resources.Phieunhap;
             this.mnuNhapHang.Name = "mnuNhapHang";
-            this.mnuNhapHang.Size = new System.Drawing.Size(160, 22);
+            this.mnuNhapHang.Size = new System.Drawing.Size(159, 22);
             this.mnuNhapHang.Text = "Nhập hàng";
             this.mnuNhapHang.Click += new System.EventHandler(this.mnuNhapHang_Click);
             // 
@@ -256,7 +276,7 @@
             this.mnuBanHangKH,
             this.mnuBanHangDL});
             this.mnuBanHang.Name = "mnuBanHang";
-            this.mnuBanHang.Size = new System.Drawing.Size(160, 22);
+            this.mnuBanHang.Size = new System.Drawing.Size(159, 22);
             this.mnuBanHang.Text = "Bán hàng";
             // 
             // mnuBanHangKH
@@ -279,7 +299,7 @@
             // 
             this.mnuPhieuChi.Image = global::CuahangNongduoc.Properties.Resources.PhieuChi;
             this.mnuPhieuChi.Name = "mnuPhieuChi";
-            this.mnuPhieuChi.Size = new System.Drawing.Size(160, 22);
+            this.mnuPhieuChi.Size = new System.Drawing.Size(159, 22);
             this.mnuPhieuChi.Text = "Phiếu chi";
             this.mnuPhieuChi.Click += new System.EventHandler(this.mnuPhieuChi_Click);
             // 
@@ -287,20 +307,20 @@
             // 
             this.mnuThanhtoan.Image = global::CuahangNongduoc.Properties.Resources.Thanhtoan;
             this.mnuThanhtoan.Name = "mnuThanhtoan";
-            this.mnuThanhtoan.Size = new System.Drawing.Size(160, 22);
+            this.mnuThanhtoan.Size = new System.Drawing.Size(159, 22);
             this.mnuThanhtoan.Text = "Phiếu thu";
             this.mnuThanhtoan.Click += new System.EventHandler(this.mnuThanhtoan_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(156, 6);
             // 
             // mnuTonghopDuno
             // 
             this.mnuTonghopDuno.Image = global::CuahangNongduoc.Properties.Resources.DunoKhachhang;
             this.mnuTonghopDuno.Name = "mnuTonghopDuno";
-            this.mnuTonghopDuno.Size = new System.Drawing.Size(160, 22);
+            this.mnuTonghopDuno.Size = new System.Drawing.Size(159, 22);
             this.mnuTonghopDuno.Text = "Tổng hợp dư nợ";
             this.mnuTonghopDuno.Click += new System.EventHandler(this.mnuTonghopDuno_Click);
             // 
@@ -310,7 +330,9 @@
             this.mnuBaocaoSoluongton,
             this.mnuSoLuongBan,
             this.toolStripSeparator5,
-            this.mnuSanphamHethan});
+            this.mnuSanphamHethan,
+            this.mnuDichVuPhatSinh,
+            this.mnuHDGiamGIa});
             this.mnuBaocao.Name = "mnuBaocao";
             this.mnuBaocao.Size = new System.Drawing.Size(61, 20);
             this.mnuBaocao.Text = "Báo cáo";
@@ -319,7 +341,7 @@
             // 
             this.mnuBaocaoSoluongton.Image = global::CuahangNongduoc.Properties.Resources.TonKho;
             this.mnuBaocaoSoluongton.Name = "mnuBaocaoSoluongton";
-            this.mnuBaocaoSoluongton.Size = new System.Drawing.Size(170, 22);
+            this.mnuBaocaoSoluongton.Size = new System.Drawing.Size(180, 22);
             this.mnuBaocaoSoluongton.Text = "Số lượng tồn";
             this.mnuBaocaoSoluongton.Click += new System.EventHandler(this.mnuBaocaoSoluongton_Click);
             // 
@@ -327,36 +349,50 @@
             // 
             this.mnuSoLuongBan.Image = global::CuahangNongduoc.Properties.Resources.Soluongban;
             this.mnuSoLuongBan.Name = "mnuSoLuongBan";
-            this.mnuSoLuongBan.Size = new System.Drawing.Size(170, 22);
+            this.mnuSoLuongBan.Size = new System.Drawing.Size(180, 22);
             this.mnuSoLuongBan.Text = "Số lượng bán";
             this.mnuSoLuongBan.Click += new System.EventHandler(this.mnuSoLuongBan_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(167, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuSanphamHethan
             // 
             this.mnuSanphamHethan.Image = global::CuahangNongduoc.Properties.Resources.SanPhamHethan;
             this.mnuSanphamHethan.Name = "mnuSanphamHethan";
-            this.mnuSanphamHethan.Size = new System.Drawing.Size(170, 22);
+            this.mnuSanphamHethan.Size = new System.Drawing.Size(180, 22);
             this.mnuSanphamHethan.Text = "Sản phẩm hết hạn";
             this.mnuSanphamHethan.Click += new System.EventHandler(this.mnuSanphamHethan_Click);
+            // 
+            // mnuDichVuPhatSinh
+            // 
+            this.mnuDichVuPhatSinh.Name = "mnuDichVuPhatSinh";
+            this.mnuDichVuPhatSinh.Size = new System.Drawing.Size(180, 22);
+            this.mnuDichVuPhatSinh.Text = "Dịch vụ phát sinh";
+            this.mnuDichVuPhatSinh.Click += new System.EventHandler(this.mnuDichVuPhatSinh_Click_1);
+            // 
+            // mnuHDGiamGIa
+            // 
+            this.mnuHDGiamGIa.Name = "mnuHDGiamGIa";
+            this.mnuHDGiamGIa.Size = new System.Drawing.Size(180, 22);
+            this.mnuHDGiamGIa.Text = "Hoá đơn giảm giá";
+            this.mnuHDGiamGIa.Click += new System.EventHandler(this.mnuHDGiamGIa_Click);
             // 
             // mnuTuychinh
             // 
             this.mnuTuychinh.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuTuychinhThongtin});
             this.mnuTuychinh.Name = "mnuTuychinh";
-            this.mnuTuychinh.Size = new System.Drawing.Size(72, 20);
+            this.mnuTuychinh.Size = new System.Drawing.Size(71, 20);
             this.mnuTuychinh.Text = "Tùy chỉnh";
             // 
             // mnuTuychinhThongtin
             // 
             this.mnuTuychinhThongtin.Image = global::CuahangNongduoc.Properties.Resources.info;
             this.mnuTuychinhThongtin.Name = "mnuTuychinhThongtin";
-            this.mnuTuychinhThongtin.Size = new System.Drawing.Size(180, 22);
+            this.mnuTuychinhThongtin.Size = new System.Drawing.Size(179, 22);
             this.mnuTuychinhThongtin.Text = "Thông tin Cửa hàng";
             this.mnuTuychinhThongtin.Click += new System.EventHandler(this.mnuTuychinhThongtin_Click);
             // 
@@ -366,7 +402,7 @@
             this.mnuTrogiupHuongdan,
             this.mnuTrogiupLienhe});
             this.mnuTrogiup.Name = "mnuTrogiup";
-            this.mnuTrogiup.Size = new System.Drawing.Size(64, 20);
+            this.mnuTrogiup.Size = new System.Drawing.Size(62, 20);
             this.mnuTrogiup.Text = "Trợ giúp";
             // 
             // mnuTrogiupHuongdan
@@ -468,7 +504,7 @@
             this.toolTonKho.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolTonKho.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolTonKho.Name = "toolTonKho";
-            this.toolTonKho.Size = new System.Drawing.Size(55, 43);
+            this.toolTonKho.Size = new System.Drawing.Size(54, 43);
             this.toolTonKho.Text = "Tồn kho";
             this.toolTonKho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolTonKho.Click += new System.EventHandler(this.mnuBaocaoSoluongton_Click);
@@ -559,7 +595,7 @@
             // expando1
             // 
             this.expando1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.expando1.CustomHeaderSettings.NormalGradientEndColor = System.Drawing.Color.SteelBlue;
             this.expando1.CustomHeaderSettings.NormalGradientStartColor = System.Drawing.Color.MediumSeaGreen;
             this.expando1.CustomHeaderSettings.NormalTitleColor = System.Drawing.Color.White;
@@ -583,7 +619,7 @@
             // itemDaiLy
             // 
             this.itemDaiLy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemDaiLy.BackColor = System.Drawing.Color.Transparent;
             this.itemDaiLy.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemDaiLy.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -601,7 +637,7 @@
             // itemKhachHang
             // 
             this.itemKhachHang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemKhachHang.BackColor = System.Drawing.Color.Transparent;
             this.itemKhachHang.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemKhachHang.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -619,7 +655,7 @@
             // itemSanPham
             // 
             this.itemSanPham.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemSanPham.BackColor = System.Drawing.Color.Transparent;
             this.itemSanPham.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemSanPham.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -638,7 +674,7 @@
             // itemNhaCungCap
             // 
             this.itemNhaCungCap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemNhaCungCap.BackColor = System.Drawing.Color.Transparent;
             this.itemNhaCungCap.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemNhaCungCap.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -656,7 +692,7 @@
             // expando2
             // 
             this.expando2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.expando2.CustomHeaderSettings.NormalGradientEndColor = System.Drawing.Color.SteelBlue;
             this.expando2.CustomHeaderSettings.NormalGradientStartColor = System.Drawing.Color.MediumSeaGreen;
             this.expando2.CustomHeaderSettings.NormalTitleColor = System.Drawing.Color.White;
@@ -681,7 +717,7 @@
             // itemNhapHang
             // 
             this.itemNhapHang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemNhapHang.BackColor = System.Drawing.Color.Transparent;
             this.itemNhapHang.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemNhapHang.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -699,7 +735,7 @@
             // itemBanSi
             // 
             this.itemBanSi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemBanSi.BackColor = System.Drawing.Color.Transparent;
             this.itemBanSi.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemBanSi.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -717,7 +753,7 @@
             // itemBanLe
             // 
             this.itemBanLe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemBanLe.BackColor = System.Drawing.Color.Transparent;
             this.itemBanLe.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemBanLe.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -735,7 +771,7 @@
             // itemThanhToan
             // 
             this.itemThanhToan.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemThanhToan.BackColor = System.Drawing.Color.Transparent;
             this.itemThanhToan.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemThanhToan.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -753,7 +789,7 @@
             // itemPhieuChi
             // 
             this.itemPhieuChi.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemPhieuChi.BackColor = System.Drawing.Color.Transparent;
             this.itemPhieuChi.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemPhieuChi.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -771,7 +807,7 @@
             // expando3
             // 
             this.expando3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.expando3.CustomHeaderSettings.NormalGradientEndColor = System.Drawing.Color.SteelBlue;
             this.expando3.CustomHeaderSettings.NormalGradientStartColor = System.Drawing.Color.MediumSeaGreen;
             this.expando3.CustomHeaderSettings.NormalTitleColor = System.Drawing.Color.White;
@@ -794,7 +830,7 @@
             // itemTonghopDoanhthu
             // 
             this.itemTonghopDoanhthu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemTonghopDoanhthu.BackColor = System.Drawing.Color.Transparent;
             this.itemTonghopDoanhthu.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemTonghopDoanhthu.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -812,7 +848,7 @@
             // itemTonKho
             // 
             this.itemTonKho.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.itemTonKho.BackColor = System.Drawing.Color.Transparent;
             this.itemTonKho.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.itemTonKho.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -829,7 +865,7 @@
             // taskItem1
             // 
             this.taskItem1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.taskItem1.BackColor = System.Drawing.Color.Transparent;
             this.taskItem1.CustomSettings.HotLinkColor = System.Drawing.Color.PaleGreen;
             this.taskItem1.CustomSettings.LinkColor = System.Drawing.Color.Maroon;
@@ -943,5 +979,9 @@
         private System.Windows.Forms.ToolStripButton toolPhieuChi;
         private XPExplorerBar.TaskItem itemPhieuChi;
         private XPExplorerBar.TaskItem taskItem1;
+        private System.Windows.Forms.ToolStripMenuItem ToolDangNhap;
+        private System.Windows.Forms.ToolStripMenuItem ToolDangXuat;
+        private System.Windows.Forms.ToolStripMenuItem mnuDichVuPhatSinh;
+        private System.Windows.Forms.ToolStripMenuItem mnuHDGiamGIa;
     }
 }

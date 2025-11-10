@@ -34,6 +34,7 @@ namespace CuahangNongduoc
 
         private void frmNhaCungCap_Load(object sender, EventArgs e)
         {
+            dataGridView.AutoGenerateColumns = false;
             ctrl.HienthiDataGridview(dataGridView, bindingNavigator);
         }
 

@@ -65,7 +65,7 @@ namespace CuahangNongduoc.Controller
             if (dt.Rows.Count == 0) return false;
             if (!(bool)dt.Rows[0]["TRANG_THAI"]) return false;
 
-            string hashMatKhau = dt.Rows[0]["MAT_KHAU"].ToString();
+            string hashMatKhau = dt.Rows[0]["MAT_KHAU_HASH"].ToString();
             string inputHash = HashSHA256(matKhau);
 
             if (string.Equals(hashMatKhau, inputHash, StringComparison.OrdinalIgnoreCase))
@@ -112,6 +112,45 @@ namespace CuahangNongduoc.Controller
                     sb.Append(b.ToString("x2"));
                 return sb.ToString();
             }
+        }
+        public DataTable LayNguoiDungTheoTDN(string tenDangNhap)
+        {
+            return factory.LayNguoiDungTheoTenDangNhap(tenDangNhap);
+        }
+        //thêm
+        public NguoiDung LayTenNguoiDung(string id)
+        {
+            DataTable tbl = factory.TimMaNguoiDung(id);
+            NguoiDung nd = new NguoiDung();
+            if (tbl.Rows.Count > 0)
+            {
+                nd.UserID = Convert.ToString(tbl.Rows[0]["ID"]);
+                nd.TenDangNhap = Convert.ToString(tbl.Rows[0]["Ten_Dang_Nhap"]);
+                nd.MatKhauHash = Convert.ToString(tbl.Rows[0]["MAT_KHAU_HASH"]);
+                nd.VaiTro = Convert.ToString(tbl.Rows[0]["Vai_Tro"]);
+                nd.TenNguoiDung = Convert.ToString(tbl.Rows[0]["Ten_Nguoi_Dung"]);
+                nd.Email = Convert.ToString(tbl.Rows[0]["Email"]);
+                nd.SoDienThoai = Convert.ToString(tbl.Rows[0]["So_Dien_Thoai"]);
+                nd.TrangThai = Convert.ToBoolean(tbl.Rows[0]["Trang_Thai"]);
+            }
+            return nd;
+        }
+        public void HienthiNguoiDungDataGridviewComboBox(System.Windows.Forms.DataGridViewComboBoxColumn cmb)
+        {
+
+            cmb.DataSource = factory.DanhSachNguoiDung();
+            cmb.DisplayMember = "TEN_NGUOI_DUNG";
+            cmb.ValueMember = "ID";
+            cmb.DataPropertyName = "ID_NGUOI_DUNG";
+            cmb.HeaderText = "Nhân viên";
+
+        }
+        public void HienthiAutoComboBox(System.Windows.Forms.ComboBox cmb)
+        {
+            DataTable tbl = factory.DanhSachNguoiDung();
+            cmb.DataSource = tbl;
+            cmb.DisplayMember = "TEN_NGUOI_DUNG";
+            cmb.ValueMember = "ID";
         }
     }
 }

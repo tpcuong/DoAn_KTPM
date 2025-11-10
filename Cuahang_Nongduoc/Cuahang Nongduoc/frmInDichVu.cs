@@ -28,7 +28,6 @@ namespace CuahangNongduoc
         private void btnXemNgay_Click(object sender, EventArgs e)
         {
             var data = ctrl.LayPhieuBan(dtpTuNgay.Value, dtpDenNgay.Value)
-                .Cast<dynamic>() 
                 .Select(r => new
                 {
                     r.Id,
@@ -36,24 +35,27 @@ namespace CuahangNongduoc
                     r.NgayBan,
                     r.GiamGia,
                     r.PhiDichVu,
-                    TongTienCuoi = r.TongTien + r.PhiDichVu - r.GiamGia,
+                    TongTienCuoi = r.TongTien + r.PhiDichVu +r.PhiVanChuyen - r.GiamGia,
                     r.TongTien,
                     r.DaTra,
-                    r.ConNo
+                    r.ConNo,
+                    r.PhiVanChuyen
                 }).ToList();
 
             phieuBanDataTable.Clear();
             foreach (var row in data)
             {
-                //phieuBanDataTable.AddPhieuBanRow(row.Id,
-                //    row.KhachHang,
-                //    row.NgayBan,
-                //    row.TongTienCuoi,
-                //    row.DaTra,
-                //    row.ConNo,
-                //    row.GiamGia,
-                //    row.PhiDichVu,
-                //    row.TongTien);
+                phieuBanDataTable.AddPhieuBanRow(row.Id,
+                    row.KhachHang,
+                    row.NgayBan,
+                    row.TongTienCuoi,
+                    row.DaTra,
+                    row.ConNo,
+                    row.PhiDichVu,
+                    row.GiamGia,
+                    row.TongTien, 
+                    row.PhiVanChuyen
+                );
             }
             ReportDataSource reportDataSource = new ReportDataSource();
             reportDataSource.Name = "dsPhieuBan";
@@ -70,6 +72,11 @@ namespace CuahangNongduoc
             reportViewer.ZoomMode = ZoomMode.Percent;
             reportViewer.ZoomPercent = 100;
             this.reportViewer.RefreshReport();
+        }
+
+        private void frmInDichVu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

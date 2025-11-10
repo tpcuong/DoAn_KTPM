@@ -32,8 +32,8 @@ namespace CuahangNongduoc.Controller
             cmb.DataSource = dt;
             cmb.DisplayMember = "TEN_DICH_VU";
             cmb.ValueMember = "ID";
-            cmb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmb.AutoCompleteSource = AutoCompleteSource.ListItems;
+            //cmb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            //cmb.AutoCompleteSource = AutoCompleteSource.ListItems;
             cmb.SelectedIndex = 0;
         }
 

@@ -36,7 +36,7 @@ namespace CuahangNongduoc
                 SoLuong = r.SoLuong,
                 ThanhTien = r.ThanhTien,
                 NgaySanXuat = r.NgaySanXuat,
-                NgayHetHan = r.NgayHetHan
+                NgayHetHan = r.NgayHetHan,
             }).ToList();
 
             e.DataSources.Add(new Microsoft.Reporting.WinForms.ReportDataSource("CuahangNongduoc_BusinessObject_MaSanPham", chiTietPN));
@@ -53,8 +53,6 @@ namespace CuahangNongduoc
 
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("bang_chu", num.NumberToString(m_PhieuNhap.TongTien.ToString())));
 
-            this.reportViewer.LocalReport.SetParameters(param);
-
             var data = new
             {
                 m_PhieuNhap.Id,
@@ -63,8 +61,11 @@ namespace CuahangNongduoc
                 m_PhieuNhap.DaTra,
                 m_PhieuNhap.ConNo,
                 NhaCungCap = m_PhieuNhap.NhaCungCap.HoTen,
+                NguoiDung = m_PhieuNhap.NgDung.TenNguoiDung
             };
 
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("nhan_vien", data.NguoiDung));
+            this.reportViewer.LocalReport.SetParameters(param);
             this.PhieuNhapBindingSource.DataSource = data;
 
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);

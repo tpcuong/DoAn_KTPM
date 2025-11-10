@@ -65,6 +65,21 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Mã phiếu:</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=Fields!Id.Value</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
@@ -73,15 +88,15 @@
                   </TextRun>
                 </TextRuns>
                 <Style>
-                  <TextAlign>Left</TextAlign>
+                  <TextAlign>Center</TextAlign>
                 </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Id</rd:DefaultName>
-            <Top>3cm</Top>
-            <Left>3.5cm</Left>
+            <Top>2.77121cm</Top>
+            <Left>4.5cm</Left>
             <Height>0.63492cm</Height>
-            <Width>4.71917cm</Width>
+            <Width>5.5cm</Width>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -110,7 +125,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NgayNhap</rd:DefaultName>
-            <Top>3cm</Top>
+            <Top>3.635cm</Top>
             <Left>12.4125cm</Left>
             <Height>0.63492cm</Height>
             <Width>2.25cm</Width>
@@ -143,41 +158,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TongTien</rd:DefaultName>
-            <Top>3.59127cm</Top>
+            <Top>4.22627cm</Top>
             <Left>12.4125cm</Left>
             <Height>0.63492cm</Height>
             <Width>2.25cm</Width>
             <ZIndex>2</ZIndex>
-            <Style>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="textbox1">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Mã phiếu</Value>
-                    <Style>
-                      <FontFamily>Times New Roman</FontFamily>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>textbox1</rd:DefaultName>
-            <Top>3cm</Top>
-            <Left>1cm</Left>
-            <Height>0.63228cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>3</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -192,9 +177,10 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Ngày nhập</Value>
+                    <Value>Ngày nhập:</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -202,11 +188,11 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>3cm</Top>
+            <Top>3.635cm</Top>
             <Left>10.1625cm</Left>
             <Height>0.63228cm</Height>
             <Width>2.24868cm</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>3</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -221,9 +207,10 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Tổng tiền</Value>
+                    <Value>Tổng tiền:</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -231,11 +218,11 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>3.59127cm</Top>
+            <Top>4.22627cm</Top>
             <Left>10.1625cm</Left>
             <Height>0.63228cm</Height>
             <Width>2.24868cm</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>4</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -246,11 +233,11 @@
           <Subreport Name="subreport">
             <ReportName>rptChiTietPhieuNhap</ReportName>
             <KeepTogether>true</KeepTogether>
-            <Top>4.5cm</Top>
+            <Top>5.135cm</Top>
             <Left>1cm</Left>
             <Height>1.50794cm</Height>
             <Width>15.25cm</Width>
-            <ZIndex>6</ZIndex>
+            <ZIndex>5</ZIndex>
             <Style />
           </Subreport>
           <Textbox Name="textbox6">
@@ -263,6 +250,7 @@
                     <Value>=Parameters!ten_cua_hang.Value</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -272,7 +260,7 @@
             </Paragraphs>
             <Height>0.63228cm</Height>
             <Width>11.25cm</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -290,6 +278,7 @@
                     <Value>="Địa chỉ: " &amp; Parameters!dia_chi.Value</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -300,7 +289,7 @@
             <Top>0.64418cm</Top>
             <Height>0.63228cm</Height>
             <Width>11.25cm</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>7</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -318,6 +307,7 @@
                     <Value>="Điện thoại: " &amp; Parameters!dien_thoai.Value</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -328,7 +318,7 @@
             <Top>1.2619cm</Top>
             <Height>0.63228cm</Height>
             <Width>11.25cm</Width>
-            <ZIndex>9</ZIndex>
+            <ZIndex>8</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -360,7 +350,7 @@
             <Left>4.5cm</Left>
             <Height>0.75cm</Height>
             <Width>5.5cm</Width>
-            <ZIndex>10</ZIndex>
+            <ZIndex>9</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -379,17 +369,18 @@
                     <Style>
                       <FontStyle>Italic</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>6.25cm</Top>
+            <Top>6.81933cm</Top>
             <Left>1cm</Left>
-            <Height>0.63228cm</Height>
-            <Width>15.25cm</Width>
-            <ZIndex>11</ZIndex>
+            <Height>0.7778cm</Height>
+            <Width>7.21917cm</Width>
+            <ZIndex>10</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -414,11 +405,11 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>3.61772cm</Top>
+            <Top>4.25272cm</Top>
             <Left>3.5cm</Left>
             <Height>0.63492cm</Height>
             <Width>4.71917cm</Width>
-            <ZIndex>12</ZIndex>
+            <ZIndex>11</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -433,9 +424,10 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Nhà cung cấp</Value>
+                    <Value>Nhà cung cấp:</Value>
                     <Style>
                       <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -443,10 +435,39 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>3.61772cm</Top>
+            <Top>4.25272cm</Top>
             <Left>1cm</Left>
             <Height>0.63228cm</Height>
             <Width>2.5cm</Width>
+            <ZIndex>12</ZIndex>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="textbox11">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!nhan_vien.Value</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>3.54724cm</Top>
+            <Left>3.5cm</Left>
+            <Height>0.63492cm</Height>
+            <Width>4.71917cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
               <PaddingLeft>2pt</PaddingLeft>
@@ -455,8 +476,38 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="textbox12">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Nhân viên:</Value>
+                    <Style>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>11pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>3.56131cm</Top>
+            <Left>1cm</Left>
+            <Height>0.63228cm</Height>
+            <Width>2.5cm</Width>
+            <ZIndex>14</ZIndex>
+            <Style>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>6.88228cm</Height>
+        <Height>7.78234cm</Height>
         <Style />
       </Body>
       <Width>16.25cm</Width>
@@ -493,11 +544,17 @@
       <AllowBlank>true</AllowBlank>
       <Prompt>bang_chu</Prompt>
     </ReportParameter>
+    <ReportParameter Name="nhan_vien">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>2</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
+      <NumberOfRows>3</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -518,6 +575,11 @@
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>bang_chu</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>nhan_vien</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

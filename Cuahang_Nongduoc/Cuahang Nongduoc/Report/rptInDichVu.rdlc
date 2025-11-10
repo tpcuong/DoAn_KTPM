@@ -94,7 +94,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Height>0.8249cm</Height>
-            <Width>17.60583cm</Width>
+            <Width>17.20896cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -129,7 +129,7 @@
             <rd:DefaultName>Textbox1</rd:DefaultName>
             <Top>0.8249cm</Top>
             <Height>0.70584cm</Height>
-            <Width>17.60583cm</Width>
+            <Width>17.20896cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -148,19 +148,19 @@
                   <Width>1.05802cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.64552cm</Width>
+                  <Width>2.76458cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>2.20896cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.23542cm</Width>
+                  <Width>2.07667cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.98406cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.1825cm</Width>
+                  <Width>2.11635cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>2.5cm</Width>
@@ -550,7 +550,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>NgayBan</rd:DefaultName>
@@ -897,17 +899,18 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox36">
+                        <Textbox Name="TongTien1">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Formatnumber(Sum(Fields!TongTien.Value),0)</Value>
                                   <Style>
                                     <FontFamily>times New Roman</FontFamily>
                                     <FontSize>11pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -916,7 +919,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox36</rd:DefaultName>
+                          <rd:DefaultName>TongTien1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -962,7 +965,7 @@
             <DataSetName>dsPhieuBan</DataSetName>
             <Top>1.70712cm</Top>
             <Height>1.8cm</Height>
-            <Width>17.60583cm</Width>
+            <Width>17.20896cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -1038,10 +1041,10 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>1.68642in</Height>
+        <Height>4.28351cm</Height>
         <Style />
       </Body>
-      <Width>6.93143in</Width>
+      <Width>17.20896cm</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>

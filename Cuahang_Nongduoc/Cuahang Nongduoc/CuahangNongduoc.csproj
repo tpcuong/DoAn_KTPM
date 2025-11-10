@@ -123,6 +123,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CHNDDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Flash.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Flash.Designer.cs">
+      <DependentUpon>Flash.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmBanLe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -347,9 +353,13 @@
     <Compile Include="frmTimPhieuThu.Designer.cs">
       <DependentUpon>frmTimPhieuThu.cs</DependentUpon>
     </Compile>
+    <Compile Include="BusinessObject\NguoiDung.cs" />
     <Compile Include="Num2Str.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Flash.resx">
+      <DependentUpon>Flash.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmBanLe.resx">
       <DependentUpon>frmBanLe.cs</DependentUpon>
     </EmbeddedResource>
@@ -585,6 +595,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CuahangNongduoc.ico" />
+    <None Include="Resources\flash1.jpg" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

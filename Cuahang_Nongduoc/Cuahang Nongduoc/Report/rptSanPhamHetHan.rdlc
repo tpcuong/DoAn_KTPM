@@ -157,8 +157,10 @@
                                 <TextRun>
                                   <Value>=Parameters!ngay_tinh.Value</Value>
                                   <Style>
-                                    <FontFamily />
-                                    <FontWeight>Bold</FontWeight>
+                                    <FontStyle>Italic</FontStyle>
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
+                                    <FontWeight>Normal</FontWeight>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -527,7 +529,8 @@
                                 <TextRun>
                                   <Value>STT</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -565,7 +568,8 @@
                                 <TextRun>
                                   <Value>Mã sản phẩm</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -603,7 +607,8 @@
                                 <TextRun>
                                   <Value>Tên sản phẩm</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -638,7 +643,8 @@
                                 <TextRun>
                                   <Value>Giá nhập</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -676,7 +682,8 @@
                                 <TextRun>
                                   <Value>Số lượng</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -714,7 +721,8 @@
                                 <TextRun>
                                   <Value>Ngày nhập</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -753,7 +761,8 @@
                                   <Value>Ngày 
 sản xuất</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -792,7 +801,8 @@ sản xuất</Value>
                                   <Value>Ngày 
 hết hạn</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                   </Style>
                                 </TextRun>
@@ -835,7 +845,8 @@ hết hạn</Value>
                                 <TextRun>
                                   <Value>=RowNumber(nothing)</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -858,7 +869,6 @@ hết hạn</Value>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -872,7 +882,8 @@ hết hạn</Value>
                                 <TextRun>
                                   <Value>=Fields!Id.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -905,7 +916,8 @@ hết hạn</Value>
                                 <TextRun>
                                   <Value>=Fields!SanPham.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -936,7 +948,8 @@ hết hạn</Value>
                                 <TextRun>
                                   <Value>=Fields!GiaNhap.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <Format>#,###0</Format>
                                   </Style>
                                 </TextRun>
@@ -973,7 +986,8 @@ hết hạn</Value>
                                 <TextRun>
                                   <Value>=Fields!SoLuong.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <Format>#,###0</Format>
                                   </Style>
                                 </TextRun>
@@ -1010,7 +1024,8 @@ hết hạn</Value>
                                 <TextRun>
                                   <Value>=Fields!NgayNhap.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <Format>dd/MM/yyyy</Format>
                                   </Style>
                                 </TextRun>
@@ -1046,7 +1061,8 @@ hết hạn</Value>
                                 <TextRun>
                                   <Value>=Fields!NgaySanXuat.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <Format>dd/MM/yyyy</Format>
                                   </Style>
                                 </TextRun>
@@ -1082,7 +1098,8 @@ hết hạn</Value>
                                 <TextRun>
                                   <Value>=Fields!NgayHetHan.Value</Value>
                                   <Style>
-                                    <FontFamily />
+                                    <FontFamily>times New Roman</FontFamily>
+                                    <FontSize>12pt</FontSize>
                                     <Format>dd/MM/yyyy</Format>
                                   </Style>
                                 </TextRun>

@@ -48,8 +48,12 @@ namespace CuahangNongduoc.BusinessObject
             get { return m_GhiChu; }
             set { m_GhiChu = value; }
         }
-	
+        private NguoiDung m_NgDung;
 
-	
+        public NguoiDung NgDung
+        {
+            get { return m_NgDung; }
+            set { m_NgDung = value; }
+        }
     }
 }

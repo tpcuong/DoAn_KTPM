@@ -14,7 +14,7 @@ namespace CuahangNongduoc.DataLayer
         {
             DataService.OpenConnection();
 
-            string sql = "SELECT * FROM NGUOI_DUNG";
+            string sql = "SELECT * FROM NGUOI_DUNG WHERE TRANG_THAI = 1";
             adapter = new SqlDataAdapter(sql, DataService.m_ConnectString);
             builder = new SqlCommandBuilder(adapter);
 
@@ -35,15 +35,10 @@ namespace CuahangNongduoc.DataLayer
 
         public DataTable LayNguoiDungTheoTenDangNhap(string tenDangNhap)
         {
-            DataService.OpenConnection();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM NGUOI_DUNG WHERE TEN_DANG_NHAP = @tenDangNhap");
+            cmd.Parameters.Add("tenDangNhap", SqlDbType.VarChar).Value = tenDangNhap;
+            m_Ds.Load(cmd);
 
-            string sql = "SELECT * FROM NGUOI_DUNG WHERE TEN_DANG_NHAP = @TenDangNhap";
-            adapter = new SqlDataAdapter(sql, DataService.m_ConnectString);
-            adapter.SelectCommand.Parameters.AddWithValue("@TenDangNhap", tenDangNhap);
-            builder = new SqlCommandBuilder(adapter);
-
-            m_Ds.Clear();
-            adapter.Fill(m_Ds);
             return m_Ds;
         }
 

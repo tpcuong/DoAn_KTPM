@@ -30,16 +30,18 @@ namespace CuahangNongduoc
 
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("bang_chu", num.NumberToString(m_PhieuChi.TongTien.ToString())));
 
-            this.reportViewer.LocalReport.SetParameters(param);
-
             var data = new
             {
                 m_PhieuChi.Id,
                 m_PhieuChi.NgayChi,
                 m_PhieuChi.GhiChu,
                 m_PhieuChi.TongTien,
-                LyDoChi = m_PhieuChi.LyDoChi.LyDo
+                LyDoChi = m_PhieuChi.LyDoChi.LyDo,
+                NguoiDung = m_PhieuChi.NgDung.TenNguoiDung
             };
+
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("nhan_vien", data.NguoiDung));
+            this.reportViewer.LocalReport.SetParameters(param);
             this.PhieuChiBindingSource.DataSource = data;
 
             reportViewer.SetDisplayMode(DisplayMode.PrintLayout);

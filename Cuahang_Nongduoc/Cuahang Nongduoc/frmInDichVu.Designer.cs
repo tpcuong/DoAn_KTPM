@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource2 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dtpDenNgay = new System.Windows.Forms.DateTimePicker();
@@ -125,9 +125,9 @@
             // reportViewer
             // 
             this.reportViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            reportDataSource2.Name = "CuahangNongduoc_BusinessObject_SoLuongTon";
-            reportDataSource2.Value = null;
-            this.reportViewer.LocalReport.DataSources.Add(reportDataSource2);
+            reportDataSource1.Name = "CuahangNongduoc_BusinessObject_SoLuongTon";
+            reportDataSource1.Value = null;
+            this.reportViewer.LocalReport.DataSources.Add(reportDataSource1);
             this.reportViewer.LocalReport.ReportEmbeddedResource = "CuahangNongduoc.Report.rptSoLuongTon.rdlc";
             this.reportViewer.Location = new System.Drawing.Point(0, 0);
             this.reportViewer.Margin = new System.Windows.Forms.Padding(6);
@@ -146,6 +146,7 @@
             this.Name = "frmInDichVu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "DICH VU";
+            this.Load += new System.EventHandler(this.frmInDichVu_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

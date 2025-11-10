@@ -23,40 +23,45 @@ namespace CuahangNongduoc
         {
             InitializeComponent();
         }
-
+        NguoiDungController ctrlND = new NguoiDungController();
         private void frmInPhieuBanGiamGia_Load(object sender, EventArgs e)
         {
-
+            ctrlND.HienthiAutoComboBox(cmbNhanVien);
         }
         PhieuBanController ctrl = new PhieuBanController();
         private void btnXemNgay_Click(object sender, EventArgs e)
         {
-            var data = ctrl.LayPhieuBan(dtpTuNgay.Value, dtpDenNgay.Value).Select(r => new
+            
+            var data = ctrl.LayPhieuBan(dtpTuNgay.Value, dtpDenNgay.Value, cmbNhanVien.SelectedValue.ToString())
+                .Select(r => new
             {
                 r.Id,
                 KhachHang = r.KhachHang.HoTen,
                 r.NgayBan,
                 r.GiamGia,
                 r.PhiDichVu,
-                TongTienCuoi = r.TongTien + r.PhiDichVu - r.GiamGia,
+                TongTienCuoi = r.TongTien - r.GiamGia,
                 //r.ChiTiet,
                 r.TongTien,
                 r.DaTra,
-                r.ConNo
+                r.ConNo,
+                NguoiDung = r.NgDung.TenNguoiDung
             }).ToList();
 
             phieuBanGiamGiaTable.Clear();
             foreach (var row in data)
             {
-                //phieuBanDataTable.AddPhieuBanRow(row.Id,
-                //    row.KhachHang,
-                //    row.NgayBan,
-                //    row.TongTienCuoi,
-                //    row.DaTra,
-                //    row.ConNo,
-                //    row.GiamGia,
-                //    row.PhiDichVu,
-                //    row.TongTien);
+                phieuBanGiamGiaTable.AddPhieuBanGiamGiaRow(row.Id,
+                    row.KhachHang,
+                    row.NgayBan,
+                    row.TongTienCuoi,
+                    row.DaTra,
+                    row.ConNo,
+                    row.PhiDichVu,
+                    row.GiamGia,
+                    row.TongTien,
+                    row.NguoiDung
+                    );
             }
             ReportDataSource reportDataSource = new ReportDataSource();
             reportDataSource.Name = "dsPhieuBanGiamGia";

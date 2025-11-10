@@ -18,10 +18,13 @@ namespace CuahangNongduoc
 
         PhieuNhapController ctrl = new PhieuNhapController();
         NhaCungCapController ctrlNCC = new NhaCungCapController();
+        NguoiDungController ctrlND = new NguoiDungController();
 
         private void frmDanhsachPhieuNhap_Load(object sender, EventArgs e)
         {
+            dataGridView.AutoGenerateColumns = false;
             ctrlNCC.HienthiDataGridviewComboBox(colNhaCungCap);
+            ctrlND.HienthiNguoiDungDataGridviewComboBox(colNguoiDung); //Người lập
             ctrl.HienthiPhieuNhap(bindingNavigator, dataGridView);
         }
         frmNhapHang NhapHang = null;
@@ -64,9 +67,23 @@ namespace CuahangNongduoc
         {
             if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Phieu Nhap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                bindingNavigator.BindingSource.RemoveCurrent();
-                ctrl.Save();
-            }
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow row = dataGridView.SelectedRows[0];
+                    string id = row.Cells["colId"].Value.ToString();
+                    if (ThamSo.Delete(id, "PHIEU_NHAP"))
+                    {
+                        MessageBox.Show("Xóa thành công!", "Phieu Ban Nhap", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        frmDanhsachPhieuNhap_Load(sender, e);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xóa thất bại!");
+                    }
+                    //bindingNavigator.BindingSource.RemoveCurrent();
+
+                }//ctrl.Save();
+                }
         }
 
         private void toolTimKiem_Click(object sender, EventArgs e)

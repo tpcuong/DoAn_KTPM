@@ -57,10 +57,12 @@ namespace CuahangNongduoc
                 NgayBan = m_PhieuBan.NgayBan,
                 TongTien = m_PhieuBan.TongTien,
                 DaTra = m_PhieuBan.DaTra,
-                ConNo = m_PhieuBan.ConNo
+                ConNo = m_PhieuBan.ConNo,
+                NguoiDung = m_PhieuBan.NgDung.TenNguoiDung
             };
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("DiaChi_KH", data.DiaChi));
             param.Add(new Microsoft.Reporting.WinForms.ReportParameter("DienThoai_KH", data.DienThoai));
+            param.Add(new Microsoft.Reporting.WinForms.ReportParameter("nhan_vien", data.NguoiDung));
 
             this.reportViewer.LocalReport.SetParameters(param);
             this.PhieuBanBindingSource.DataSource = data;

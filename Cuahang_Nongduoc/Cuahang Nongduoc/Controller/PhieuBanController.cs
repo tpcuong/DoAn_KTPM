@@ -52,11 +52,6 @@ namespace CuahangNongduoc.Controller
             return factory.UpdatePhieuBan(row);
         }
 
-        public bool XoaPhieuBan(string id)
-        {
-            return factory.DeletePhieuBan(id);
-        }
-
 
         public void HienthiPhieuBanLe(BindingNavigator bn, DataGridView dg)
         {
@@ -74,7 +69,7 @@ namespace CuahangNongduoc.Controller
             dg.DataSource = bs;
         }
 
-        public void HienthiPhieuBan(BindingNavigator bn, ComboBox cmbKhachHang, TextBox txtID,
+        public void HienthiPhieuBan(BindingNavigator bn,ComboBox cmbNV, ComboBox cmbKhachHang, TextBox txtID,
             DateTimePicker dtNgayBan, ComboBox cmbDichVu, NumericUpDown numPhiDichVu,
             NumericUpDown numPhiVanChuyen, NumericUpDown numGiamGia, NumericUpDown numTongTien,
             NumericUpDown numDatra, NumericUpDown numConNo)
@@ -84,6 +79,9 @@ namespace CuahangNongduoc.Controller
 
             txtID.DataBindings.Clear();
             txtID.DataBindings.Add("Text", bs, "ID");
+
+            cmbNV.DataBindings.Clear();
+            cmbNV.DataBindings.Add("SelectedValue", bs, "ID_NGUOI_DUNG");
 
             cmbKhachHang.DataBindings.Clear();
             cmbKhachHang.DataBindings.Add("SelectedValue", bs, "ID_KHACH_HANG");
@@ -143,6 +141,8 @@ namespace CuahangNongduoc.Controller
                 ph.KhachHang = ctrlKH.LayKhachHang(row["ID_KHACH_HANG"].ToString());
                 ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
                 ph.ChiTiet = ctrl.ChiTietPhieuBan(ph.Id);
+                NguoiDungController ctrlND = new NguoiDungController();
+                ph.NgDung = ctrlND.LayTenNguoiDung(row["ID_NGUOI_DUNG"].ToString());
             }
             return ph;
         }
@@ -152,7 +152,7 @@ namespace CuahangNongduoc.Controller
 
             bs.DataSource = factory.TimPhieuBan(maKH, dt);
         }
-
+        //thêm
         public List<PhieuBan> LayPhieuBan(DateTime tuNgay, DateTime denNgay)
         {
             DataTable tbl = factory.LayBaoCaoPhieuBanTheoNgay(tuNgay, denNgay);
@@ -160,7 +160,7 @@ namespace CuahangNongduoc.Controller
 
             KhachHangController ctrlKH = new KhachHangController();
             ChiTietPhieuBanController ctrlCT = new ChiTietPhieuBanController();
-
+            NguoiDungController ctrlND = new NguoiDungController();
             foreach (DataRow row in tbl.Rows)
             {
                 PhieuBan ph = new PhieuBan();
@@ -174,7 +174,37 @@ namespace CuahangNongduoc.Controller
                 ph.PhiDichVu = row["PHI_DICH_VU"] == DBNull.Value ? 0 : Convert.ToInt64(row["PHI_DICH_VU"]);
                 ph.PhiVanChuyen = row["PHI_VAN_CHUYEN"] == DBNull.Value ? 0 : Convert.ToInt64(row["PHI_VAN_CHUYEN"]);
                 ph.IdDichVu = row["ID_DICH_VU"] == DBNull.Value ? 0 : Convert.ToInt32(row["ID_DICH_VU"]);
+                ph.NgDung = ctrlND.LayTenNguoiDung(row["ID_NGUOI_DUNG"].ToString());
+                ph.KhachHang = ctrlKH.LayKhachHang(row["ID_KHACH_HANG"].ToString());
+                ph.ChiTiet = ctrlCT.ChiTietPhieuBan(ph.Id);
 
+                danhSach.Add(ph);
+            }
+            return danhSach;
+        }
+
+        public List<PhieuBan> LayPhieuBan(DateTime tuNgay, DateTime denNgay, string idNgDung)
+        {
+            DataTable tbl = factory.LayPhieuBanNguoiDungTheoNgay(tuNgay, denNgay, idNgDung);
+            List<PhieuBan> danhSach = new List<PhieuBan>();
+
+            KhachHangController ctrlKH = new KhachHangController();
+            ChiTietPhieuBanController ctrlCT = new ChiTietPhieuBanController();
+            NguoiDungController ctrlND = new NguoiDungController();
+            foreach (DataRow row in tbl.Rows)
+            {
+                PhieuBan ph = new PhieuBan();
+                ph.Id = row["ID"].ToString();
+
+                ph.NgayBan = row["NGAY_BAN"] == DBNull.Value ? DateTime.Now : Convert.ToDateTime(row["NGAY_BAN"]);
+                ph.TongTien = row["TONG_TIEN"] == DBNull.Value ? 0 : Convert.ToInt64(row["TONG_TIEN"]);
+                ph.DaTra = row["DA_TRA"] == DBNull.Value ? 0 : Convert.ToInt64(row["DA_TRA"]);
+                ph.ConNo = row["CON_NO"] == DBNull.Value ? 0 : Convert.ToInt64(row["CON_NO"]);
+                ph.GiamGia = row["GIAM_GIA"] == DBNull.Value ? 0 : Convert.ToInt64(row["GIAM_GIA"]);
+                ph.PhiDichVu = row["PHI_DICH_VU"] == DBNull.Value ? 0 : Convert.ToInt64(row["PHI_DICH_VU"]);
+                ph.PhiVanChuyen = row["PHI_VAN_CHUYEN"] == DBNull.Value ? 0 : Convert.ToInt64(row["PHI_VAN_CHUYEN"]);
+                ph.IdDichVu = row["ID_DICH_VU"] == DBNull.Value ? 0 : Convert.ToInt32(row["ID_DICH_VU"]);
+                ph.NgDung = ctrlND.LayTenNguoiDung(row["ID_NGUOI_DUNG"].ToString());
                 ph.KhachHang = ctrlKH.LayKhachHang(row["ID_KHACH_HANG"].ToString());
                 ph.ChiTiet = ctrlCT.ChiTietPhieuBan(ph.Id);
 

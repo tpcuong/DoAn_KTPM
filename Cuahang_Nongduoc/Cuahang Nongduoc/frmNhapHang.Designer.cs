@@ -77,9 +77,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.grpThongtin = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cmbNV = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
             this.cmbSanPham = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnThemNCC = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.numConNo = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -90,7 +94,6 @@
             this.numTongTien = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
             this.txtMaPhieu = new System.Windows.Forms.TextBox();
-            this.btnThemNCC = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).BeginInit();
             this.bindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -99,6 +102,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numSoLuong)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numGiaNhap)).BeginInit();
             this.grpThongtin.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numConNo)).BeginInit();
@@ -174,6 +178,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -213,7 +218,7 @@
             this.toolLuuThem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolLuuThem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolLuuThem.Name = "toolLuuThem";
-            this.toolLuuThem.Size = new System.Drawing.Size(42, 43);
+            this.toolLuuThem.Size = new System.Drawing.Size(41, 43);
             this.toolLuuThem.Text = "Thêm";
             this.toolLuuThem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolLuuThem.Click += new System.EventHandler(this.toolLuuThem_Click);
@@ -262,7 +267,7 @@
             this.toolSavePrint.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolSavePrint.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolSavePrint.Name = "toolSavePrint";
-            this.toolSavePrint.Size = new System.Drawing.Size(55, 43);
+            this.toolSavePrint.Size = new System.Drawing.Size(53, 43);
             this.toolSavePrint.Text = "Trang in";
             this.toolSavePrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolSavePrint.Click += new System.EventHandler(this.toolSavePrint_Click);
@@ -284,7 +289,7 @@
             this.toolThoat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolThoat.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolThoat.Name = "toolThoat";
-            this.toolThoat.Size = new System.Drawing.Size(42, 43);
+            this.toolThoat.Size = new System.Drawing.Size(41, 43);
             this.toolThoat.Text = "Thoát";
             this.toolThoat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolThoat.Click += new System.EventHandler(this.toolThoat_Click);
@@ -317,10 +322,11 @@
             this.dataGridView.Location = new System.Drawing.Point(0, 0);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(731, 238);
             this.dataGridView.TabIndex = 12;
-            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
             this.dataGridView.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dataGridView_DataError);
+            this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
             // 
             // colMaPhieu
             // 
@@ -402,7 +408,7 @@
             // numThanhTien
             // 
             this.numThanhTien.BackColor = System.Drawing.Color.White;
-            this.numThanhTien.Location = new System.Drawing.Point(313, 76);
+            this.numThanhTien.Location = new System.Drawing.Point(332, 77);
             this.numThanhTien.Maximum = new decimal(new int[] {
             1000000000,
             0,
@@ -410,7 +416,7 @@
             0});
             this.numThanhTien.Name = "numThanhTien";
             this.numThanhTien.ReadOnly = true;
-            this.numThanhTien.Size = new System.Drawing.Size(81, 20);
+            this.numThanhTien.Size = new System.Drawing.Size(119, 20);
             this.numThanhTien.TabIndex = 13;
             this.numThanhTien.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numThanhTien.ThousandsSeparator = true;
@@ -471,14 +477,14 @@
             // 
             // numSoLuong
             // 
-            this.numSoLuong.Location = new System.Drawing.Point(313, 50);
+            this.numSoLuong.Location = new System.Drawing.Point(332, 51);
             this.numSoLuong.Maximum = new decimal(new int[] {
             1000000000,
             0,
             0,
             0});
             this.numSoLuong.Name = "numSoLuong";
-            this.numSoLuong.Size = new System.Drawing.Size(81, 20);
+            this.numSoLuong.Size = new System.Drawing.Size(119, 20);
             this.numSoLuong.TabIndex = 7;
             this.numSoLuong.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numSoLuong.ThousandsSeparator = true;
@@ -495,14 +501,14 @@
             // 
             // numGiaNhap
             // 
-            this.numGiaNhap.Location = new System.Drawing.Point(313, 26);
+            this.numGiaNhap.Location = new System.Drawing.Point(332, 27);
             this.numGiaNhap.Maximum = new decimal(new int[] {
             1000000000,
             0,
             0,
             0});
             this.numGiaNhap.Name = "numGiaNhap";
-            this.numGiaNhap.Size = new System.Drawing.Size(81, 20);
+            this.numGiaNhap.Size = new System.Drawing.Size(119, 20);
             this.numGiaNhap.TabIndex = 5;
             this.numGiaNhap.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numGiaNhap.ThousandsSeparator = true;
@@ -562,6 +568,7 @@
             // 
             // grpThongtin
             // 
+            this.grpThongtin.Controls.Add(this.groupBox4);
             this.grpThongtin.Controls.Add(this.btnThemSanPham);
             this.grpThongtin.Controls.Add(this.btnAdd);
             this.grpThongtin.Controls.Add(this.btnRemove);
@@ -587,8 +594,38 @@
             this.grpThongtin.TabStop = false;
             this.grpThongtin.Text = "Thông tin";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.cmbNV);
+            this.groupBox4.Controls.Add(this.label19);
+            this.groupBox4.Location = new System.Drawing.Point(260, 107);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(191, 43);
+            this.groupBox4.TabIndex = 70;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Thông tin nhân viên";
+            // 
+            // cmbNV
+            // 
+            this.cmbNV.Enabled = false;
+            this.cmbNV.FormattingEnabled = true;
+            this.cmbNV.Location = new System.Drawing.Point(72, 17);
+            this.cmbNV.Name = "cmbNV";
+            this.cmbNV.Size = new System.Drawing.Size(119, 21);
+            this.cmbNV.TabIndex = 1;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(10, 20);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(59, 13);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "Nhân viên:";
+            // 
             // cmbSanPham
             // 
+            this.cmbSanPham.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSanPham.FormattingEnabled = true;
             this.cmbSanPham.Location = new System.Drawing.Point(93, 29);
             this.cmbSanPham.Name = "cmbSanPham";
@@ -626,6 +663,16 @@
             this.groupBox1.Size = new System.Drawing.Size(239, 184);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
+            // 
+            // btnThemNCC
+            // 
+            this.btnThemNCC.Image = global::CuahangNongduoc.Properties.Resources.add_16;
+            this.btnThemNCC.Location = new System.Drawing.Point(213, 50);
+            this.btnThemNCC.Name = "btnThemNCC";
+            this.btnThemNCC.Size = new System.Drawing.Size(24, 23);
+            this.btnThemNCC.TabIndex = 32;
+            this.btnThemNCC.UseVisualStyleBackColor = true;
+            this.btnThemNCC.Click += new System.EventHandler(this.button1_Click);
             // 
             // label13
             // 
@@ -685,6 +732,7 @@
             // 
             // cmbNhaCungCap
             // 
+            this.cmbNhaCungCap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNhaCungCap.FormattingEnabled = true;
             this.cmbNhaCungCap.Location = new System.Drawing.Point(78, 51);
             this.cmbNhaCungCap.Name = "cmbNhaCungCap";
@@ -726,20 +774,11 @@
             // 
             // txtMaPhieu
             // 
+            this.txtMaPhieu.Enabled = false;
             this.txtMaPhieu.Location = new System.Drawing.Point(78, 25);
             this.txtMaPhieu.Name = "txtMaPhieu";
             this.txtMaPhieu.Size = new System.Drawing.Size(155, 20);
             this.txtMaPhieu.TabIndex = 22;
-            // 
-            // btnThemNCC
-            // 
-            this.btnThemNCC.Image = global::CuahangNongduoc.Properties.Resources.add_16;
-            this.btnThemNCC.Location = new System.Drawing.Point(213, 50);
-            this.btnThemNCC.Name = "btnThemNCC";
-            this.btnThemNCC.Size = new System.Drawing.Size(24, 23);
-            this.btnThemNCC.TabIndex = 32;
-            this.btnThemNCC.UseVisualStyleBackColor = true;
-            this.btnThemNCC.Click += new System.EventHandler(this.button1_Click);
             // 
             // frmNhapHang
             // 
@@ -763,6 +802,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numGiaNhap)).EndInit();
             this.grpThongtin.ResumeLayout(false);
             this.grpThongtin.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -837,7 +878,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cmbNhaCungCap;
         private System.Windows.Forms.Button btnThemNCC;
-
-
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.ComboBox cmbNV;
+        private System.Windows.Forms.Label label19;
     }
 }
