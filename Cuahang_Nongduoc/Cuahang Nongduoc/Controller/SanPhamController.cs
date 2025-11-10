@@ -126,6 +126,7 @@ namespace CuahangNongduoc.Controller
                 sp.GiaBanLe = Convert.ToInt64(tbl.Rows[0]["GIA_BAN_LE"]);
                 sp.GiaBanSi = Convert.ToInt64(tbl.Rows[0]["GIA_BAN_SI"]);
                 sp.DonViTinh = ctrlDVT.LayDVT(Convert.ToInt32(tbl.Rows[0]["ID_DON_VI_TINH"]));
+                sp.GiaBinhQuan = Convert.ToDecimal(tbl.Rows[0]["GIA_BINH_QUAN"]);
             }
             return sp;
 

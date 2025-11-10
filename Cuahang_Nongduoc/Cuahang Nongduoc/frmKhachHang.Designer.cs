@@ -128,6 +128,7 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
+            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -167,7 +168,7 @@
             this.bindingNavigatorAddNewItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(42, 43);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(41, 43);
             this.bindingNavigatorAddNewItem.Text = "Thêm";
             this.bindingNavigatorAddNewItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
@@ -200,7 +201,7 @@
             this.toolThoat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolThoat.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolThoat.Name = "toolThoat";
-            this.toolThoat.Size = new System.Drawing.Size(42, 43);
+            this.toolThoat.Size = new System.Drawing.Size(41, 43);
             this.toolThoat.Text = "Thoát";
             this.toolThoat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolThoat.Click += new System.EventHandler(this.toolThoat_Click);
@@ -240,17 +241,19 @@
             // 
             // toolTimKhachHang
             // 
+            this.toolTimKhachHang.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolTimKhachHang.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.toolTimKhachHang.Name = "toolTimKhachHang";
             this.toolTimKhachHang.Size = new System.Drawing.Size(150, 46);
             this.toolTimKhachHang.Text = "Tìm theo Họ tên";
-            this.toolTimKhachHang.Leave += new System.EventHandler(this.toolTimKhachHang_Leave);
             this.toolTimKhachHang.Enter += new System.EventHandler(this.toolTimKhachHang_Enter);
+            this.toolTimKhachHang.Leave += new System.EventHandler(this.toolTimKhachHang_Leave);
             this.toolTimKhachHang.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolTimKhachHang_KeyPress);
             // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -262,6 +265,7 @@
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.Location = new System.Drawing.Point(0, 46);
             this.dataGridView.Name = "dataGridView";
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(642, 344);
             this.dataGridView.TabIndex = 1;
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
@@ -277,14 +281,12 @@
             this.colHoTen.DataPropertyName = "HO_TEN";
             this.colHoTen.HeaderText = "Họ tên";
             this.colHoTen.Name = "colHoTen";
-            this.colHoTen.Width = 150;
             // 
             // colDiaChi
             // 
             this.colDiaChi.DataPropertyName = "DIA_CHI";
             this.colDiaChi.HeaderText = "Địa chỉ";
             this.colDiaChi.Name = "colDiaChi";
-            this.colDiaChi.Width = 200;
             // 
             // colDienThoai
             // 
@@ -301,7 +303,6 @@
             this.colLoaiKH.Name = "colLoaiKH";
             this.colLoaiKH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colLoaiKH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colLoaiKH.Visible = false;
             // 
             // frmKhachHang
             // 
@@ -339,16 +340,16 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.ToolStripButton toolLuu;
         private System.Windows.Forms.DataGridView dataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colHoTen;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDiaChi;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDienThoai;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colLoaiKH;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton toolThoat;
         private System.Windows.Forms.ToolStripDropDownButton toolTimKiem;
         private System.Windows.Forms.ToolStripMenuItem toolTimHoTen;
         private System.Windows.Forms.ToolStripMenuItem toolTimDiaChi;
         private System.Windows.Forms.ToolStripTextBox toolTimKhachHang;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colHoTen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDiaChi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDienThoai;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colLoaiKH;
     }
 }

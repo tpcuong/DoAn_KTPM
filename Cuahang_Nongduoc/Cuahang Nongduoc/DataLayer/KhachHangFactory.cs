@@ -14,7 +14,7 @@ namespace CuahangNongduoc.DataLayer
         public DataTable DanhsachKhachHang(bool loai)
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM KHACH_HANG WHERE LOAI_KH = " + loai);
-            SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG KH WHERE LOAI_KH = @loai");
+            SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG KH WHERE LOAI_KH = @loai AND Trang_Thai = 1 ");
             cmd.Parameters.Add("loai", SqlDbType.Bit).Value = loai;
             m_Ds.Load(cmd);
 
@@ -51,7 +51,7 @@ namespace CuahangNongduoc.DataLayer
         public DataTable DanhsachKhachHang()
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM KHACH_HANG");
-            SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM KHACH_HANG");
             m_Ds.Load(cmd);
 
             return m_Ds;

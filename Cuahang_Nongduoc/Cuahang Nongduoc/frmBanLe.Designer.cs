@@ -241,6 +241,7 @@
             // 
             // toolChinhSua
             // 
+            this.toolChinhSua.Enabled = false;
             this.toolChinhSua.Image = global::CuahangNongduoc.Properties.Resources.edit;
             this.toolChinhSua.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolChinhSua.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -333,6 +334,7 @@
             // dgvDanhsachSP
             // 
             this.dgvDanhsachSP.AllowUserToAddRows = false;
+            this.dgvDanhsachSP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDanhsachSP.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvDanhsachSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDanhsachSP.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -361,7 +363,6 @@
             this.colMaPhieuBan.Name = "colMaPhieuBan";
             this.colMaPhieuBan.ReadOnly = true;
             this.colMaPhieuBan.Visible = false;
-            this.colMaPhieuBan.Width = 125;
             // 
             // colMaSanPham
             // 
@@ -372,7 +373,6 @@
             this.colMaSanPham.ReadOnly = true;
             this.colMaSanPham.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colMaSanPham.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colMaSanPham.Width = 150;
             // 
             // colDonGia
             // 
@@ -381,7 +381,6 @@
             this.colDonGia.MinimumWidth = 6;
             this.colDonGia.Name = "colDonGia";
             this.colDonGia.ReadOnly = true;
-            this.colDonGia.Width = 125;
             // 
             // colSoLuong
             // 
@@ -390,7 +389,6 @@
             this.colSoLuong.MinimumWidth = 6;
             this.colSoLuong.Name = "colSoLuong";
             this.colSoLuong.ReadOnly = true;
-            this.colSoLuong.Width = 125;
             // 
             // colThanhTien
             // 
@@ -399,7 +397,6 @@
             this.colThanhTien.MinimumWidth = 6;
             this.colThanhTien.Name = "colThanhTien";
             this.colThanhTien.ReadOnly = true;
-            this.colThanhTien.Width = 125;
             // 
             // NGAY_HET_HAN
             // 
@@ -408,7 +405,6 @@
             this.NGAY_HET_HAN.MinimumWidth = 6;
             this.NGAY_HET_HAN.Name = "NGAY_HET_HAN";
             this.NGAY_HET_HAN.ReadOnly = true;
-            this.NGAY_HET_HAN.Width = 125;
             // 
             // panel1
             // 
@@ -498,6 +494,7 @@
             this.btnThemDaiLy.Size = new System.Drawing.Size(26, 25);
             this.btnThemDaiLy.TabIndex = 59;
             this.btnThemDaiLy.UseVisualStyleBackColor = true;
+            this.btnThemDaiLy.Click += new System.EventHandler(this.btnThemDaiLy_Click_1);
             // 
             // label2
             // 

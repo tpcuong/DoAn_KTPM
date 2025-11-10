@@ -19,7 +19,7 @@ namespace CuahangNongduoc
         NhaCungCapController ctrlNCC = new NhaCungCapController();
         NguoiDungController ctrlND = new NguoiDungController();
         PhieuNhap m_PhieuNhap = null;
-
+        int tT = 0;
 
         Controll status = Controll.Normal;
 
@@ -41,7 +41,7 @@ namespace CuahangNongduoc
             if (status == Controll.Normal)
                 ctrlMaSP.HienThiChiTietPhieuNhap(txtMaPhieu.Text, dataGridView);
         }
-      
+        //Có sửa      
         private void frmNhapHang_Load(object sender, EventArgs e)
         {
             dataGridView.AutoGenerateColumns = false;
@@ -56,9 +56,11 @@ namespace CuahangNongduoc
             bindingNavigator.BindingSource.CurrentChanged += new EventHandler(BindingSource_CurrentChanged);
             
             ctrlMaSP.HienThiChiTietPhieuNhap(txtMaPhieu.Text, dataGridView);
+            toolXoa.Enabled = true;
 
             if (status == Controll.AddNew)
             {
+                toolXoa.Enabled = true;
                 txtMaPhieu.Text = ThamSo.LayMaPhieuNhap().ToString();
                DataTable dt = ctrlND.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
                 if(dt.Rows.Count > 0)
@@ -76,11 +78,10 @@ namespace CuahangNongduoc
 
         }
 
-       
-
+        //Có sửa
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            
+
 
             MaSanPhamController ctrl = new MaSanPhamController();
             MaSanPham masp  = ctrl.LayMaSanPham(txtMaSo.Text.Trim());
@@ -95,12 +96,7 @@ namespace CuahangNongduoc
                     }
 
                 }
-
-                if (txtMaSo.Text.Trim().Length <=0)
-                {
-                    MessageBox.Show("Vui lòng nhập Mã sản phẩm !", "Phieu Nhap", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else if (numGiaNhap.Value <= 0)
+                if (numGiaNhap.Value <= 0)
                 {
                     MessageBox.Show("Vui lòng nhập Đơn giá !", "Phieu Nhap", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -151,13 +147,14 @@ namespace CuahangNongduoc
         }
 
    
-
+        //Có sửa
         private void toolLuuThoat_Click(object sender, EventArgs e)
         {
             bindingNavigatorPositionItem.Focus();
             this.Luu();
             status = Controll.Normal;
             this.Allow(false);
+            // Cập nhật giá bình quân quán
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
                 CapNhapGiaBinhQUan(Convert.ToString(row.Cells["colSanPham"].Value),
@@ -333,7 +330,7 @@ namespace CuahangNongduoc
                 numTongTien.Value -= Convert.ToInt64(e.Row.Cells["colDonGiaNhap"].Value) * Convert.ToInt64(e.Row.Cells["colSoLuong"].Value);
             }
         }
-
+        //Có sửa
         private void toolXoa_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Phieu Nhap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -355,6 +352,7 @@ namespace CuahangNongduoc
             NCC.ShowDialog();
             ctrlNCC.HienthiAutoComboBox(cmbNhaCungCap);
         }
+        //Cập nhật giá bình quân quán
         private void CapNhapGiaBinhQUan(string id, int soluong, decimal giaNhap)
         {
             DataTable dt = ctrlSanPham.LaySanPhamTheoID(id);

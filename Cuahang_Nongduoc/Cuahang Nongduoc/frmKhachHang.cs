@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuahangNongduoc.Strategy;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,11 +22,27 @@ namespace CuahangNongduoc
 
             ctrl.HienthiKhachHangDataGridview(dataGridView, bindingNavigator);
         }
-
+        //Co sua
         private void toolLuu_Click(object sender, EventArgs e)
         {
-            bindingNavigatorPositionItem.Focus();
-            ctrl.Save();
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                if (row.IsNewRow) continue;
+                if (row.Cells["colHoTen"].Value == null || row.Cells["colHoTen"].Value.ToString().Trim() == "")
+                {
+                    MessageBox.Show("Họ tên khách hàng không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    bindingNavigatorPositionItem.Focus();
+                    return;
+                }
+                else
+                {
+
+                bindingNavigatorPositionItem.Focus();
+                ctrl.Save();
+                }    
+            }
+
         }
 
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
@@ -47,7 +64,29 @@ namespace CuahangNongduoc
         {
             if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Dai Ly", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                bindingNavigator.BindingSource.RemoveCurrent();
+                if (dataGridView.SelectedRows.Count > 0)
+                {
+                    try
+                    {
+
+                        var policy = new XoaMem();
+
+                        DataGridViewRow row = dataGridView.SelectedRows[0];
+                        string id = row.Cells["colID"].Value.ToString();
+                        ThamSo.Delete(id, "KHACH_HANG", policy);
+
+                        MessageBox.Show("Xóa thành công!", "Khach hang", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        frmKhachHang_Load(sender, e);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Xóa thất bại!");
+                    }
+
+
+
+                }
+                //bindingNavigator.BindingSource.RemoveCurrent();
             }
         }
 

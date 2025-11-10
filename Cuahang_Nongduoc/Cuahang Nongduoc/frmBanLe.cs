@@ -24,8 +24,6 @@ namespace CuahangNongduoc
         Controll status = Controll.Normal;
         Dictionary<string, int> viTriLo = new Dictionary<string, int>();
         Dictionary<string, decimal> soLuongLo = new Dictionary<string, decimal>();
-        Decimal bqgq;
-
         public frmBanLe()
         {
             InitializeComponent();
@@ -79,10 +77,11 @@ namespace CuahangNongduoc
             cmbDichVu.SelectedIndexChanged += new EventHandler(cmbDichVu_SelectedIndexChanged); // Thêm
             numDonGia.ValueChanged += new EventHandler(UpdateThanhTien); // Thêm
             numSoLuong.ValueChanged += new EventHandler(UpdateThanhTien); // Thêm
-
-
+            toolXoa.Enabled = false;
             if (status == Controll.AddNew)
             {
+                toolXoa.Enabled = true;
+                
                 txtMaPhieu.Text = ThamSo.LayMaPhieuBan().ToString();
                 DataTable dt = ctrlNguoiDung.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
                 if (dt.Rows.Count > 0)
@@ -99,6 +98,7 @@ namespace CuahangNongduoc
                 this.Allow(false);
             }
         }
+
         void BindingSource_CurrentChanged(object sender, EventArgs e)
         {
             if (status == Controll.Normal)
@@ -111,26 +111,27 @@ namespace CuahangNongduoc
         {
             if (cmbSanPham.SelectedValue != null)
             {
-                bqgq = BinhQuanGiaQuyen(cmbSanPham.SelectedValue.ToString());
                 string idSP = cmbSanPham.SelectedValue.ToString();
 
                 if (!viTriLo.ContainsKey(idSP))
                 {
                     viTriLo[idSP] = 0;
                 }
-
+               
                 MaSanPhamController ctrl = new MaSanPhamController();
                 List<MaSanPham> masp = ctrl.LayDanhSachMaSanPham(idSP);
+                SanPham sp = ctrlSanPham.LaySanPham(cmbSanPham.SelectedValue.ToString());
 
                 int index = viTriLo[idSP];
 
                 if (masp.Count > 0 && index < masp.Count)
                 {
-                    numDonGia.Value = bqgq;
+
+                    numDonGia.Value = sp.GiaBinhQuan;
                     txtGiaNhap.Text = masp[index].GiaNhap.ToString("#,###0");
                     txtGiaBanSi.Text = masp[index].SanPham.GiaBanSi.ToString("#,###0");
                     txtGiaBanLe.Text = masp[index].SanPham.GiaBanLe.ToString("#,###0");
-                    txtGiaBQGQ.Text = bqgq.ToString("#,###0");
+                    txtGiaBQGQ.Text = sp.GiaBinhQuan.ToString("#,###0");
                 }
 
                 if (viTriLo.ContainsKey(idSP))
@@ -143,6 +144,11 @@ namespace CuahangNongduoc
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (cmbSanPham.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn Sản phẩm!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (numSoLuong.Value <= 0)
             {
                 MessageBox.Show("Vui lòng nhập Số lượng!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -183,7 +189,7 @@ namespace CuahangNongduoc
                     DataRow row = ctrlChiTiet.NewRow();
                     row["ID_MA_SAN_PHAM"] = idLo;
                     row["ID_PHIEU_BAN"] = txtMaPhieu.Text;
-                    row["DON_GIA"] = bqgq;
+                    row["DON_GIA"] = Convert.ToDecimal(txtGiaBQGQ.Text);
                     row["SO_LUONG"] = soLuongXuat;
                     row["THANH_TIEN"] = thanhTien;
                     row["NGAY_HET_HAN"] = loHienTai.NgayHetHan;
@@ -280,25 +286,6 @@ namespace CuahangNongduoc
             numThanhTien.Value = numDonGia.Value * numSoLuong.Value;
         }
 
-
-        public decimal BinhQuanGiaQuyen(string idSP)
-        {
-            decimal tongGiaTri = 0;
-            decimal tongSoLuong = 0;
-
-            List<MaSanPham> danhSachLo = ctrlMaSanPham.LayDanhSachMaSanPham(idSP);
-
-            foreach (MaSanPham lo in danhSachLo)
-            {
-                tongGiaTri += lo.GiaNhap * lo.SoLuong;
-                tongSoLuong += lo.SoLuong;
-            }
-
-            if (tongSoLuong == 0)
-                return 0;
-            decimal giaBinhQuan = tongGiaTri / tongSoLuong;
-            return giaBinhQuan;
-        }
 
         public void KTraDongTrung()
         {
@@ -626,56 +613,43 @@ namespace CuahangNongduoc
         }
 
         private void toolXoa_Click(object sender, EventArgs e)
-        {
-            DataRowView view = (DataRowView)bindingNavigator.BindingSource.Current;
-            if (view != null)
-            {
-                if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Phieu Ban Le", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    //ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
-                    //IList<ChiTietPhieuBan> ds = ctrl.ChiTietPhieuBan(view["ID"].ToString());
-                    //foreach (ChiTietPhieuBan ct in ds)
-                    //{
-                    //    CuahangNongduoc.DataLayer.MaSanPhanFactory.CapNhatSoLuong(ct.MaSanPham.Id, Convert.ToInt32(ct.SoLuong));
-                    //}
+        {                    btnRemove_Click(sender, e); // Gọi lại hàm xóa
+            //DataRowView view = (DataRowView)bindingNavigator.BindingSource.Current;
+            //if (view != null)
+            //{
+            //    if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Phieu Ban Le", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //    {
+            //        //ChiTietPhieuBanController ctrl = new ChiTietPhieuBanController();
+            //        //IList<ChiTietPhieuBan> ds = ctrl.ChiTietPhieuBan(view["ID"].ToString());
+            //        //foreach (ChiTietPhieuBan ct in ds)
+            //        //{
+            //        //    CuahangNongduoc.DataLayer.MaSanPhanFactory.CapNhatSoLuong(ct.MaSanPham.Id, Convert.ToInt32(ct.SoLuong));
+            //        //}
 
-                    ////ctrlPhieuBan.XoaPhieuBan(view["ID"].ToString());
+            //        ////ctrlPhieuBan.XoaPhieuBan(view["ID"].ToString());
 
-                    //bindingNavigator.BindingSource.RemoveCurrent();
-                    string idLo = dgvDanhsachSP.SelectedRows[0].Cells["colMaSanPham"].Value.ToString();
-                    decimal soLuongXoa = Convert.ToDecimal(dgvDanhsachSP.SelectedRows[0].Cells["colSoLuong"].Value);
-
-                    if (soLuongLo.ContainsKey(idLo))
-                    {
-                        soLuongLo[idLo] += soLuongXoa;
-                    }
-
-                    dgvDanhsachSP.Rows.Remove(dgvDanhsachSP.SelectedRows[0]);
-
-                    if (cmbSanPham.SelectedValue != null)
-                    {
-                        string idSP = cmbSanPham.SelectedValue.ToString();
-                        viTriLo[idSP] = 0;
-                    }
-                    TinhToanTongTienCuoiCung(); // Thêm
+            //        //bindingNavigator.BindingSource.RemoveCurrent();
 
 
-                }
-            }
+
+            //    }
+            //}
         }
 
-        private void btnThemDaiLy_Click(object sender, EventArgs e)
-        {
-            frmKhachHang KhachHang = new frmKhachHang();
-            KhachHang.ShowDialog();
-            ctrlKhachHang.HienthiAutoComboBox(cmbKhachHang, false);
-        }
-
+    
         private void btnThemSanPham_Click(object sender, EventArgs e)
         {
             frmSanPham SanPham = new frmSanPham();
             SanPham.ShowDialog();
             ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
         }
+
+        private void btnThemDaiLy_Click_1(object sender, EventArgs e)
+        {
+        frmKhachHang KhachHang = new frmKhachHang();
+        KhachHang.ShowDialog();
+            ctrlKhachHang.HienthiAutoComboBox(cmbKhachHang, false);
+        }
+
     }
 }
