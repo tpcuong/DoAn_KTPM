@@ -607,3 +607,6 @@ D:\ThietKe_PhanMem\DoAn_KTPM\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\bin\Deb
 D:\ThietKe_PhanMem\DoAn_KTPM\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangN.B1970924.Up2Date
 D:\ThietKe_PhanMem\DoAn_KTPM\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.exe.config
 D:\ThietKe_PhanMem\DoAn_KTPM\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.Flash.resources
+D:\ThietKe_PhanMem\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.exe.config
+D:\ThietKe_PhanMem\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.Flash.resources
+D:\ThietKe_PhanMem\DoAn_KTPM\Cuahang_Nongduoc\Cuahang Nongduoc\obj\Debug\CuahangNongduoc.frmInPhieuBanGiamGia.resources

@@ -499,6 +499,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Report\rptChiTietPhieuBan.rdlc" />
     <EmbeddedResource Include="Report\rptChiTietPhieuNhap.rdlc" />
+    <EmbeddedResource Include="Report\rptDoanhThu.rdlc" />
+    <EmbeddedResource Include="Report\rptDoanhThuTheoNam.rdlc" />
     <EmbeddedResource Include="Report\rptDsDuNoKhachHang.rdlc" />
     <EmbeddedResource Include="Report\rptDsPhieuBanGiamGia.rdlc" />
     <EmbeddedResource Include="Report\rptDuNoKhachHang.rdlc" />

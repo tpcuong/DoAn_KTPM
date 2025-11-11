@@ -212,5 +212,78 @@ namespace CuahangNongduoc.Controller
             }
             return danhSach;
         }
+        // thêm
+        public DoanhThu LayDoanhThuTheoThang(int thang, int nam)
+        {
+            DataTable tbl = factory.LayDoanhThuTheoThang(thang, nam);
+            DoanhThu dt = null;
+            if(tbl.Rows.Count>0)
+            {
+                dt = new DoanhThu();
+                dt.TongDoanhThu = Convert.ToInt32(tbl.Rows[0]["TONG_DOANH_THU"]);
+                dt.TongGiamGia = Convert.ToInt32(tbl.Rows[0]["TONG_GIAM_GIA"]);
+                dt.TongDichVu = Convert.ToInt32(tbl.Rows[0]["TONG_DICH_VU"]);
+                dt.TongTienNhap = Convert.ToInt32(tbl.Rows[0]["TONG_TIEN_NHAP"]);
+                dt.TongTienChi = Convert.ToInt32(tbl.Rows[0]["TONG_CHI"]);
+                dt.TongThuKH = Convert.ToInt32(tbl.Rows[0]["TONG_THU_KH"]);
+                dt.LoiNhuan = Convert.ToInt32(tbl.Rows[0]["LOI_NHUAN"]);
+            }
+            return dt;
+        }
+        //thêm
+        public List<DoanhThu> LayDoanhThuTheoNam(int nam)
+        {
+            List<DoanhThu> list_dt = new List<DoanhThu>();
+            DoanhThu dt = null;
+            for (int i = 1; i<=12;i++)
+            {
+                DataTable tbl = new DataTable();
+                tbl = factory.LayDoanhThuTheoThang(i, nam);
+                if (tbl.Rows.Count>0)
+                {
+                    dt = new DoanhThu();
+                    dt.TongDoanhThu = Convert.ToInt32(tbl.Rows[0]["TONG_DOANH_THU"]);
+                    dt.TongGiamGia = Convert.ToInt32(tbl.Rows[0]["TONG_GIAM_GIA"]);
+                    dt.TongDichVu = Convert.ToInt32(tbl.Rows[0]["TONG_DICH_VU"]);
+                    dt.TongTienNhap = Convert.ToInt32(tbl.Rows[0]["TONG_TIEN_NHAP"]);
+                    dt.TongTienChi = Convert.ToInt32(tbl.Rows[0]["TONG_CHI"]);
+                    dt.TongThuKH = Convert.ToInt32(tbl.Rows[0]["TONG_THU_KH"]);
+                    dt.LoiNhuan = Convert.ToInt32(tbl.Rows[0]["LOI_NHUAN"]);
+                list_dt.Add(dt);
+                } 
+                else
+                {
+                    list_dt.Add(new DoanhThu
+                    {
+                        TongDoanhThu = 0,
+                        TongDichVu = 0,
+                        TongGiamGia = 0,
+                        TongThuKH = 0,
+                        TongTienChi = 0,
+                        TongTienNhap = 0
+                    });
+                }    
+                
+            }    
+            return list_dt;
+        }
+        //thêm
+        public DoanhThu LayDoanhThuTheoNgay(DateTime ngay)
+        {
+            DataTable tbl = factory.LayDoanhThuTheoNgay(ngay);
+            DoanhThu dt = null;
+            if (tbl.Rows.Count > 0)
+            {
+                dt = new DoanhThu();
+                dt.TongDoanhThu = Convert.ToInt32(tbl.Rows[0]["TONG_DOANH_THU"]);
+                dt.TongGiamGia = Convert.ToInt32(tbl.Rows[0]["TONG_GIAM_GIA"]);
+                dt.TongDichVu = Convert.ToInt32(tbl.Rows[0]["TONG_DICH_VU"]);
+                dt.TongTienNhap = Convert.ToInt32(tbl.Rows[0]["TONG_TIEN_NHAP"]);
+                dt.TongTienChi = Convert.ToInt32(tbl.Rows[0]["TONG_CHI"]);
+                dt.TongThuKH = Convert.ToInt32(tbl.Rows[0]["TONG_THU_KH"]);
+                dt.LoiNhuan = Convert.ToInt32(tbl.Rows[0]["LOI_NHUAN"]);
+            }
+            return dt;
+        }
     }
 }

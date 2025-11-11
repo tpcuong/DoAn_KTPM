@@ -21,7 +21,7 @@ namespace CuahangNongduoc
         KhachHangController ctrlKH = new KhachHangController();
         private void frmDunoKhachhang_Load(object sender, EventArgs e)
         {
-
+            dataGridView.AutoGenerateColumns = false;
             this.toolThang.SelectedIndex = DateTime.Now.Month - 1;
             this.toolNam.Text = DateTime.Now.Year.ToString();
             ctrlKH.HienthiKhachHangChungDataGridviewComboBox(colKhachHang);
