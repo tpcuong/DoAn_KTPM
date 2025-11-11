@@ -191,8 +191,102 @@ namespace CuahangNongduoc.DataLayer
                 return false;
             }
         }
+        // thêm
+        public DataTable LayDoanhThuTheoThang(int thang, int nam)
+        {
+            DataService ds = new DataService();
+            string query = @"
+            SELECT 
+	            ISNULL(SUM(TONG_TIEN),0) AS TONG_DOANH_THU,
+	            ISNULL(SUM(GIAM_GIA),0) AS TONG_GIAM_GIA,
+	            ISNULL(SUM(PHI_DICH_VU + PHI_VAN_CHUYEN),0) AS TONG_DICH_VU,
+	
+	            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+	             FROM PHIEU_NHAP 
+	             WHERE MONTH(NGAY_NHAP) = @thang AND YEAR(NGAY_NHAP) = @nam) AS TONG_TIEN_NHAP,
 
+	            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+	             FROM PHIEU_CHI
+	             WHERE MONTH(NGAY_CHI) = @thang AND YEAR(NGAY_CHI) = @nam) AS TONG_CHI,
 
+	            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+	             FROM PHIEU_THANH_TOAN
+	             WHERE MONTH(NGAY_THANH_TOAN) = @thang AND YEAR(NGAY_THANH_TOAN) = @nam) AS TONG_THU_KH,
+	
+	            (
+		            (SELECT ISNULL(SUM(TONG_TIEN - GIAM_GIA),0) 
+		             FROM PHIEU_BAN
+		             WHERE MONTH(NGAY_BAN) = @thang AND YEAR(NGAY_BAN) = @nam) 
+		            - 
+		            (SELECT ISNULL(SUM(PHI_DICH_VU + PHI_VAN_CHUYEN),0) 
+		             FROM PHIEU_BAN
+		             WHERE MONTH(NGAY_BAN) = @thang AND YEAR(NGAY_BAN) = @nam)
+		            - 
+		            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+		             FROM PHIEU_NHAP 
+		             WHERE MONTH(NGAY_NHAP) = @thang AND YEAR(NGAY_NHAP) = @nam)
+		            - 
+		            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+		             FROM PHIEU_CHI
+		             WHERE MONTH(NGAY_CHI) = @thang AND YEAR(NGAY_CHI) = @nam)
+	            ) AS LOI_NHUAN
 
+            FROM PHIEU_BAN
+            WHERE MONTH(NGAY_BAN) = @thang AND YEAR(NGAY_BAN) = @nam";
+            SqlCommand cmd = new SqlCommand(query);
+            cmd.Parameters.Add("thang", SqlDbType.Int).Value = thang;
+            cmd.Parameters.Add("nam", SqlDbType.Int).Value = nam;
+
+            ds.Load(cmd);
+            return ds;
+        }
+        public DataTable LayDoanhThuTheoNgay(DateTime ngay)
+        {
+            DataService ds = new DataService();
+            string query = @"
+            SELECT 
+	            ISNULL(SUM(TONG_TIEN),0) AS TONG_DOANH_THU,
+	            ISNULL(SUM(GIAM_GIA),0) AS TONG_GIAM_GIA,
+	            ISNULL(SUM(PHI_DICH_VU + PHI_VAN_CHUYEN),0) AS TONG_DICH_VU,
+	
+	            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+	             FROM PHIEU_NHAP 
+	             WHERE NGAY_NHAP = @ngay) AS TONG_TIEN_NHAP,
+
+	            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+	             FROM PHIEU_CHI
+	             WHERE NGAY_CHI = @ngay) AS TONG_CHI,
+
+	            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+	             FROM PHIEU_THANH_TOAN
+	             WHERE NGAY_THANH_TOAN = @ngay) AS TONG_THU_KH,
+	
+	            (
+		            (SELECT ISNULL(SUM(TONG_TIEN - GIAM_GIA),0) 
+		             FROM PHIEU_BAN
+		             WHERE NGAY_BAN = @ngay) 
+		            - 
+		            (SELECT ISNULL(SUM(PHI_DICH_VU + PHI_VAN_CHUYEN),0) 
+		             FROM PHIEU_BAN
+		             WHERE NGAY_BAN = @ngay)
+		            - 
+		            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+		             FROM PHIEU_NHAP 
+		             WHERE NGAY_NHAP = @ngay)
+		            - 
+		            (SELECT ISNULL(SUM(TONG_TIEN),0) 
+		             FROM PHIEU_CHI
+		             WHERE NGAY_CHI = @ngay)
+	            ) AS LOI_NHUAN
+
+            FROM PHIEU_BAN
+            WHERE NGAY_BAN = @ngay";
+            SqlCommand cmd = new SqlCommand(query);
+            //cmd.Parameters.Add("ngay", SqlDbType.Date).Value = ngay.Date;
+            cmd.Parameters.Add("ngay", SqlDbType.Date).Value = ngay.Date;
+
+            ds.Load(cmd);
+            return ds;
+        }
     }
 }

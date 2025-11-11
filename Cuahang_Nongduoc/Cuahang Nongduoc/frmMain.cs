@@ -19,8 +19,8 @@ namespace CuahangNongduoc
         NguoiDungController ctrlNguoiDung = new NguoiDungController();
         public frmMain()
         {
-            Flash flash = new Flash();
-            flash.ShowDialog();
+            //Flash flash = new Flash();
+            //flash.ShowDialog();
             InitializeComponent();
         }
         frmDonViTinh DonViTinh = null;
@@ -497,6 +497,19 @@ namespace CuahangNongduoc
             }
             else
                 frmInPhieuBanGiamGia.Activate();
+        }
+        frmDoanhThu frmDoanhThu = null;
+        private void toolDoanhThu_Click(object sender, EventArgs e)
+        {
+
+            if (frmDoanhThu == null || frmDoanhThu.IsDisposed)
+            {
+                frmDoanhThu = new frmDoanhThu();
+                frmDoanhThu.MdiParent = this;
+                frmDoanhThu.Show();
+            }
+            else
+                frmDoanhThu.Activate();
         }
     }
 }

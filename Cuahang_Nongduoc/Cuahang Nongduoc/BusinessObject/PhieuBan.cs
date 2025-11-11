@@ -101,4 +101,15 @@ namespace CuahangNongduoc.BusinessObject
             set { m_NgDung = value; }
         }
     }
+    //thêm
+    public class DoanhThu
+    {
+        public long TongDoanhThu { get; set; }
+        public long TongGiamGia { get; set; }
+        public long TongDichVu { get; set; }
+        public long TongTienNhap { get; set; }
+        public long TongTienChi { get; set; }
+        public long TongThuKH { get; set; }
+        public long LoiNhuan { get; set; }
+    }
 }

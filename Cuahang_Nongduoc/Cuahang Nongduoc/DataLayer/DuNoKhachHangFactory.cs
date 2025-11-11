@@ -52,7 +52,7 @@ namespace CuahangNongduoc.DataLayer
             //cmd.Parameters.Add("kh", OleDbType.VarChar, 50).Value = kh;
             //cmd.Parameters.Add("thang", OleDbType.Integer).Value = thang;
             //cmd.Parameters.Add("nam", OleDbType.Integer).Value = nam;
-            SqlCommand cmd = new SqlCommand("SELECT CUOI_KY FROM DU_NO_KH WHERE ID_KHACH_HANG = @kh AND THANG=@thang AND NAM=@nam");
+            SqlCommand cmd = new SqlCommand("SELECT DAU_KY FROM DU_NO_KH WHERE ID_KHACH_HANG = @kh AND THANG=@thang AND NAM=@nam");
             cmd.Parameters.Add("kh", SqlDbType.VarChar, 50).Value = kh;
             cmd.Parameters.Add("thang", SqlDbType.Int).Value = thang;
             cmd.Parameters.Add("nam", SqlDbType.Int).Value = nam;
