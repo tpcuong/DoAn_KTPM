@@ -124,6 +124,30 @@
     <value>132, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="toolNguoiDung.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAQnSURBVEhLxZV7TJV1GMd/WxdrlX+lpnIZlh0uJXahrE1b
+        Dp0OmImZklfEPN490jlyQFEOgimgEkikJUIYIfeOCgkhehAOoGgoyoaXHJt4QTJypCb26fe+r5LIXHVa
+        69m+++337j3fz/N8n3c74n+rnXFTyDA7sSu8L/nRzhSsH8beOBeKk9/k7iuO1zbLcHLCBNYowR6LoGyD
+        wLZZUJMiqEsVVCY94Tgkd4eZNIPg83mCkihXKuPdKY8dTMFKwYGNGkRRdZqDk+R8MprkOYLrxR9B/To4
+        HANHouGgkbwIbZJDnwrK4x93DLAr0oPqTa/9aX7fWb3ZXY1LmaR4rXAMkGF04+beOZpxwyY4uUU75b0l
+        +z0yZHyFkdp+tF/8w9oXPxIqlmqAxiRo/hKOJ2p3eyStWQF8G9GHnJVPOgaoz18N383VYjkWp3WvnDXy
+        udyDovbUN9idOtUxgFLkv692q5rWWbTTFqZNtk/PxdwPHDdX6la6b3e33fp+iWquwE/kmf4d4FTuciia
+        AmWLoHS+ZlwcAiWzuZk1jmp7FTNjdjMs3I6z+QSDjEfxXL6fOWsL/j74StIoyBotQTIuBZbvB5kj2Z++
+        nZci6vHffYt398GzO+7w6OZO+sS185j5NG4hJX8NOWt+mx+Dn6PFupG2HD2XM4KozTJTGboA79CDzLDB
+        4GwQS5qxbDtE1DfHeT3hNCK8BWFsZsgs68MhVyOHcTv5Fa4sG4jNZsda20RaaQ3WxSGEG7cQUHQDlyxp
+        vlUq7Dz8cgE629BbryJM51SACLajt+T2hlyJGc2d1FdVXY9257jem/IlARwY68Q5SxAjjGX4Fd9BJN5C
+        JEmtbIXfOoDbLKiQ99AzCMMphL4ej+m7egPazDpubvTm14SXub7Oi2uROi4tc6Nl0fNc3m7C1XQUXVon
+        Ir5D05o21Vwpg60LsbhJxtaICKnjqfHZPQH16/UogI4YT36O9qR9lQeXwnS0LH2BM/PcaN1qxNlQR/9E
+        GcXay5pi2wm3d2Gq6sI7U4IXSfOFPyCmHeTpsV/3BDQY/LgU7q5JGreaXlTNz+mH0Bzsyvm4YHzmF9Fv
+        w0XEKrlMRbLjiQn1hOWc5RHzWTUaVRNL8Jr8VU9A4+y3uGAYqpqqkrHcM28McqZp8ShWf5xI3xUyY5PM
+        Wi7TJ6YBfv9Jjcl6US59Zi1iSjlibB4L1zwwwZHp72Af05+mac7dxk0zXGic6kTDpEEc9h/IyZiFeAbJ
+        r0NZpJK1jCSl4Qa2azA0RUYXWIoYX4hu0gPd36vyuYGUj+hH7fgBWtd3AccCB6uAGn/5D2eJwEMxmHlI
+        Xab4sAox+QDCf4/a+UPN76/cFQayJoxjp483me4upLsOYIezE1/odKT7+lKR/Bnm2EKGz8pXl/nMmEy8
+        AtN7x/LflxB/AG3lTTh8tVbKAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="itemDaiLy.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
