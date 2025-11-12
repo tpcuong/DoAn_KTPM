@@ -1,13 +1,14 @@
-﻿using System;
+﻿using CuahangNongduoc.Controller;
+using CuahangNongduoc.DataLayer;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using CuahangNongduoc.Controller;
-using CuahangNongduoc.DataLayer;
-using Microsoft.Win32;
 
 namespace CuahangNongduoc
 {
@@ -435,22 +436,17 @@ namespace CuahangNongduoc
 
         private void mnuTrogiupHuongdan_Click(object sender, EventArgs e)
         {
-            // Help.ShowHelp(this, "CPP.CHM");
-        }
-
-
-        frmNguoiDung NguoiDung = null;
-        private void toolQLTK_Click(object sender, EventArgs e)
-        {
-            if (NguoiDung == null || NguoiDung.IsDisposed)
+            string url = "https://vokhoanguyen.github.io/HuongDan/";
+            try
             {
-                NguoiDung = new frmNguoiDung();
-                NguoiDung.MdiParent = this;
-                NguoiDung.Show();
+                Process.Start(url);
             }
-            else
-                NguoiDung.Activate();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Không thể mở link hướng dẫn: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
 
 
@@ -510,6 +506,20 @@ namespace CuahangNongduoc
             else
                 frmDoanhThu.Activate();
 
+        }
+
+        frmNguoiDung NguoiDung = null;
+
+        private void toolNguoiDung_Click(object sender, EventArgs e)
+        {
+            if (NguoiDung == null || NguoiDung.IsDisposed)
+            {
+                NguoiDung = new frmNguoiDung();
+                NguoiDung.MdiParent = this;
+                NguoiDung.Show();
+            }
+            else
+                NguoiDung.Activate();
         }
     }
 }
