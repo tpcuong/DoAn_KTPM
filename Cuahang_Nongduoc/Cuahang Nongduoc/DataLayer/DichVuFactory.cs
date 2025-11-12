@@ -19,6 +19,14 @@ namespace CuahangNongduoc.DataLayer
             m_Ds.Load(cmd);
             return m_Ds;
         }
+        public DataTable LayDsDichVuPB()
+        {
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM DICH_VU");
+
+            m_Ds.Load(cmd);
+            return m_Ds;
+        }
 
         public DataRow NewRow()
         {

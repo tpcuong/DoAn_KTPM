@@ -22,6 +22,18 @@ namespace CuahangNongduoc.DataLayer
             adapter.Fill(m_Ds);
             return m_Ds;
         }
+        public DataTable DanhSachNguoiDungPB()
+        {
+            DataService.OpenConnection();
+
+            string sql = "SELECT * FROM NGUOI_DUNG";
+            adapter = new SqlDataAdapter(sql, DataService.m_ConnectString);
+            builder = new SqlCommandBuilder(adapter);
+
+            m_Ds.Clear();
+            adapter.Fill(m_Ds);
+            return m_Ds;
+        }
 
         public DataRow NewRow()
         {

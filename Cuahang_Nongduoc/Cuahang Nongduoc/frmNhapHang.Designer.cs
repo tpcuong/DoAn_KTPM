@@ -44,9 +44,9 @@
             this.toolChinhsua = new System.Windows.Forms.ToolStripButton();
             this.toolLuuThoat = new System.Windows.Forms.ToolStripButton();
             this.toolXoa = new System.Windows.Forms.ToolStripButton();
+            this.toolXemLai = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolSavePrint = new System.Windows.Forms.ToolStripButton();
-            this.toolXemLai = new System.Windows.Forms.ToolStripButton();
             this.toolThoat = new System.Windows.Forms.ToolStripButton();
             this.btnAdd = new System.Windows.Forms.Button();
             this.dataGridView = new System.Windows.Forms.DataGridView();
@@ -129,9 +129,9 @@
             this.toolChinhsua,
             this.toolLuuThoat,
             this.toolXoa,
+            this.toolXemLai,
             this.toolStripSeparator1,
             this.toolSavePrint,
-            this.toolXemLai,
             this.toolThoat});
             this.bindingNavigator.Location = new System.Drawing.Point(0, 0);
             this.bindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
@@ -225,6 +225,7 @@
             // 
             // toolChinhsua
             // 
+            this.toolChinhsua.Enabled = false;
             this.toolChinhsua.Image = global::CuahangNongduoc.Properties.Resources.edit;
             this.toolChinhsua.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolChinhsua.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -256,6 +257,17 @@
             this.toolXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolXoa.Click += new System.EventHandler(this.toolXoa_Click);
             // 
+            // toolXemLai
+            // 
+            this.toolXemLai.Image = global::CuahangNongduoc.Properties.Resources.reload_24;
+            this.toolXemLai.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolXemLai.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolXemLai.Name = "toolXemLai";
+            this.toolXemLai.Size = new System.Drawing.Size(50, 43);
+            this.toolXemLai.Text = "Xem lại";
+            this.toolXemLai.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolXemLai.Click += new System.EventHandler(this.toolXemLai_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -271,17 +283,6 @@
             this.toolSavePrint.Text = "Trang in";
             this.toolSavePrint.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolSavePrint.Click += new System.EventHandler(this.toolSavePrint_Click);
-            // 
-            // toolXemLai
-            // 
-            this.toolXemLai.Image = global::CuahangNongduoc.Properties.Resources.reload_24;
-            this.toolXemLai.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolXemLai.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolXemLai.Name = "toolXemLai";
-            this.toolXemLai.Size = new System.Drawing.Size(50, 43);
-            this.toolXemLai.Text = "Xem lại";
-            this.toolXemLai.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolXemLai.Click += new System.EventHandler(this.frmNhapHang_Load);
             // 
             // toolThoat
             // 
@@ -307,6 +308,7 @@
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -341,7 +343,6 @@
             this.colSanPham.HeaderText = "Sản phẩm";
             this.colSanPham.Name = "colSanPham";
             this.colSanPham.ReadOnly = true;
-            this.colSanPham.Width = 150;
             // 
             // colMaSanPham
             // 
@@ -750,6 +751,7 @@
             // 
             // numTongTien
             // 
+            this.numTongTien.Enabled = false;
             this.numTongTien.Location = new System.Drawing.Point(77, 107);
             this.numTongTien.Maximum = new decimal(new int[] {
             1316134912,
@@ -774,7 +776,6 @@
             // 
             // txtMaPhieu
             // 
-            this.txtMaPhieu.Enabled = false;
             this.txtMaPhieu.Location = new System.Drawing.Point(78, 25);
             this.txtMaPhieu.Name = "txtMaPhieu";
             this.txtMaPhieu.Size = new System.Drawing.Size(155, 20);
@@ -867,7 +868,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colNgayNhap;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNgaySanXuat;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNgayHetHan;
-        private System.Windows.Forms.ToolStripButton toolXemLai;
         private System.Windows.Forms.ToolStripButton toolSavePrint;
         private System.Windows.Forms.ToolStripButton toolChinhsua;
         private System.Windows.Forms.ToolStripButton toolXoa;
@@ -881,5 +881,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox cmbNV;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ToolStripButton toolXemLai;
     }
 }

@@ -109,6 +109,10 @@ namespace CuahangNongduoc.Controller
             }
             return ds;
         }
+        public DataTable LayChiTietPB(string idPhieuBan)
+        {
+            return factory.LayChiTietPhieuBan(idPhieuBan);
+        }
 
     }
 }

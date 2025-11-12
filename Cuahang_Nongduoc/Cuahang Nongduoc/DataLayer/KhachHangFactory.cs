@@ -15,8 +15,16 @@ namespace CuahangNongduoc.DataLayer
         {
             // Đã bỏ 'Trang_Thai'
             SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG KH " +
-                                          "WHERE LOAI_KH = @loai " +
-                                          "ORDER BY CAST(ID AS BIGINT) ASC");
+                                          "WHERE LOAI_KH = @loai ");
+            cmd.Parameters.Add("loai", SqlDbType.Bit).Value = loai;
+            m_Ds.Load(cmd);
+            return m_Ds;
+        }
+        public DataTable DanhsachKhachHangPB(bool loai)
+        {
+            // Đã bỏ 'Trang_Thai'
+            SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG KH " +
+                                          "WHERE LOAI_KH = @loai AND Trang_Thai = 1 ");
             cmd.Parameters.Add("loai", SqlDbType.Bit).Value = loai;
             m_Ds.Load(cmd);
             return m_Ds;
@@ -25,7 +33,7 @@ namespace CuahangNongduoc.DataLayer
         {
             // Đã bỏ 'Trang_Thai'
             SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG KH " +
-                                          "WHERE HO_TEN LIKE N'%' + @hoten + '%' AND KH.LOAI_KH = @loai");
+                                          "WHERE HO_TEN LIKE N'%' + @hoten + '%' AND KH.LOAI_KH = @loai AND Trang_Thai = 1");
             cmd.Parameters.Add("hoten", SqlDbType.VarChar).Value = hoten;
             cmd.Parameters.Add("loai", SqlDbType.Bit).Value = loai;
             m_Ds.Load(cmd);
@@ -36,7 +44,7 @@ namespace CuahangNongduoc.DataLayer
         {
             // Đã bỏ 'Trang_Thai'
             SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG " +
-                                          "WHERE DIA_CHI LIKE N'%' + @diachi + '%' AND LOAI_KH = @loai");
+                                          "WHERE DIA_CHI LIKE N'%' + @diachi + '%' AND LOAI_KH = @loai AND Trang_Thai = 1");
             cmd.Parameters.Add("diachi", SqlDbType.VarChar).Value = diachi;
             cmd.Parameters.Add("loai", SqlDbType.Bit).Value = loai;
             m_Ds.Load(cmd);
@@ -46,8 +54,8 @@ namespace CuahangNongduoc.DataLayer
         public DataTable DanhsachKhachHang()
         {
             // Đã bỏ 'Trang_Thai'
-            SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG " +
-                                          "ORDER BY CAST(ID AS BIGINT) ASC");
+            SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG WHERE Trang_Thai = 1 " +
+                                          "ORDER BY CAST(ID AS BIGINT) ASC ");
             m_Ds.Load(cmd);
             return m_Ds;
         }
@@ -56,7 +64,7 @@ namespace CuahangNongduoc.DataLayer
         {
             // Đã bỏ 'Trang_Thai'
             SqlCommand cmd = new SqlCommand("SELECT ID, HO_TEN, DIA_CHI, DIEN_THOAI, LOAI_KH FROM KHACH_HANG " +
-                                          "WHERE ID = @id");
+                                          "WHERE ID = @id AND Trang_Thai = 1");
             cmd.Parameters.Add("id", SqlDbType.VarChar, 50).Value = id;
             m_Ds.Load(cmd);
             return m_Ds;
@@ -79,7 +87,7 @@ namespace CuahangNongduoc.DataLayer
         {
             long maxID = 0;
             DataService tempDs = new DataService();
-            SqlCommand cmd = new SqlCommand("SELECT MAX(CAST(ID AS BIGINT)) FROM KHACH_HANG");
+            SqlCommand cmd = new SqlCommand("SELECT MAX(CAST(ID AS BIGINT)) FROM KHACH_HANG AND Trang_Thai = 1");
             tempDs.Load(cmd);
 
             if (tempDs.Rows.Count > 0 && tempDs.Rows[0][0] != DBNull.Value)

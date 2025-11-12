@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Data;
@@ -17,6 +17,11 @@ namespace CuahangNongduoc.Controller
         {
             DataTable tbl = factory.DanhsachSanPham();
             cmb.DataSource = tbl;
+            // Tạo một bản sao độc lập của DataTable
+            DataTable tblCopy = tbl.Copy();
+
+            // Gán DataSource bằng bản sao
+            cmb.DataSource = tblCopy; // Thay vì gán 'tbl'
             cmb.DisplayMember = "TEN_SAN_PHAM";
             cmb.ValueMember = "ID";
             //cmb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -126,6 +131,7 @@ namespace CuahangNongduoc.Controller
                 sp.GiaBanLe = Convert.ToInt64(tbl.Rows[0]["GIA_BAN_LE"]);
                 sp.GiaBanSi = Convert.ToInt64(tbl.Rows[0]["GIA_BAN_SI"]);
                 sp.DonViTinh = ctrlDVT.LayDVT(Convert.ToInt32(tbl.Rows[0]["ID_DON_VI_TINH"]));
+                sp.GiaBinhQuan = Convert.ToDecimal(tbl.Rows[0]["GIA_BINH_QUAN"]);
             }
             return sp;
 
@@ -158,7 +164,7 @@ namespace CuahangNongduoc.Controller
             return ds;
         }
 
-        // th�m
+        // thêm
         public static IList<SoLuongTon> LaySoLuongTon(DateTime tuNgay, DateTime denNgay)
         {
             SanPhamFactory f = new SanPhamFactory();

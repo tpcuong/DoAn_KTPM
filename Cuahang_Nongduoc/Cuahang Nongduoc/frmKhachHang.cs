@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CuahangNongduoc.Strategy;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -30,7 +31,7 @@ namespace CuahangNongduoc
             RestoreDataBindings();
 
             txtMaKH.ReadOnly = true;
-
+            Allow(false);
             try
             {
                 ThamSo.KhachHang = ctrl.GetMaxKhachHangID() + 1;
@@ -43,6 +44,22 @@ namespace CuahangNongduoc
 
         #region "Các hàm trợ giúp (Helper Methods)"
 
+        void Allow(bool allow) // Thêm mới hàm này 
+        {
+            dataGridView.Enabled = !allow;
+            bindingNavigatorDeleteItem.Enabled = !allow;
+            toolLuu.Enabled = allow;
+            bindingNavigatorAddNewItem.Enabled = !allow;
+            btnAdd.Enabled = allow;
+            btnRemove.Enabled = allow;
+
+        }
+        void TxtReset()
+        {
+            txtHoTenKH.Text = "";
+            txtDiaChi.Text = "";
+            txtSDT.Text = "";
+        }
         private void RestoreDataBindings()
         {
             txtMaKH.DataBindings.Clear();
@@ -59,34 +76,28 @@ namespace CuahangNongduoc
         #endregion
 
         #region "Các sự kiện Click"
-
+        long maTemp;
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
+            TxtReset(); 
+            Allow(true);
             long maso = ThamSo.KhachHang;
-            ThamSo.KhachHang = maso + 1;
-
-            DataRowView row = (DataRowView)bindingNavigator.BindingSource.AddNew();
-
-            row[COL_ID] = maso;
-
+            maTemp = maso;
+            txtMaKH.Text = maso.ToString();
             txtHoTenKH.Focus();
         }
 
         private void toolLuu_Click(object sender, EventArgs e)
         {
-            string hoTen = txtHoTenKH.Text;
-            if (string.IsNullOrWhiteSpace(hoTen))
-            {
-                MessageBox.Show("Vui lòng nhập Họ tên Khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtHoTenKH.Focus();
-                return;
-            }
 
             try
             {
-                bindingNavigator.BindingSource.EndEdit();
-                ctrl.Save();
-                MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ThamSo.NhaCungCap = maTemp + 1;
+
+                        bindingNavigatorPositionItem.Focus();
+                        ctrl.Save();
+                    
+                MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);      
             }
             catch (Exception ex)
             {
@@ -98,6 +109,12 @@ namespace CuahangNongduoc
         {
             try
             {
+                if (txtHoTenKH.Text.Trim() == "")
+                {
+                    MessageBox.Show("Họ tên Đại lý không được để trống!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtHoTenKH.Focus();
+                    return;
+                }
                 // 1. Xóa khỏi BindingSource (UI)
                 bindingNavigator.BindingSource.RemoveCurrent();
 
@@ -141,10 +158,21 @@ namespace CuahangNongduoc
         // HÀM 2: SỬA LẠI NÚT XÓA TRÊN THANH CÔNG CỤ
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn có chắc chắn XÓA VĨNH VIỄN khách hàng này không?", "Cảnh báo xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            try
             {
-                // Gọi hàm xóa mới
-                XoaKhachHangHienTai();
+
+                var policy = new XoaMem();
+
+              
+                string id = txtMaKH.Text;
+                ThamSo.Delete(id, "KHACH_HANG", policy);
+
+                MessageBox.Show("Xóa thành công!", "Phieu chi ", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                frmKhachHang_Load(sender, e);
+            }
+            catch
+            {
+                MessageBox.Show("Xóa thất bại!");
             }
         }
 
@@ -217,6 +245,29 @@ namespace CuahangNongduoc
             }
         }
 
+
         #endregion
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            bindingNavigatorDeleteItem_Click(sender, e);    
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if(txtHoTenKH.Text.Trim() == "")
+            {
+                MessageBox.Show("Vui lòng nhập Họ tên Khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtHoTenKH.Focus();
+                return;
+            }
+            DataRow row = ctrl.NewRow();
+            row["ID"] = txtMaKH.Text;
+            row["HO_TEN"] = txtHoTenKH.Text;
+            row["DIA_CHI"] = txtDiaChi.Text;
+            row["DIEN_THOAI"] = txtSDT;
+            row["LOAI_KH"] = 0;
+            ctrl.Add(row);
+        }
     }
 }

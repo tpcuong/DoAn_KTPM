@@ -60,7 +60,7 @@ namespace CuahangNongduoc.Controller
         public void HienthiDichVuDataGridviewComboBox(DataGridViewComboBoxColumn cmb)
         {
            
-            cmb.DataSource = factory.LayDsDichVu();
+            cmb.DataSource = factory.LayDsDichVuPB();
             cmb.DisplayMember = "TEN_DICH_VU";
             cmb.ValueMember = "ID";
             cmb.DataPropertyName = "ID_DICH_VU"; 

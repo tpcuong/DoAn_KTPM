@@ -10,6 +10,15 @@ namespace CuahangNongduoc.DataLayer
     {
         DataService m_Ds = new DataService();
 
+        public DataTable DanhsachDVTSP()
+        {
+            //OleDbCommand cmd = new OleDbCommand("SELECT * FROM DON_VI_TINH");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM DON_VI_TINH WHERE Trang_Thai = 1");
+            m_Ds.Load(cmd);
+
+            return m_Ds;
+        }
+
         public DataTable DanhsachDVT()
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM DON_VI_TINH");
@@ -18,7 +27,6 @@ namespace CuahangNongduoc.DataLayer
 
             return m_Ds;
         }
-
 
         public DataTable LayDVT(int id)
         {
