@@ -52,7 +52,7 @@ namespace CuahangNongduoc
         }
         void Allow(bool allow) // Thêm mới hàm này 
         {
-            dataGridView.Enabled = allow;
+            dataGridView.Enabled = !allow;
             bindingNavigatorDeleteItem.Enabled = !allow;
             toolLuu.Enabled = allow;
             bindingNavigatorAddNewItem.Enabled = !allow;
