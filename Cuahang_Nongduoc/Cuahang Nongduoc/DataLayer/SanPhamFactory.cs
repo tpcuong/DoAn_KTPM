@@ -13,7 +13,7 @@ namespace CuahangNongduoc.DataLayer
         public DataTable DanhsachSanPham()
         {
             //OleDbCommand cmd = new OleDbCommand("SELECT * FROM SAN_PHAM");
-            SqlCommand cmd = new SqlCommand("SELECT * FROM SAN_PHAM WHERE TRANG_THAI = 1");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM SAN_PHAM WHERE Trang_Thai = 1");
             m_Ds.Load(cmd);
 
             return m_Ds;
@@ -140,7 +140,7 @@ namespace CuahangNongduoc.DataLayer
         public bool UpdateSoLuong(string id, long soLuong)
         {
 
-            SqlCommand cmd = new SqlCommand("UPDATE SAN_PHAM SET SO_LUONG = @soLuong WHERE ID = @id");
+            SqlCommand cmd = new SqlCommand("UPDATE SAN_PHAM SET SO_LUONG =@soLuong WHERE ID = @id");
 
             cmd.Parameters.Add("soLuong", SqlDbType.BigInt).Value = soLuong;
             cmd.Parameters.Add("id", SqlDbType.VarChar).Value = id;

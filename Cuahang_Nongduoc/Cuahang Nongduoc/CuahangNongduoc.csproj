@@ -183,6 +183,12 @@
     <Compile Include="frmNguoiDung.Designer.cs">
       <DependentUpon>frmNguoiDung.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmNhapHang.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNhapHang.Designer.cs">
+      <DependentUpon>frmNhapHang.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmPhieuChi.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -274,12 +280,6 @@
     </Compile>
     <Compile Include="frmNhaCungCap.Designer.cs">
       <DependentUpon>frmNhaCungCap.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmNhapHang.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmNhapHang.Designer.cs">
-      <DependentUpon>frmNhapHang.cs</DependentUpon>
     </Compile>
     <Compile Include="frmInPhieuThanhToan.cs">
       <SubType>Form</SubType>
@@ -388,6 +388,9 @@
     <EmbeddedResource Include="frmNguoiDung.resx">
       <DependentUpon>frmNguoiDung.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmNhapHang.resx">
+      <DependentUpon>frmNhapHang.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmPhieuChi.resx">
       <DependentUpon>frmPhieuChi.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -439,10 +442,6 @@
     <EmbeddedResource Include="frmNhaCungCap.resx">
       <SubType>Designer</SubType>
       <DependentUpon>frmNhaCungCap.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmNhapHang.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>frmNhapHang.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInPhieuThanhToan.resx">
       <SubType>Designer</SubType>
@@ -542,6 +541,8 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="strategy\Xoa.cs" />
+    <Compile Include="strategy\XoaMem.cs" />
     <Compile Include="ThamSo.cs" />
   </ItemGroup>
   <ItemGroup>

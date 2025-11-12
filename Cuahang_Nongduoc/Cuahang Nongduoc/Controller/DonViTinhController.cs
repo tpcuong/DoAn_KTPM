@@ -14,21 +14,19 @@ namespace CuahangNongduoc.Controller
 
         public void HienthiAutoComboBox(System.Windows.Forms.ComboBox cmb)
         {
-            DataTable tbl = factory.DanhsachDVT();
+            DataTable tbl = factory.DanhsachDVTSP();
             cmb.DataSource = tbl;
             cmb.DisplayMember = "TEN_DON_VI";
             cmb.ValueMember = "ID";
         }
-        public System.Windows.Forms.DataGridViewComboBoxColumn HienthiDataGridViewComboBoxColumn()
+        public void HienthiDataGridViewComboBoxColumn(System.Windows.Forms.DataGridViewComboBoxColumn cmb)
         {
-            System.Windows.Forms.DataGridViewComboBoxColumn cmb = new System.Windows.Forms.DataGridViewComboBoxColumn();
             DataTable tbl = factory.DanhsachDVT();
             cmb.DataSource = tbl;
             cmb.DisplayMember = "TEN_DON_VI";
             cmb.ValueMember = "ID";
             cmb.DataPropertyName = "ID_DON_VI_TINH";
             cmb.HeaderText = "Đơn vị tính";
-            return cmb;
         }
         public void HienthiDataGridview(System.Windows.Forms.DataGridView dg, System.Windows.Forms.BindingNavigator bn)
         {

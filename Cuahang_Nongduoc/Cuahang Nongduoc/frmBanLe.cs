@@ -83,15 +83,14 @@ namespace CuahangNongduoc
 
             if (status == Controll.AddNew)
             {
+                toolXoa.Enabled = false;
+                toolLuu.Enabled = false;
                 txtMaPhieu.Text = ThamSo.LayMaPhieuBan().ToString();
                 DataTable dt = ctrlNguoiDung.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
                 if (dt.Rows.Count > 0)
                 {
-                    cmbNV.ValueMember = "ID";
-                    cmbNV.DisplayMember = "TEN_NGUOI_DUNG";
-                    cmbNV.DataSource = dt;
+
                     cmbNV.SelectedValue = int.Parse(dt.Rows[0]["ID"].ToString());
-                    cmbNV.Text = dt.Rows[0]["TEN_NGUOI_DUNG"].ToString();
                 }
             }
             else
@@ -111,7 +110,6 @@ namespace CuahangNongduoc
         {
             if (cmbSanPham.SelectedValue != null)
             {
-                bqgq = BinhQuanGiaQuyen(cmbSanPham.SelectedValue.ToString());
                 string idSP = cmbSanPham.SelectedValue.ToString();
 
                 if (!viTriLo.ContainsKey(idSP))
@@ -121,16 +119,18 @@ namespace CuahangNongduoc
 
                 MaSanPhamController ctrl = new MaSanPhamController();
                 List<MaSanPham> masp = ctrl.LayDanhSachMaSanPham(idSP);
+                SanPham sp = ctrlSanPham.LaySanPham(cmbSanPham.SelectedValue.ToString());
 
                 int index = viTriLo[idSP];
 
                 if (masp.Count > 0 && index < masp.Count)
                 {
-                    numDonGia.Value = bqgq;
+
+                    numDonGia.Value = sp.GiaBinhQuan;
                     txtGiaNhap.Text = masp[index].GiaNhap.ToString("#,###0");
                     txtGiaBanSi.Text = masp[index].SanPham.GiaBanSi.ToString("#,###0");
                     txtGiaBanLe.Text = masp[index].SanPham.GiaBanLe.ToString("#,###0");
-                    txtGiaBQGQ.Text = bqgq.ToString("#,###0");
+                    txtGiaBQGQ.Text = sp.GiaBinhQuan.ToString("#,###0");
                 }
 
                 if (viTriLo.ContainsKey(idSP))
@@ -143,6 +143,7 @@ namespace CuahangNongduoc
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            toolLuu.Enabled = true;
             if (numSoLuong.Value <= 0)
             {
                 MessageBox.Show("Vui lòng nhập Số lượng!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -199,6 +200,7 @@ namespace CuahangNongduoc
             }
 
             TinhToanTongTienCuoiCung();
+            ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
 
             numSoLuong.Value = 0;
             numThanhTien.Value = 0;
@@ -281,24 +283,6 @@ namespace CuahangNongduoc
         }
 
 
-        public decimal BinhQuanGiaQuyen(string idSP)
-        {
-            decimal tongGiaTri = 0;
-            decimal tongSoLuong = 0;
-
-            List<MaSanPham> danhSachLo = ctrlMaSanPham.LayDanhSachMaSanPham(idSP);
-
-            foreach (MaSanPham lo in danhSachLo)
-            {
-                tongGiaTri += lo.GiaNhap * lo.SoLuong;
-                tongSoLuong += lo.SoLuong;
-            }
-
-            if (tongSoLuong == 0)
-                return 0;
-            decimal giaBinhQuan = tongGiaTri / tongSoLuong;
-            return giaBinhQuan;
-        }
 
         public void KTraDongTrung()
         {
@@ -373,7 +357,6 @@ namespace CuahangNongduoc
             foreach (var item in tongTheoMaSP)
             {
                 // Giả sử UpdateSoLuong(maSP, soLuong) là hàm "cập nhật tồn kho"
-                // bạn nên tạo riêng một hàm kiểu: Cộng lại tồn kho
                 ctrlSanPham.UpdateSoLuong(item.Key, item.Value);
             }
         }
@@ -455,26 +438,38 @@ namespace CuahangNongduoc
                 return;
             }
 
-            if (ThamSo.LaSoNguyen(txtMaPhieu.Text))
+            DataTable dtSP = ctrlMaSanPham.DanhSachMSP();
+            Dictionary<string, long> tongTheoMaSP = new Dictionary<string, long>();
+
+            foreach (DataRow rowSP in dtSP.Rows)
             {
-                long so = Convert.ToInt64(txtMaPhieu.Text);
-                if (so >= ThamSo.LayMaPhieuBan())
+                string maSP = rowSP["ID_SAN_PHAM"].ToString();
+                long soLuong = Convert.ToInt64(rowSP["SO_LUONG"]);
+
+                if (tongTheoMaSP.ContainsKey(maSP))
+                    tongTheoMaSP[maSP] += soLuong;
+                else
+                    tongTheoMaSP[maSP] = soLuong;
+            }
+            // Sau khi cộng dồn xong, với mỗi sản phẩm trùng, cộng lại vào tồn kho
+            foreach (var item in tongTheoMaSP)
+            {
+                // Giả sử UpdateSoLuong(maSP, soLuong) là hàm "cập nhật tồn kho"
+                // bạn nên tạo riêng một hàm kiểu: Cộng lại tồn kho
+                ctrlSanPham.UpdateSoLuong(item.Key, item.Value);
+            }
+            if (ctrlPhieuBan.LuuPhieuBanMoi(row))
+            {
+                MessageBox.Show("Lưu phiếu bán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ctrlChiTiet.Save();
+                if (ThamSo.LaSoNguyen(txtMaPhieu.Text))
                 {
-                    ThamSo.GanMaPhieuBan(so + 1);
+                    long so = Convert.ToInt64(txtMaPhieu.Text);
+                    if (so >= ThamSo.LayMaPhieuBan())
+                    {
+                        ThamSo.GanMaPhieuBan(so + 1);
+                    }
                 }
-            }
-
-
-           if (ctrlPhieuBan.LuuPhieuBanMoi(row))
-            { 
-            ctrlChiTiet.Save();
-            MessageBox.Show("Lưu phiếu bán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            }
-            else
-            {
-                MessageBox.Show("Lưu phiếu bán thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
 
 
@@ -676,6 +671,35 @@ namespace CuahangNongduoc
             frmSanPham SanPham = new frmSanPham();
             SanPham.ShowDialog();
             ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
+        }
+        void Reset()
+        {
+            cmbSanPham.SelectedIndex = -1;
+            numSoLuong.Value = 0;
+            numDonGia.Value = 0;
+            numConNo.Value = 0;
+            numDaTra.Value = 0;
+            numDonGia.Value = 0;
+            numGiamGia.Value = 0;
+            numPhiDichVu.Value = 0;
+            numPhiVanChuyen.Value = 0;
+            numSoLuong.Value = 0;
+            numThanhTien.Value = 0;
+            numTongTien.Value = 0;
+            txtGiaBanLe.Text = "";
+            txtGiaBanSi.Text = "";
+            txtGiaBQGQ.Text = "";
+            txtGiaNhap.Text = "";
+            toolLuu.Enabled = false;
+            btnThemDaiLy.Enabled = false;
+
+        }
+        private void toolXemlai_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmBanLe frm = new frmBanLe();
+            frm.Show();
+            this.Close();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace CuahangNongduoc
             this.ctrl = ctrlPN;
             status = Controll.Normal;
         }
-
+        int them = 0;
 
         void BindingSource_CurrentChanged(object sender, EventArgs e)
         {
@@ -59,17 +59,20 @@ namespace CuahangNongduoc
 
             if (status == Controll.AddNew)
             {
+                toolXoa.Enabled = false;
+               toolLuuThoat.Enabled = true;
                 txtMaPhieu.Text = ThamSo.LayMaPhieuNhap().ToString();
-               DataTable dt = ctrlND.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
-                if(dt.Rows.Count > 0)
+                DataTable dt = ctrlND.LayNguoiDungTheoTDN(ThamSo.Session.TenDangNhap);
+                if (dt.Rows.Count > 0)
                 {
                     cmbNV.SelectedValue = dt.Rows[0]["ID"].ToString();
-                    
+
                 }
                 Allow(true);
             }
             else
-            {
+            {      
+                toolXoa.Enabled = true;
                 Allow(false);
             }
 
@@ -158,6 +161,7 @@ namespace CuahangNongduoc
             this.Luu();
             status = Controll.Normal;
             this.Allow(false);
+            // Cập nhật giá bình quân quán
             foreach (DataGridViewRow row in dataGridView.Rows)
             {
                 CapNhapGiaBinhQUan(Convert.ToString(row.Cells["colSanPham"].Value),
@@ -227,19 +231,24 @@ namespace CuahangNongduoc
             }
 
         }
+        void Reset() //Thêm 
+        {
+            txtMaPhieu.Text = ThamSo.LayMaPhieuNhap().ToString();
+            status = Controll.AddNew;
+            txtMaSo.Text = "";
+            numGiaNhap.Value = 0;
+            numConNo.Value = 0;
+            numDaTra.Value = 0;
+            numTongTien.Value = 0;
+            dataGridView.DataSource = null;
+            numSoLuong.Value = 0;
+            numThanhTien.Value = 0;
+            numThanhTien.Value = 0;
+        }
 
         private void toolLuuThem_Click(object sender, EventArgs e)
         {
-            ctrl = new PhieuNhapController();
-
-            status = Controll.AddNew;
-
-            txtMaPhieu.Text = ThamSo.LayMaPhieuNhap().ToString();
-            numTongTien.Value = 0;
-            numDaTra.Value = 0;
-            numConNo.Value = 0;
-            ctrlMaSP.HienThiChiTietPhieuNhap(txtMaPhieu.Text, dataGridView);
-            this.Allow(true);
+            toolXemLai_Click(sender, e);
         }
 
         private void toolSavePrint_Click(object sender, EventArgs e)
@@ -371,5 +380,12 @@ namespace CuahangNongduoc
             }
         }
 
+        private void toolXemLai_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            frmNhapHang frm = new frmNhapHang();
+            frm.Show();
+            this.Close();
+        }
     }
 }

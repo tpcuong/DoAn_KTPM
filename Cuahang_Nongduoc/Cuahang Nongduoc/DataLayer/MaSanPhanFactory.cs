@@ -78,14 +78,25 @@ namespace CuahangNongduoc.DataLayer
 
             return m_Ds;
         }
+        public bool CapNhatSoLuong_Lo(String masp, int so_luong)
+        {
+            DataService ds = new DataService();
+            SqlCommand cmd = new SqlCommand(
+                "UPDATE MA_SAN_PHAM SET SO_LUONG = @so WHERE ID = @id"
+            );
 
+            cmd.Parameters.Add("@so", SqlDbType.Decimal).Value = so_luong;
+            cmd.Parameters.Add("@id", SqlDbType.VarChar).Value = masp;
+
+            return ds.ExecuteNoneQuery(cmd) >= 0;
+        }
         public static void CapNhatSoLuong(String masp, int so_luong)
         {
             DataService ds = new DataService();
             //OleDbCommand cmd = new OleDbCommand("UPDATE MA_SAN_PHAM SET SO_LUONG = SO_LUONG + @so WHERE ID = @id");
             //cmd.Parameters.Add("so", OleDbType.Integer).Value = so_luong;
             //cmd.Parameters.Add("id", OleDbType.VarChar).Value = masp;
-            SqlCommand cmd = new SqlCommand("UPDATE MA_SAN_PHAM SET SO_LUONG = SO_LUONG + @so WHERE ID = @id");
+            SqlCommand cmd = new SqlCommand("UPDATE MA_SAN_PHAM SET SO_LUONG = SO_LUONG - @so WHERE ID = @id");
             cmd.Parameters.Add("so", SqlDbType.Int).Value = so_luong;
             cmd.Parameters.Add("id", SqlDbType.VarChar).Value = masp;
             ds.ExecuteNoneQuery(cmd);

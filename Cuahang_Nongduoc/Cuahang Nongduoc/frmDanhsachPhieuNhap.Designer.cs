@@ -226,6 +226,7 @@
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -240,6 +241,7 @@
             this.dataGridView.Location = new System.Drawing.Point(0, 46);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(673, 300);
             this.dataGridView.TabIndex = 1;
             this.dataGridView.DoubleClick += new System.EventHandler(this.dataGridView_DoubleClick);
@@ -250,7 +252,6 @@
             this.colId.HeaderText = "Mã phiếu";
             this.colId.Name = "colId";
             this.colId.ReadOnly = true;
-            this.colId.Width = 80;
             // 
             // colNguoiDung
             // 
@@ -267,7 +268,6 @@
             this.colNhaCungCap.HeaderText = "Nhà cung cấp";
             this.colNhaCungCap.Name = "colNhaCungCap";
             this.colNhaCungCap.ReadOnly = true;
-            this.colNhaCungCap.Width = 150;
             // 
             // colNgayNhap
             // 

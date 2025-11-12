@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using CuahangNongduoc.Controller;
+using CuahangNongduoc.Strategy;
 
 namespace CuahangNongduoc
 {
@@ -69,9 +70,11 @@ namespace CuahangNongduoc
             {
                 if (dataGridView.SelectedRows.Count > 0)
                 {
+                    var policy = new XoaMem();
+
                     DataGridViewRow row = dataGridView.SelectedRows[0];
                     string id = row.Cells["colId"].Value.ToString();
-                    if (ThamSo.Delete(id, "PHIEU_NHAP"))
+                    if (ThamSo.Delete(id, "PHIEU_NHAP" , policy))
                     {
                         MessageBox.Show("Xóa thành công!", "Phieu Ban Nhap", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         frmDanhsachPhieuNhap_Load(sender, e);

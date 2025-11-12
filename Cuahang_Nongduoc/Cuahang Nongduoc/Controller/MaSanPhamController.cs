@@ -163,6 +163,11 @@ namespace CuahangNongduoc.Controller
             return factory.DanhsachMaSanPham();
         }
 
+        public bool CapNhatSoLuong(String masp, int so_luong)
+        {
+            return factory.CapNhatSoLuong_Lo(masp, so_luong);
+     
+        }
         #endregion
 
     }

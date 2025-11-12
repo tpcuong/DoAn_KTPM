@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using CuahangNongduoc.Controller;
+using CuahangNongduoc.Strategy;
 
 namespace CuahangNongduoc
 {
@@ -18,7 +19,7 @@ namespace CuahangNongduoc
         {
             InitializeComponent();
         }
-
+        //Co sua
         private void frmThanhToan_Load(object sender, EventArgs e)
         {
             dataGridView.AutoGenerateColumns = false;
@@ -27,10 +28,14 @@ namespace CuahangNongduoc
             ctrlND.HienthiAutoComboBox(cmbNV);
             ctrlND.HienthiNguoiDungDataGridviewComboBox(colNguoiDung);
             ctrl.HienthiPhieuChi(bindingNavigator, dataGridView,cmbNV, cmbLyDoChi, txtMaPhieu, dtNgayChi, numTongTien, txtGhiChu);
+            toolSave.Enabled = false;
+            toolDelete.Enabled = true;
         }
-
+        //Co sua
         private void toolAdd_Click(object sender, EventArgs e)
         {   
+            toolDelete.Enabled = false;
+            toolSave.Enabled = true;
             MessageBox.Show("Hãy nhập dữ liệu rồi ấn lưu","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
             long maphieu = ThamSo.PhieuChi;
             cmbLyDoChi.Text = "";
@@ -51,7 +56,7 @@ namespace CuahangNongduoc
                 e.Cancel = true;
             }
         }
-
+        //Co sua
         private void toolDelete_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn chắc chắn xóa phiếu chi này không?", "Phieu Chi", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -62,10 +67,11 @@ namespace CuahangNongduoc
                     try
                     {
 
-                    
-                    DataGridViewRow row = dataGridView.SelectedRows[0];
+                        var policy = new XoaMem();
+
+                        DataGridViewRow row = dataGridView.SelectedRows[0];
                     string id = row.Cells["colMaPhieu"].Value.ToString();
-                    ThamSo.Delete(id, "PHIEU_CHI");
+                    ThamSo.Delete(id, "PHIEU_CHI", policy);
                     
                         MessageBox.Show("Xóa thành công!", "Phieu chi ", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         frmThanhToan_Load(sender, e);
@@ -82,7 +88,7 @@ namespace CuahangNongduoc
                 //ctrl.Save();
             }
         }
-
+        //Co sua
         private void toolSave_Click(object sender, EventArgs e)
         {
             ThamSo.PhieuChi = Convert.ToInt64(txtMaPhieu.Text);

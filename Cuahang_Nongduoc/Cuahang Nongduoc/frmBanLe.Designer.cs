@@ -44,9 +44,9 @@
             this.toolChinhSua = new System.Windows.Forms.ToolStripButton();
             this.toolLuu = new System.Windows.Forms.ToolStripButton();
             this.toolXoa = new System.Windows.Forms.ToolStripButton();
+            this.toolXemlai = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolIn = new System.Windows.Forms.ToolStripButton();
-            this.toolXemlai = new System.Windows.Forms.ToolStripButton();
             this.toolThoat = new System.Windows.Forms.ToolStripButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -145,9 +145,9 @@
             this.toolChinhSua,
             this.toolLuu,
             this.toolXoa,
+            this.toolXemlai,
             this.toolStripSeparator1,
             this.toolIn,
-            this.toolXemlai,
             this.toolThoat});
             this.bindingNavigator.Location = new System.Drawing.Point(0, 0);
             this.bindingNavigator.MoveFirstItem = this.bindingNavigatorMoveFirstItem;
@@ -241,6 +241,7 @@
             // 
             // toolChinhSua
             // 
+            this.toolChinhSua.Enabled = false;
             this.toolChinhSua.Image = global::CuahangNongduoc.Properties.Resources.edit;
             this.toolChinhSua.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolChinhSua.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -272,6 +273,17 @@
             this.toolXoa.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolXoa.Click += new System.EventHandler(this.toolXoa_Click);
             // 
+            // toolXemlai
+            // 
+            this.toolXemlai.Image = global::CuahangNongduoc.Properties.Resources.reload_24;
+            this.toolXemlai.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolXemlai.Name = "toolXemlai";
+            this.toolXemlai.RightToLeftAutoMirrorImage = true;
+            this.toolXemlai.Size = new System.Drawing.Size(50, 43);
+            this.toolXemlai.Text = "Xem lại";
+            this.toolXemlai.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolXemlai.Click += new System.EventHandler(this.toolXemlai_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -287,17 +299,6 @@
             this.toolIn.Text = "Trang in";
             this.toolIn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolIn.Click += new System.EventHandler(this.toolLuuIn_Click);
-            // 
-            // toolXemlai
-            // 
-            this.toolXemlai.Image = global::CuahangNongduoc.Properties.Resources.reload_24;
-            this.toolXemlai.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolXemlai.Name = "toolXemlai";
-            this.toolXemlai.RightToLeftAutoMirrorImage = true;
-            this.toolXemlai.Size = new System.Drawing.Size(50, 43);
-            this.toolXemlai.Text = "Xem lại";
-            this.toolXemlai.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolXemlai.Click += new System.EventHandler(this.frmNhapHang_Load);
             // 
             // toolThoat
             // 
@@ -333,6 +334,7 @@
             // dgvDanhsachSP
             // 
             this.dgvDanhsachSP.AllowUserToAddRows = false;
+            this.dgvDanhsachSP.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvDanhsachSP.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvDanhsachSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvDanhsachSP.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -361,7 +363,6 @@
             this.colMaPhieuBan.Name = "colMaPhieuBan";
             this.colMaPhieuBan.ReadOnly = true;
             this.colMaPhieuBan.Visible = false;
-            this.colMaPhieuBan.Width = 125;
             // 
             // colMaSanPham
             // 
@@ -372,7 +373,6 @@
             this.colMaSanPham.ReadOnly = true;
             this.colMaSanPham.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colMaSanPham.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.colMaSanPham.Width = 150;
             // 
             // colDonGia
             // 
@@ -381,7 +381,6 @@
             this.colDonGia.MinimumWidth = 6;
             this.colDonGia.Name = "colDonGia";
             this.colDonGia.ReadOnly = true;
-            this.colDonGia.Width = 125;
             // 
             // colSoLuong
             // 
@@ -390,7 +389,6 @@
             this.colSoLuong.MinimumWidth = 6;
             this.colSoLuong.Name = "colSoLuong";
             this.colSoLuong.ReadOnly = true;
-            this.colSoLuong.Width = 125;
             // 
             // colThanhTien
             // 
@@ -399,7 +397,6 @@
             this.colThanhTien.MinimumWidth = 6;
             this.colThanhTien.Name = "colThanhTien";
             this.colThanhTien.ReadOnly = true;
-            this.colThanhTien.Width = 125;
             // 
             // NGAY_HET_HAN
             // 
@@ -408,7 +405,6 @@
             this.NGAY_HET_HAN.MinimumWidth = 6;
             this.NGAY_HET_HAN.Name = "NGAY_HET_HAN";
             this.NGAY_HET_HAN.ReadOnly = true;
-            this.NGAY_HET_HAN.Width = 125;
             // 
             // panel1
             // 
@@ -458,6 +454,7 @@
             // 
             // numConNo
             // 
+            this.numConNo.Enabled = false;
             this.numConNo.Location = new System.Drawing.Point(112, 188);
             this.numConNo.Maximum = new decimal(new int[] {
             -727379968,
@@ -583,6 +580,7 @@
             // 
             // numTongTien
             // 
+            this.numTongTien.Enabled = false;
             this.numTongTien.Location = new System.Drawing.Point(112, 140);
             this.numTongTien.Maximum = new decimal(new int[] {
             -727379968,
@@ -817,6 +815,7 @@
             // 
             // numThanhTien
             // 
+            this.numThanhTien.Enabled = false;
             this.numThanhTien.Location = new System.Drawing.Point(73, 102);
             this.numThanhTien.Maximum = new decimal(new int[] {
             -727379968,
@@ -898,6 +897,7 @@
             // 
             // numPhiDichVu
             // 
+            this.numPhiDichVu.Enabled = false;
             this.numPhiDichVu.Location = new System.Drawing.Point(73, 152);
             this.numPhiDichVu.Maximum = new decimal(new int[] {
             -727379968,
@@ -1008,7 +1008,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.ToolStripButton toolIn;
-        private System.Windows.Forms.ToolStripButton toolXemlai;
         private System.Windows.Forms.ToolStripButton toolChinhSua;
         private System.Windows.Forms.ToolStripButton toolXoa;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -1054,5 +1053,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colSoLuong;
         private System.Windows.Forms.DataGridViewTextBoxColumn colThanhTien;
         private System.Windows.Forms.DataGridViewTextBoxColumn NGAY_HET_HAN;
+        private System.Windows.Forms.ToolStripButton toolXemlai;
     }
 }

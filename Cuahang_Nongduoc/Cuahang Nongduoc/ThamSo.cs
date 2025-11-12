@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
+using CuahangNongduoc.Strategy;
 namespace CuahangNongduoc
 {
     public enum Controll
@@ -15,19 +16,7 @@ namespace CuahangNongduoc
     }
     public class ThamSo
     {
-        public static class Session
-        {
-            public static void Login(string tenDangNhap)
-            {
-                TenDangNhap = tenDangNhap;
-            }
-            public static string TenDangNhap { get; set; }
 
-            public static void Logout()
-            {
-                TenDangNhap = null;
-            }
-        }
         public static void PreMonth(ref int thangtruoc, ref int namtruoc, int thang, int nam)
         {
             thangtruoc = thang - 1;
@@ -194,30 +183,31 @@ namespace CuahangNongduoc
                 ds.ExecuteNoneQuery(new SqlCommand("UPDATE THAM_SO SET PHIEU_CHI = " + value));
             }
         }
-        public static bool Delete(string id, string tenBang)
+        private static readonly HashSet<string> _allowedTables =
+        new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        { "SAN_PHAM","NHA_CUNG_CAP","KHACH_HANG","NHAN_VIEN",
+          "PHIEU_BAN","PHIEU_NHAP","PHIEU_CHI","PHIEU_THANH_TOAN","PHIEU_THU" };
+
+        public static bool Delete(string id, string tenBang, Xoa policy)
         {
-            // Danh sách bảng hợp lệ
-            string[] tenBangHopLe =
-            {
-        "SAN_PHAM", "NHA_CUNG_CAP", "KHACH_HANG", "NHAN_VIEN",
-        "PHIEU_BAN", "PHIEU_NHAP", "PHIEU_CHI", "PHIEU_THANH_TOAN",
-        "PHIEU_THU","PHIEU_THANH_TOAN"};
+            if (!_allowedTables.Contains(tenBang)) return false;
 
-            // Kiểm tra bảng hợp lệ
-            if (!tenBangHopLe.Contains(tenBang.ToUpper()))
+            var ds = new DataService();
+            int affected = policy.Execute(ds, tenBang, id);
+            return affected > 0;
+        }
+        public static class Session
+        {
+            public static void Login(string tenDangNhap)
             {
-                return false; // không hợp lệ
+                TenDangNhap = tenDangNhap;
             }
+            public static string TenDangNhap { get; set; }
 
-            // Câu lệnh SQL UPDATE (xóa mềm)
-            DataService ds = new DataService();
-            string query = $"UPDATE {tenBang} SET TRANG_THAI = 0 WHERE ID = @ID";
-            SqlCommand cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("@ID", id);
-            // Thực thi câu lệnh
-            int result = ds.ExecuteNoneQuery(cmd);
-
-            return result > 0;
+            public static void Logout()
+            {
+                TenDangNhap = null;
+            }
         }
 
 
