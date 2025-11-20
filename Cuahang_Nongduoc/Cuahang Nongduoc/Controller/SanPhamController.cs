@@ -12,6 +12,8 @@ namespace CuahangNongduoc.Controller
     public class SanPhamController
     {
         SanPhamFactory factory = new SanPhamFactory();
+        ChiTietPhieuBanController ctrChiTiet = new ChiTietPhieuBanController();
+        MaSanPhamController ctrMaSanPham = new MaSanPhamController();
 
         public void HienthiAutoComboBox(System.Windows.Forms.ComboBox cmb)
         {
@@ -206,6 +208,24 @@ namespace CuahangNongduoc.Controller
         public bool Save()
         {
             return factory.Save();
+        }
+        public void CapNhatSoLuong(String masp)
+        {
+            IList<ChiTietPhieuBan> ct = ctrChiTiet.ChiTietPhieuBan(masp);
+            foreach (ChiTietPhieuBan item in ct)
+            {
+                int soLuongBan = Convert.ToInt32(item.SoLuong);
+                if (soLuongBan <= 0) continue;
+                string idMaLo = item.MaSanPham.Id;
+                MaSanPham msp = ctrMaSanPham.LayMaSanPham(idMaLo);
+                if (msp == null)
+                {
+                    continue;
+                }
+
+                string idSanPham = msp.SanPham.Id;
+                factory.CapNhatSoLuong(idSanPham, -soLuongBan);
+            }
         }
     }
 }

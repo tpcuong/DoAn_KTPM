@@ -1,5 +1,4 @@
-﻿using CuahangNongduoc.Strategy;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,72 +28,29 @@ namespace CuahangNongduoc
         {
             if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Nha Cung Cap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                if (dataGridView.SelectedRows.Count > 0)
-                {
-                    var policy = new XoaMem();
-
-                    DataGridViewRow row = dataGridView.SelectedRows[0];
-                    string id = row.Cells["colId"].Value.ToString();
-                    if (ThamSo.Delete(id, "NHA_CUNG_CAP", policy))
-                    {
-                        MessageBox.Show("Xóa thành công!", "Phieu Ban Nhap", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        frmNhaCungCap_Load(sender, e);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Xóa thất bại!");
-                    }
-
-                }
-
-                //bindingNavigator.BindingSource.RemoveCurrent();
+                bindingNavigator.BindingSource.RemoveCurrent();
             }
-        }
-        void Allow(bool allow) // Thêm mới hàm này 
-        {
-            dataGridView.Enabled = !allow;
-            bindingNavigatorDeleteItem.Enabled = !allow;
-            toolLuu.Enabled = allow;
-            bindingNavigatorAddNewItem.Enabled = !allow;
         }
 
         private void frmNhaCungCap_Load(object sender, EventArgs e)
         {
-            dataGridView.AutoGenerateColumns = false;
             ctrl.HienthiDataGridview(dataGridView, bindingNavigator);
-            Allow(false);
-
         }
-        long masoTemp;
+
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            Allow(true);
             long maso = ThamSo.NhaCungCap;
-            masoTemp = maso;
+            ThamSo.NhaCungCap = maso + 1;
 
             DataRowView row = (DataRowView)bindingNavigator.BindingSource.AddNew();
             row["ID"] = maso;
+            
         }
 
         private void toolLuu_Click(object sender, EventArgs e)
         {
-            ThamSo.NhaCungCap = masoTemp + 1;
-            foreach (DataGridViewRow row in dataGridView.Rows)
-            {
-                if (row.IsNewRow) continue;
-                if (row.Cells["colHoTen"].Value == null || row.Cells["colHoTen"].Value.ToString().Trim() == "")
-                {
-                    MessageBox.Show("Họ tê nhà cung cấp không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    bindingNavigatorPositionItem.Focus();
-                    return;
-                }
-                else
-                {
-
-                    bindingNavigatorPositionItem.Focus();
-                    ctrl.Save();
-                }
-            }
+            bindingNavigatorPositionItem.Focus();
+            ctrl.Save();
         }
 
         private void toolThoat_Click(object sender, EventArgs e)

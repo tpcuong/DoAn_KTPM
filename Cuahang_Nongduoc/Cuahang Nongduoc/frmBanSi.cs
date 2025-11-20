@@ -205,7 +205,7 @@ namespace CuahangNongduoc
                     row["NGAY_HET_HAN"] = loHienTai.NgayHetHan;
 
                     ctrlChiTiet.Add(row);
-                    KTraDongTrung();
+                    XuLyDataGridView();
                 }
 
                 if (soLuongLo[idLo] == 0)
@@ -220,29 +220,21 @@ namespace CuahangNongduoc
             TinhToanTongTienCuoiCung();
         }
 
-      
 
-        public void KTraDongTrung()// Thêm
+
+        void KtrDongTrung(DataTable tbl)
         {
-            DataTable tbl = null;
-            if (dgvDanhsachSP.DataSource is BindingSource)
-            {
-                tbl = (DataTable)((BindingSource)dgvDanhsachSP.DataSource).DataSource;
-            }
-            else
-            {
-                tbl = (DataTable)dgvDanhsachSP.DataSource;
-            }
-            if (tbl == null || tbl.Rows.Count == 0) return;
 
             for (int i = 0; i < tbl.Rows.Count - 1; i++)
             {
                 for (int j = i + 1; j < tbl.Rows.Count; j++)
                 {
-                    if (tbl.Rows[i]["ID_MA_SAN_PHAM"].ToString() == tbl.Rows[j]["ID_MA_SAN_PHAM"].ToString())
+                    if (tbl.Rows[i]["ID_MA_SAN_PHAM"].ToString() ==
+                        tbl.Rows[j]["ID_MA_SAN_PHAM"].ToString())
                     {
                         decimal sl1 = Convert.ToDecimal(tbl.Rows[i]["SO_LUONG"]);
                         decimal sl2 = Convert.ToDecimal(tbl.Rows[j]["SO_LUONG"]);
+
                         tbl.Rows[i]["SO_LUONG"] = sl1 + sl2;
 
                         decimal tt1 = Convert.ToDecimal(tbl.Rows[i]["THANH_TIEN"]);
@@ -254,9 +246,41 @@ namespace CuahangNongduoc
                     }
                 }
             }
-            dgvDanhsachSP.DataSource = tbl;
+        }
+        void KtraSouong(DataTable tbl)
+        {
+            for (int i = tbl.Rows.Count - 1; i >= 0; i--)
+            {
+                string idMaSP = tbl.Rows[i]["ID_MA_SAN_PHAM"].ToString();
+                decimal slBan = Convert.ToDecimal(tbl.Rows[i]["SO_LUONG"]);
+
+                var msp = ctrlMaSanPham.LayMaSanPham(idMaSP);
+                decimal slTonKho = msp.SoLuong;
+
+                if (slBan > slTonKho)
+                {
+                    MessageBox.Show($"Lô {idMaSP} chỉ còn {slTonKho} trong kho.\n Bạn đang bán {slBan}. Dòng này sẽ bị xóa! Không đủ hàng", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    tbl.Rows.RemoveAt(i);
+                }
+            }
+        }
+        void XuLyDataGridView()
+        {
+            DataTable tbl = null;
+
+            // Lấy DataTable
+            if (dgvDanhsachSP.DataSource is BindingSource bs) // Kiểm tra nếu DataSource là BindingSource
+                tbl = (DataTable)bs.DataSource; // Ép kiểu DataSource về DataTable
+            else
+                tbl = (DataTable)dgvDanhsachSP.DataSource;
+
+            if (tbl == null || tbl.Rows.Count == 0) return;
+            KtrDongTrung(tbl);
+            KtraSouong(tbl);
             dgvDanhsachSP.Refresh();
         }
+
 
         private void UpdateThanhTien(object sender, EventArgs e)
         {
@@ -275,26 +299,7 @@ namespace CuahangNongduoc
             this.Luu();
 
             status = Controll.Normal;
-            this.Allow(false);
-
-            DataTable dt = ctrlMaSanPham.DanhSachMSP();
-            Dictionary<string, long> tongTheoMaSP = new Dictionary<string, long>();
-
-            foreach (DataRow row in dt.Rows)
-            {
-                string maSP = row["ID_SAN_PHAM"].ToString();
-                long soLuong = Convert.ToInt64(row["SO_LUONG"]);
-
-                if (tongTheoMaSP.ContainsKey(maSP))
-                    tongTheoMaSP[maSP] += soLuong;
-                else
-                    tongTheoMaSP[maSP] = soLuong;
-            }
-
-            foreach (KeyValuePair<string, long> item in tongTheoMaSP)
-            {
-                ctrlSanPham.UpdateSoLuong(item.Key, item.Value);
-            }
+            ctrlSanPham.CapNhatSoLuong(txtMaPhieu.Text);
 
         }
         void Luu()

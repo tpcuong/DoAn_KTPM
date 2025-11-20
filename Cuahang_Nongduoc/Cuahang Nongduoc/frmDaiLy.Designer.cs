@@ -56,25 +56,9 @@
             this.colDiaChi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colDienThoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLoaiKH = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnRemove = new System.Windows.Forms.Button();
-            this.txtSDT = new System.Windows.Forms.TextBox();
-            this.txtDiaChi = new System.Windows.Forms.TextBox();
-            this.txtMaDL = new System.Windows.Forms.TextBox();
-            this.txtTenDL = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).BeginInit();
             this.bindingNavigator.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // bindingNavigator
@@ -82,7 +66,6 @@
             this.bindingNavigator.AddNewItem = null;
             this.bindingNavigator.CountItem = this.bindingNavigatorCountItem;
             this.bindingNavigator.DeleteItem = null;
-            this.bindingNavigator.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.bindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorMoveFirstItem,
             this.bindingNavigatorMovePreviousItem,
@@ -108,7 +91,7 @@
             this.bindingNavigator.Name = "bindingNavigator";
             this.bindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
             this.bindingNavigator.Size = new System.Drawing.Size(646, 46);
-            this.bindingNavigator.TabIndex = 2;
+            this.bindingNavigator.TabIndex = 0;
             this.bindingNavigator.Text = "bindingNavigator1";
             // 
             // bindingNavigatorCountItem
@@ -124,7 +107,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(24, 43);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 43);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -133,7 +116,7 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(24, 43);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 43);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
@@ -145,7 +128,6 @@
             // 
             this.bindingNavigatorPositionItem.AccessibleName = "Position";
             this.bindingNavigatorPositionItem.AutoSize = false;
-            this.bindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.bindingNavigatorPositionItem.Name = "bindingNavigatorPositionItem";
             this.bindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.bindingNavigatorPositionItem.Text = "0";
@@ -162,7 +144,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(24, 43);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 43);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -171,7 +153,7 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(24, 43);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 43);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
@@ -185,7 +167,7 @@
             this.bindingNavigatorAddNewItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(41, 43);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(42, 43);
             this.bindingNavigatorAddNewItem.Text = "Thêm";
             this.bindingNavigatorAddNewItem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.bindingNavigatorAddNewItem.Click += new System.EventHandler(this.bindingNavigatorAddNewItem_Click);
@@ -218,7 +200,7 @@
             this.toolThoat.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolThoat.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolThoat.Name = "toolThoat";
-            this.toolThoat.Size = new System.Drawing.Size(44, 43);
+            this.toolThoat.Size = new System.Drawing.Size(45, 43);
             this.toolThoat.Text = " Thoát";
             this.toolThoat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolThoat.Click += new System.EventHandler(this.toolThoat_Click);
@@ -258,20 +240,17 @@
             // 
             // toolTimKhachHang
             // 
-            this.toolTimKhachHang.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.toolTimKhachHang.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.toolTimKhachHang.Name = "toolTimKhachHang";
-            this.toolTimKhachHang.Size = new System.Drawing.Size(114, 46);
+            this.toolTimKhachHang.Size = new System.Drawing.Size(150, 46);
             this.toolTimKhachHang.Text = "Tìm theo Đại lý";
-            this.toolTimKhachHang.Enter += new System.EventHandler(this.toolTimKhachHang_Enter);
             this.toolTimKhachHang.Leave += new System.EventHandler(this.toolTimKhachHang_Leave);
+            this.toolTimKhachHang.Enter += new System.EventHandler(this.toolTimKhachHang_Enter);
             this.toolTimKhachHang.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.toolTimKhachHang_KeyPress);
             // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AllowUserToDeleteRows = false;
-            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -281,46 +260,37 @@
             this.colDienThoai,
             this.colLoaiKH});
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView.Location = new System.Drawing.Point(0, 46);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.ReadOnly = true;
-            this.dataGridView.RowHeadersWidth = 51;
-            this.dataGridView.Size = new System.Drawing.Size(646, 229);
+            this.dataGridView.Size = new System.Drawing.Size(646, 403);
             this.dataGridView.TabIndex = 1;
-            this.dataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellContentClick);
             this.dataGridView.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dataGridView_UserDeletingRow);
             // 
             // colID
             // 
             this.colID.DataPropertyName = "ID";
             this.colID.HeaderText = "Mã số";
-            this.colID.MinimumWidth = 6;
             this.colID.Name = "colID";
-            this.colID.ReadOnly = true;
             // 
             // colHoTen
             // 
             this.colHoTen.DataPropertyName = "HO_TEN";
             this.colHoTen.HeaderText = "Tên đại lý";
-            this.colHoTen.MinimumWidth = 6;
             this.colHoTen.Name = "colHoTen";
-            this.colHoTen.ReadOnly = true;
+            this.colHoTen.Width = 200;
             // 
             // colDiaChi
             // 
             this.colDiaChi.DataPropertyName = "DIA_CHI";
             this.colDiaChi.HeaderText = "Địa chỉ";
-            this.colDiaChi.MinimumWidth = 6;
             this.colDiaChi.Name = "colDiaChi";
-            this.colDiaChi.ReadOnly = true;
+            this.colDiaChi.Width = 200;
             // 
             // colDienThoai
             // 
             this.colDienThoai.DataPropertyName = "DIEN_THOAI";
             this.colDienThoai.HeaderText = "Điện thoại";
-            this.colDienThoai.MinimumWidth = 6;
             this.colDienThoai.Name = "colDienThoai";
-            this.colDienThoai.ReadOnly = true;
             // 
             // colLoaiKH
             // 
@@ -328,157 +298,17 @@
             dataGridViewCellStyle1.NullValue = "True";
             this.colLoaiKH.DefaultCellStyle = dataGridViewCellStyle1;
             this.colLoaiKH.HeaderText = "Loại KH";
-            this.colLoaiKH.MinimumWidth = 6;
             this.colLoaiKH.Name = "colLoaiKH";
-            this.colLoaiKH.ReadOnly = true;
             this.colLoaiKH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colLoaiKH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.colLoaiKH.Visible = false;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.AutoSize = true;
-            this.groupBox1.Controls.Add(this.btnAdd);
-            this.groupBox1.Controls.Add(this.btnRemove);
-            this.groupBox1.Controls.Add(this.txtSDT);
-            this.groupBox1.Controls.Add(this.txtDiaChi);
-            this.groupBox1.Controls.Add(this.txtMaDL);
-            this.groupBox1.Controls.Add(this.txtTenDL);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(646, 174);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Thông tin khách hàng";
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnAdd.Image = global::CuahangNongduoc.Properties.Resources.down;
-            this.btnAdd.Location = new System.Drawing.Point(269, 120);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(47, 30);
-            this.btnAdd.TabIndex = 4;
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnRemove
-            // 
-            this.btnRemove.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnRemove.Image = global::CuahangNongduoc.Properties.Resources.up;
-            this.btnRemove.Location = new System.Drawing.Point(346, 120);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(48, 30);
-            this.btnRemove.TabIndex = 5;
-            this.btnRemove.UseVisualStyleBackColor = true;
-            // 
-            // txtSDT
-            // 
-            this.txtSDT.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtSDT.Location = new System.Drawing.Point(394, 76);
-            this.txtSDT.Name = "txtSDT";
-            this.txtSDT.Size = new System.Drawing.Size(177, 20);
-            this.txtSDT.TabIndex = 3;
-            // 
-            // txtDiaChi
-            // 
-            this.txtDiaChi.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtDiaChi.Location = new System.Drawing.Point(127, 76);
-            this.txtDiaChi.Margin = new System.Windows.Forms.Padding(2);
-            this.txtDiaChi.Name = "txtDiaChi";
-            this.txtDiaChi.Size = new System.Drawing.Size(166, 20);
-            this.txtDiaChi.TabIndex = 1;
-            // 
-            // txtMaDL
-            // 
-            this.txtMaDL.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtMaDL.Location = new System.Drawing.Point(127, 30);
-            this.txtMaDL.Margin = new System.Windows.Forms.Padding(2);
-            this.txtMaDL.Name = "txtMaDL";
-            this.txtMaDL.Size = new System.Drawing.Size(85, 20);
-            this.txtMaDL.TabIndex = 0;
-            // 
-            // txtTenDL
-            // 
-            this.txtTenDL.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtTenDL.Location = new System.Drawing.Point(394, 30);
-            this.txtTenDL.Margin = new System.Windows.Forms.Padding(2);
-            this.txtTenDL.Name = "txtTenDL";
-            this.txtTenDL.Size = new System.Drawing.Size(174, 20);
-            this.txtTenDL.TabIndex = 2;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(314, 79);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(70, 13);
-            this.label4.TabIndex = 63;
-            this.label4.Text = "Số điện thoại";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(77, 76);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 13);
-            this.label3.TabIndex = 60;
-            this.label3.Text = "Địa chỉ";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(314, 33);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 13);
-            this.label1.TabIndex = 58;
-            this.label1.Text = "Tên Đại Lý";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(77, 33);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(25, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Mã ";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 46);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(646, 174);
-            this.panel1.TabIndex = 4;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.dataGridView);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 220);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(646, 229);
-            this.panel2.TabIndex = 5;
             // 
             // frmDaiLy
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(646, 449);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.bindingNavigator);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmDaiLy";
@@ -488,11 +318,6 @@
             this.bindingNavigator.ResumeLayout(false);
             this.bindingNavigator.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -525,18 +350,5 @@
         private System.Windows.Forms.ToolStripMenuItem toolTimHoTen;
         private System.Windows.Forms.ToolStripMenuItem toolTimDiaChi;
         private System.Windows.Forms.ToolStripTextBox toolTimKhachHang;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox txtDiaChi;
-        private System.Windows.Forms.TextBox txtMaDL;
-        private System.Windows.Forms.TextBox txtTenDL;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnRemove;
-        private System.Windows.Forms.TextBox txtSDT;
     }
 }
