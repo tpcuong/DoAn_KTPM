@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using CuahangNongduoc.Controller;
 using CuahangNongduoc.Strategy;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CuahangNongduoc
 {
@@ -14,10 +15,13 @@ namespace CuahangNongduoc
     {
         SanPhamController ctrl = new SanPhamController();
         DonViTinhController ctrlDVT = new DonViTinhController();
+        Controll status = Controll.Normal;
 
         public frmSanPham()
         {
             InitializeComponent();
+            status = Controll.AddNew;
+
         }
 
         private void frmSanPham_Load(object sender, EventArgs e)
@@ -27,42 +31,56 @@ namespace CuahangNongduoc
             ctrlDVT.HienthiDataGridViewComboBoxColumn(colDVT);
             ctrl.HienthiDataGridview(dataGridView, bindingNavigator,
                  txtMaSanPham, txtTenSanPham, cmbDVT, numDonGiaNhap, numGiaBanSi, numGiaBanLe);
-            
+            status = Controll.Normal;
+            Allow(true);
+
+
         }
 
 
         private void toolLuu_Click(object sender, EventArgs e)
         {
-            if (numDonGiaNhap.Value <= 0)
+            Allow(true);
+            if (status == Controll.AddNew)
             {
-                MessageBox.Show("Đơn giá nhập phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                numDonGiaNhap.Focus();
-                return;
-            }
-            else if (txtTenSanPham.Text.Trim() == "")
-            {
-                MessageBox.Show("Tên sản phẩm không được để trống!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTenSanPham.Focus();
-                return;
-            }
-            else if (numGiaBanSi.Value <= 0)
-            {
-                MessageBox.Show("Giá bán sỉ phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                numGiaBanSi.Focus();
-                return;
-            }
-            else if (numGiaBanLe.Value <= 0)
-            {
-                MessageBox.Show("Giá bán lẻ phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                numGiaBanLe.Focus();
-                return;
+                if (numDonGiaNhap.Value <= 0)
+                {
+                    MessageBox.Show("Đơn giá nhập phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    numDonGiaNhap.Focus();
+                    return;
+                }
+                else if (txtTenSanPham.Text.Trim() == "")
+                {
+                    MessageBox.Show("Tên sản phẩm không được để trống!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTenSanPham.Focus();
+                    return;
+                }
+                else if (numGiaBanSi.Value <= 0)
+                {
+                    MessageBox.Show("Giá bán sỉ phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    numGiaBanSi.Focus();
+                    return;
+                }
+                else if (numGiaBanLe.Value <= 0)
+                {
+                    MessageBox.Show("Giá bán lẻ phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    numGiaBanLe.Focus();
+                    return;
+                }
+                else
+                {
+                    Add();
+                }
             }
             else
             {
-                bindingNavigatorPositionItem.Focus();
-                Add();
-                ctrl.Save();
+                status = Controll.Normal;
             }
+
+
+                bindingNavigatorPositionItem.Focus();
+            ctrl.Save();
+            
         }
             void Add()
             {
@@ -81,6 +99,8 @@ namespace CuahangNongduoc
             }
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
+            Allow(false);
+            status = Controll.AddNew;
             txtMaSanPham.DataBindings.Clear();
             txtMaSanPham.Text = ThamSo.SanPham.ToString();
             txtTenSanPham.Text = "";
@@ -90,19 +110,26 @@ namespace CuahangNongduoc
             numDonGiaNhap.Value = 0;
 
         }
+        void Allow(bool val)
+        {
+            dataGridView.Enabled = val;
+            txtTenSanPham.Enabled = !val;
+            cmbDVT.Enabled = !val;
+            numDonGiaNhap.Enabled = !val;
+            numGiaBanSi.Enabled = !val;
+            numGiaBanLe.Enabled = !val;
+            numSoLuong.Enabled = !val;
+            bindingNavigatorAddNewItem.Enabled = val;
+            bindingNavigatorDeleteItem.Enabled = val;
+            toolLuu.Enabled = !val;
+
+        }
 
         void Delete()
         {
             if (dataGridView.SelectedRows.Count > 0)
             {
-                int sp = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["colSoLuong"].Value.ToString());
-                if (sp > 0)
-                {
-                    MessageBox.Show("Sản phẩm còn trong kho, không thể xóa!", "San pham", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                }
-                else
-                {
                     try
                     {
 
@@ -120,7 +147,7 @@ namespace CuahangNongduoc
                     }
 
                     //                    }
-                }
+                
                 
             }
         }

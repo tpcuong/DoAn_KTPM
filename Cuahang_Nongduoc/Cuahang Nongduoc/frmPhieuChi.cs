@@ -91,7 +91,13 @@ namespace CuahangNongduoc
         //Co sua
         private void toolSave_Click(object sender, EventArgs e)
         {
-            ThamSo.PhieuChi = Convert.ToInt64(txtMaPhieu.Text);
+            if(numTongTien.Value <= 0)
+            {
+                MessageBox.Show("Tổng tiền phải lớn hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else if(dtNgayChi.Value.Date > DateTime.Now.Date)
+                ThamSo.PhieuChi = Convert.ToInt64(txtMaPhieu.Text);
             DataRow row = ctrl.NewRow();
             row["ID"] = txtMaPhieu.Text;
             row["NGAY_CHI"] = dtNgayChi.Value.Date;

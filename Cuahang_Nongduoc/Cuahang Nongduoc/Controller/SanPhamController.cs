@@ -14,7 +14,8 @@ namespace CuahangNongduoc.Controller
         SanPhamFactory factory = new SanPhamFactory();
         ChiTietPhieuBanController ctrChiTiet = new ChiTietPhieuBanController();
         MaSanPhamController ctrMaSanPham = new MaSanPhamController();
-
+        PhieuBanFactory factoryPhieuBan = new PhieuBanFactory();
+        PhieuNhapFactory factoryPhieuNhap = new PhieuNhapFactory();
         public void HienthiAutoComboBox(System.Windows.Forms.ComboBox cmb)
         {
             DataTable tbl = factory.DanhsachSanPham();
@@ -226,6 +227,8 @@ namespace CuahangNongduoc.Controller
                 string idSanPham = msp.SanPham.Id;
                 factory.CapNhatSoLuong(idSanPham, -soLuongBan);
             }
+
         }
+
     }
 }

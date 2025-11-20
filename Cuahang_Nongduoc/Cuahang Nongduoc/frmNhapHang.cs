@@ -115,6 +115,13 @@ namespace CuahangNongduoc
                 {
                     MessageBox.Show("Ngày hết hạn phải lớn hơn ngày sản xuất!", "Phieu Nhap", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else if(dtNgayNhap.Value.Date > DateTime.Now.Date)
+{
+                    MessageBox.Show("Ngày lập phiếu bị sai!","Cảnh báo",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    dtNgayNhap.Value = DateTime.Now;
+                    return;
+
+                }
                 else
                 {
                     try
@@ -137,7 +144,7 @@ namespace CuahangNongduoc
                         MessageBox.Show("Lỗi thêm mã sản phẩm!", "Mã sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
-                    
+
                 }
             }
             else
@@ -157,16 +164,32 @@ namespace CuahangNongduoc
 
         private void toolLuuThoat_Click(object sender, EventArgs e)
         {
-            bindingNavigatorPositionItem.Focus();
-            this.Luu();
-            status = Controll.Normal;
-            this.Allow(false);
-            // Cập nhật giá bình quân quán
-            foreach (DataGridViewRow row in dataGridView.Rows)
+            try
             {
-                CapNhapGiaBinhQUan(Convert.ToString(row.Cells["colSanPham"].Value),
-                    Convert.ToInt32(row.Cells["colSoLuong"].Value),
-                    Convert.ToDecimal(row.Cells["colDonGiaNhap"].Value));
+
+
+                if(bindingNavigator.BindingSource.Count <= 0)
+                {
+                    MessageBox.Show("Chưa có phiếu nhập nào để lưu!", "Phieu Nhap", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }else
+                {
+                    bindingNavigatorPositionItem.Focus();
+                    this.Luu();
+                    status = Controll.Normal;
+                    this.Allow(false);
+                    // Cập nhật giá bình quân quán
+                    foreach (DataGridViewRow row in dataGridView.Rows)
+                    {
+                        CapNhapGiaBinhQUan(Convert.ToString(row.Cells["colSanPham"].Value),
+                            Convert.ToInt32(row.Cells["colSoLuong"].Value),
+                            Convert.ToDecimal(row.Cells["colDonGiaNhap"].Value));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi lưu phiếu nhập! \n" + ex.Message, "Phieu Nhap", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

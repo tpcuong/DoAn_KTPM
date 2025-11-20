@@ -142,6 +142,19 @@ namespace CuahangNongduoc
                     txtGiaBanLe.Text = masp[index].SanPham.GiaBanLe.ToString("#,###0");
                     txtGiaBQGQ.Text = sp.GiaBinhQuan.ToString("#,###0");
                 }
+                else
+                {
+
+                        MessageBox.Show("Sản phẩm này đã hết hàng!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            
+                    numDonGia.Value = 0;
+                    txtGiaNhap.Text = "0.00";
+                    txtGiaBanSi.Text = "0.00";
+                    txtGiaBanLe.Text = "0.00";
+                    txtGiaBQGQ.Text = "0.00";                       
+                    return;
+
+                }
 
                 if (viTriLo.ContainsKey(idSP))
                     viTriLo[idSP] = 0;
@@ -169,6 +182,7 @@ namespace CuahangNongduoc
 
             string idSP = cmbSanPham.SelectedValue.ToString();
             List<MaSanPham> danhSachLo = ctrlMaSanPham.LayDanhSachMaSanPham(idSP);
+
             decimal soLuongCanXuat = numSoLuong.Value;
 
             if (!viTriLo.ContainsKey(idSP))
@@ -295,12 +309,28 @@ namespace CuahangNongduoc
 
         private void toolLuu_Click(object sender, EventArgs e)
         {
-            bindingNavigatorPositionItem.Focus();
-            this.Luu();
+            if(dtNgayLapPhieu.Value.Date > DateTime.Now.Date)
+            {
+                MessageBox.Show("Ngày lập phiếu không được lớn hơn ngày hiện tại!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dtNgayLapPhieu.Focus();
+                return;
+            }
+            else if(bindingNavigator.BindingSource.Count <= 0)
+            {
+                MessageBox.Show("Phiếu bán phải có ít nhất một sản phẩm!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
 
-            status = Controll.Normal;
-            ctrlSanPham.CapNhatSoLuong(txtMaPhieu.Text);
+            }
+            else
+            {
 
+          
+                    bindingNavigatorPositionItem.Focus();
+                this.Luu();
+
+                status = Controll.Normal;
+                ctrlSanPham.CapNhatSoLuong(txtMaPhieu.Text);
+            }
         }
         void Luu()
         {
