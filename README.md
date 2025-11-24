@@ -18,7 +18,7 @@ LƯU Ý QUAN TRỌNG
   - DataLayer
   - DataSet
   - Report, Resources, SqlServerTypes
-- Một số file nguồn/Forms chính (đặt tên theo file thực tế trong repo):
+- Một số file nguồn/Forms chính:
   - frmMain, frmDangNhap (đăng nhập), frmNguoiDung (quản lý người dùng)
   - frmSanPham (sản phẩm), frmNhaCungCap (nhà cung cấp), frmKhachHang (khách hàng)
   - frmNhapHang (phiếu nhập), frmDanhsachPhieuNhap (danh sách phiếu nhập)
@@ -29,9 +29,9 @@ LƯU Ý QUAN TRỌNG
 - Các file hỗ trợ/tiện ích: DataService.cs (xử lý dữ liệu), Num2Str.cs, ThamSo.cs, Settings.cs.
 - Có `packages.config` và thư mục `packages` → dùng NuGet (dự án .NET Framework).
 
-2) Yêu cầu môi trường (dựa trên mã hiện có)
+2) Yêu cầu môi trường 
 - Visual Studio (phiên bản hỗ trợ dự án .sln/.csproj — Visual Studio 2015/2017/2019/2022 đều có thể mở .sln; đảm bảo hỗ trợ .NET Framework/WinForms).
-- SQL Server (hoặc SQL Server Express / LocalDB) — trong repo có thư mục `SqlServerTypes` và tên file/structure cho thấy sử dụng SQL Server.
+- SQL Server trong repo có thư mục `SqlServerTypes`.
 - NuGet để khôi phục packages (dự án có packages.config).
 
 3) Cài đặt, cấu hình và chạy (chỉ ghi những bước cần làm; không thêm script DB nếu không có)
@@ -94,7 +94,7 @@ Ghi chú: Các bước thao tác cụ thể (nút bấm, label chính xác, lu�
 - Kiểm tra thư mục `DataLayer` và `BusinessObject` để hiểu cấu trúc lớp, cách thao tác với dữ liệu (DAO/BLL).
 - Nếu cần phục hồi schema DB: tìm trong `DataSet` các .xsd hoặc DataTable để tham khảo cấu trúc bảng; nếu không có script .sql thì bạn phải tạo DB thủ công theo cấu trúc ứng dụng hoặc cung cấp file SQL nếu bạn có.
 
-6) Triển khai (ghi ngắn)
+6) Triển khai 
 - Để đưa ứng dụng lên máy khác: build ở chế độ Release, copy file exe + thư mục bin kèm các DLL, đảm bảo máy đích có .NET Framework tương thích và quyền truy cập tới SQL Server.
 - Bạn cũng có thể tạo installer (không có sẵn trong repo).
 
@@ -106,14 +106,4 @@ Ghi chú: Các bước thao tác cụ thể (nút bấm, label chính xác, lu�
 - Lỗi khi build:
   - Kiểm tra phiên bản .NET Framework mục tiêu trong `.csproj` — nếu máy bạn thiếu version, cài đặt hoặc chỉnh mục tiêu framework.
 
-8) Những chỗ cần bạn bổ sung để README hoàn chỉnh
-Để mình có thể hoàn thiện README với các hướng dẫn chính xác (không suy đoán), bạn vui lòng cung cấp / hoặc cập nhật:
-- Nội dung của file `app.config` (hoặc ít nhất tên của chuỗi kết nối hiện dùng).
-- Nếu có file SQL tạo schema (tệp .sql), upload hoặc chỉ vị trí file đó trong repo.
-- Phiên bản .NET Framework mục tiêu (mở `.csproj` để đọc thông tin này hoặc gửi nội dung).
-- Nếu muốn mình tạo README tại root hay trong thư mục module, cho biết vị trí mong muốn.
 
----
-
-Nếu bạn muốn, mình sẽ:
-- Soạn README chi tiết và chính xác (bằng tiếng Việt) đặt vào `Cuahang_Nongduoc/Cuahang Nongduoc/README.md` dựa trên file `app.config` và (nếu có) script SQL mà bạn cung cấp. Mình sẽ chỉ ghi thông tin có thực trong repo và những hướng dẫn cấu hình/khởi chạy chính xác dựa trên dữ liệu bạn gửi.
