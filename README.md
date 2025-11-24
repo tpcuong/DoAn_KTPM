@@ -1,115 +1,119 @@
-[Phần mềm Cửa hàng Nông dược — Hướng dẫn sử dụng
+# Hướng dẫn sử dụng — Module "Cửa hàng Nông dược"
 
-Mục đích: Tài liệu này hướng dẫn cách sử dụng các chức năng chính của module "Cửa hàng Nông dược" (quản trị viên, nhân viên bán hàng, quản lý kho) và mô tả nhanh cách cài đặt, cấu hình để chạy ứng dụng.
+LƯU Ý QUAN TRỌNG
+- Nội dung trong README này được soạn dựa trên mã nguồn hiện có trong thư mục `Cuahang_Nongduoc/Cuahang Nongduoc` của repo. Mình chỉ ghi những gì thực sự tồn tại trong mã (tên file, cấu trúc thư mục, form, các phần chính). Mình không thêm thông tin chức năng chi tiết nếu không thể xác minh từ mã.
+- Danh sách file và thư mục được thu thập từ kho — có khả năng danh sách này không hoàn toàn đầy đủ do giới hạn truy vấn. Để xem toàn bộ mã nguồn, mở link repo trực tiếp:
+  https://github.com/tpcuong/DoAn_KTPM/tree/main/Cuahang_Nongduoc/Cuahang%20Nongduoc
 
-Tổng quan chức năng chính
-- Quản lý sản phẩm: thêm/sửa/xóa sản phẩm, quản lý danh mục, hình ảnh, đơn vị tính, giá bán/giá nhập.
-- Quản lý nhà cung cấp: lưu thông tin nhà cung cấp và lịch sử nhập hàng.
-- Quản lý khách hàng: thông tin khách hàng, theo dõi công nợ.
-- Quản lý kho / tồn kho: theo dõi tồn kho, cảnh báo tồn kho thấp, điều chỉnh tồn kho.
-- Nhập hàng: tạo và xác nhận phiếu nhập, cập nhật tồn kho, ghi nhận chi phí.
-- Bán hàng: tạo đơn/hóa đơn, tính tiền, VAT, áp mã giảm giá, in hóa đơn, quản lý thu/chi.
-- Báo cáo: doanh thu, tồn kho, lợi nhuận theo khoảng thời gian, bộ lọc theo sản phẩm/nhà cung cấp/nhân viên.
-- Tìm kiếm & lọc: tìm nhanh sản phẩm theo mã/tên, lọc theo danh mục/nhà cung cấp/giá/trạng thái.
-- Quản lý người dùng & phân quyền: tạo tài khoản nhân viên, gán vai trò (Admin, Quản lý kho, Thu ngân, Kế toán).
+1) Tổng quan kỹ thuật nhanh (những gì nhìn thấy trong repo)
+- Ngôn ngữ chính: C# (nhiều file .cs, .csproj, .sln).
+- Dự án: WinForms (nhiều file `*.Designer.cs`, `*.resx` → giao diện Forms).
+- Solution / Project:
+  - CuahangNongDuoc.sln
+  - CuahangNongduoc.csproj
+- Cấu hình: có file `app.config`.
+- Thư mục mã tổ chức theo chức năng:
+  - BusinessObject
+  - Controller
+  - DataLayer
+  - DataSet
+  - Report, Resources, SqlServerTypes
+- Một số file nguồn/Forms chính (đặt tên theo file thực tế trong repo):
+  - frmMain, frmDangNhap (đăng nhập), frmNguoiDung (quản lý người dùng)
+  - frmSanPham (sản phẩm), frmNhaCungCap (nhà cung cấp), frmKhachHang (khách hàng)
+  - frmNhapHang (phiếu nhập), frmDanhsachPhieuNhap (danh sách phiếu nhập)
+  - frmBanLe, frmBanSi (bán lẻ / bán sỉ), frmDanhsachPhieuBanLe, frmDanhsachPhieuBanSi
+  - frmThanhToan, frmPhieuChi, frmDunoKhachhang
+  - frmDoanhThu (báo cáo doanh thu), nhiều form in/Report: frmInPhieuBan, frmInPhieuNhap, ...
+  - frmSoLuongTon, frmSoLuongBan, frmSanphamHethan (hàng hết hạn)
+- Các file hỗ trợ/tiện ích: DataService.cs (xử lý dữ liệu), Num2Str.cs, ThamSo.cs, Settings.cs.
+- Có `packages.config` và thư mục `packages` → dùng NuGet (dự án .NET Framework).
 
-Hướng dẫn sử dụng (User manual)
-LƯU Ý: Tên menu/label có thể khác tuỳ theo giao diện cài đặt. Dưới đây là các thao tác phổ biến:
+2) Yêu cầu môi trường (dựa trên mã hiện có)
+- Visual Studio (phiên bản hỗ trợ dự án .sln/.csproj — Visual Studio 2015/2017/2019/2022 đều có thể mở .sln; đảm bảo hỗ trợ .NET Framework/WinForms).
+- SQL Server (hoặc SQL Server Express / LocalDB) — trong repo có thư mục `SqlServerTypes` và tên file/structure cho thấy sử dụng SQL Server.
+- NuGet để khôi phục packages (dự án có packages.config).
 
-1. Đăng nhập / Đăng xuất
-- Mở ứng dụng, truy cập trang đăng nhập.
-- Nhập tài khoản (username/email) và mật khẩu.
-- Sau khi đăng nhập, vào Dashboard/tổng quan.
+3) Cài đặt, cấu hình và chạy (chỉ ghi những bước cần làm; không thêm script DB nếu không có)
+- Bước 1 — Lấy mã nguồn:
+  - git clone https://github.com/tpcuong/DoAn_KTPM.git
+  - Mở thư mục: `Cuahang_Nongduoc/Cuahang Nongduoc`
+- Bước 2 — Mở solution:
+  - Mở file `CuahangNongDuoc.sln` bằng Visual Studio.
+- Bước 3 — Khôi phục NuGet packages:
+  - Trong Visual Studio: chuột phải solution → Restore NuGet Packages (hoặc Tools → NuGet Package Manager → Restore).
+- Bước 4 — Cấu hình kết nối cơ sở dữ liệu:
+  - Mở file `app.config` trong project để tìm và sửa connection string (nếu có). Nếu không thấy connection string rõ ràng, mở file `DataService.cs` (nằm ở gốc project) để xem cách chương trình lấy chuỗi kết nối — sửa tương ứng để trỏ tới SQL Server của bạn.
+  - Tạo cơ sở dữ liệu SQL Server mới để dùng cho ứng dụng (tên/structure phụ thuộc vào schema chương trình). Trong repo mình không tìm thấy file `.sql` chứa script tạo schema (nếu bạn có script riêng, import vào DB).
+  - Nếu dự án sử dụng DataSet/Tables trong thư mục `DataSet`, bạn có thể kiểm tra các DataTable để biết bảng/cột nhưng có thể cần script SQL để tạo bảng thực sự.
+- Bước 5 — Build:
+  - Chọn chế độ Debug hoặc Release → Build Solution.
+- Bước 6 — Chạy:
+  - Chạy project (F5). Ứng dụng dạng WinForms sẽ khởi chạy. Đăng nhập bằng tài khoản có sẵn (nếu DB đã có dữ liệu) hoặc thực hiện seed/đăng ký nếu ứng dụng cung cấp.
 
-2. Dashboard (Tổng quan)
-- Hiển thị doanh thu hôm nay/tuần/tháng, số đơn hàng mới, cảnh báo tồn kho thấp.
-- Điều hướng nhanh tới Sản phẩm, Nhập hàng, Bán hàng, Báo cáo.
+4) Hướng dẫn người dùng (dựa trên các form thực tế trong mã)
+Phần này mô tả các chức năng *có khả năng* tương ứng với tên form — mình trình bày theo tên form để bạn đối chiếu trực tiếp trong giao diện:
 
-3. Quản lý sản phẩm
-- Thêm sản phẩm: nhập mã, tên, danh mục, đơn vị, giá nhập, giá bán, mô tả, hình ảnh, tồn kho ban đầu.
-- Sửa/Xóa: chọn sản phẩm trong danh sách → Chỉnh sửa hoặc Xóa.
-- Quản lý danh mục: tạo/điều chỉnh danh mục để tổ chức sản phẩm.
+- Đăng nhập:
+  - Form: frmDangNhap
+  - Mục đích: xác thực người dùng trước khi vào hệ thống (nhìn thấy form đăng nhập trong mã).
+- Màn hình chính:
+  - Form: frmMain
+  - Chứa menu điều hướng đến các chức năng: Sản phẩm, Nhập hàng, Bán hàng, Báo cáo, Người dùng, v.v.
+- Quản lý sản phẩm:
+  - Form: frmSanPham
+  - Chức năng thường có: Thêm / Sửa / Xoá sản phẩm, quản lý danh mục, đơn vị tính (có frmDonViTinh).
+- Nhập hàng:
+  - Form: frmNhapHang, frmDanhsachPhieuNhap
+  - Tạo phiếu nhập mới, chọn nhà cung cấp (frmNhaCungCap), cập nhật tồn kho.
+- Bán hàng:
+  - Form: frmBanLe (bán lẻ), frmBanSi (bán sỉ), frmDanhsachPhieuBanLe / frmDanhsachPhieuBanSi
+  - Tạo hóa đơn, thêm sản phẩm vào hóa đơn, xử lý thanh toán (frmThanhToan), in hóa đơn (frmInPhieuBan).
+- Khách hàng / Nhà cung cấp:
+  - Form: frmKhachHang, frmNhaCungCap
+  - Quản lý thông tin, nợ (frmDunoKhachhang), in nợ (frmInDunoKhachHang)
+- Kho / Tồn kho:
+  - Form: frmSoLuongTon (xem tồn), frmSoLuongBan (báo cáo số lượng bán), frmSanphamHethan (sản phẩm hết hạn)
+- Báo cáo & Doanh thu:
+  - Form: frmDoanhThu và nhiều form in/Report trong thư mục `Report` hoặc `frmIn*` để xuất/chuẩn bị in báo cáo/hóa đơn.
+- Người dùng và phân quyền:
+  - Form: frmNguoiDung
+  - Quản lý tài khoản người dùng (tạo, sửa, phân quyền).
+- Thông tin cửa hàng:
+  - Form: frmThongtinCuahang
+  - Lưu cấu hình thông tin cửa hàng (tên, địa chỉ, điện thoại).
+- Các tiện ích khác:
+  - frmPhieuChi (ghi nhận chi), frmTimPhieu* (tìm phiếu), frmLyDoChi (lý do chi) — hỗ trợ nghiệp vụ kế toán/thu chi.
 
-4. Quản lý nhà cung cấp
-- Thêm nhà cung cấp: tên, địa chỉ, điện thoại, email, ghi chú.
-- Theo dõi lịch sử nhập hàng theo nhà cung cấp.
+Ghi chú: Các bước thao tác cụ thể (nút bấm, label chính xác, luồng dữ liệu) phụ thuộc vào giao diện thực tế khi chạy ứng dụng; vì vậy phần hướng dẫn thao tác chi tiết trên từng màn hình bạn nên kiểm tra trực tiếp giao diện khi ứng dụng chạy.
 
-5. Nhập hàng (Phiếu nhập)
-- Tạo phiếu nhập: chọn nhà cung cấp, thêm sản phẩm, số lượng, giá nhập, ghi chú.
-- Xác nhận phiếu nhập để cập nhật tồn kho và chi phí.
-- Lưu trữ và tra cứu lịch sử phiếu nhập.
+5) Kiểm tra mã nguồn để biết chi tiết kỹ thuật (nên làm)
+- Mở `DataService.cs` để xem cách ứng dụng kết nối và thực hiện truy vấn với SQL Server. Đây là nơi bạn sẽ biết:
+  - Tên chuỗi kết nối mà chương trình sử dụng.
+  - Kiểu truy vấn (Stored Procedure hay trực tiếp ADO.NET).
+- Kiểm tra thư mục `DataLayer` và `BusinessObject` để hiểu cấu trúc lớp, cách thao tác với dữ liệu (DAO/BLL).
+- Nếu cần phục hồi schema DB: tìm trong `DataSet` các .xsd hoặc DataTable để tham khảo cấu trúc bảng; nếu không có script .sql thì bạn phải tạo DB thủ công theo cấu trúc ứng dụng hoặc cung cấp file SQL nếu bạn có.
 
-6. Bán hàng (Tạo đơn / Hóa đơn)
-- Tạo đơn bán: chọn/khởi tạo khách hàng, thêm sản phẩm, điều chỉnh số lượng.
-- Hệ thống tính tổng, VAT, áp mã giảm giá, xử lý thu/ghi nợ.
-- In hoặc lưu hóa đơn, xem lịch sử đơn hàng.
+6) Triển khai (ghi ngắn)
+- Để đưa ứng dụng lên máy khác: build ở chế độ Release, copy file exe + thư mục bin kèm các DLL, đảm bảo máy đích có .NET Framework tương thích và quyền truy cập tới SQL Server.
+- Bạn cũng có thể tạo installer (không có sẵn trong repo).
 
-7. Quản lý tồn kho
-- Xem tồn kho hiện tại theo sản phẩm/danh mục.
-- Thiết lập ngưỡng tồn tối thiểu để nhận cảnh báo.
-- Điều chỉnh tồn kho (nhập/xuất điều chỉnh) kèm lý do và ghi chú.
+7) Khắc phục lỗi thường gặp
+- Lỗi kết nối DB:
+  - Kiểm tra `app.config` / `DataService.cs` để biết chuỗi kết nối hiện tại, đảm bảo SQL Server đang chạy và user/password đúng.
+- Thiếu NuGet package:
+  - Restore package từ Visual Studio.
+- Lỗi khi build:
+  - Kiểm tra phiên bản .NET Framework mục tiêu trong `.csproj` — nếu máy bạn thiếu version, cài đặt hoặc chỉnh mục tiêu framework.
 
-8. Báo cáo
-- Các báo cáo cơ bản: doanh thu theo ngày/tuần/tháng, tồn kho, lợi nhuận.
-- Lọc báo cáo theo khoảng thời gian, sản phẩm, nhà cung cấp, nhân viên bán hàng.
+8) Những chỗ cần bạn bổ sung để README hoàn chỉnh
+Để mình có thể hoàn thiện README với các hướng dẫn chính xác (không suy đoán), bạn vui lòng cung cấp / hoặc cập nhật:
+- Nội dung của file `app.config` (hoặc ít nhất tên của chuỗi kết nối hiện dùng).
+- Nếu có file SQL tạo schema (tệp .sql), upload hoặc chỉ vị trí file đó trong repo.
+- Phiên bản .NET Framework mục tiêu (mở `.csproj` để đọc thông tin này hoặc gửi nội dung).
+- Nếu muốn mình tạo README tại root hay trong thư mục module, cho biết vị trí mong muốn.
 
-9. Tìm kiếm & Lọc
-- Tìm nhanh theo mã, tên sản phẩm.
-- Lọc theo danh mục, nhà cung cấp, khoảng giá, trạng thái tồn kho.
+---
 
-10. Quản trị & Phân quyền
-- Tạo tài khoản nhân viên với vai trò khác nhau.
-- Gán quyền: ai được phép nhập hàng, tạo/xóa đơn, xem báo cáo tài chính, v.v.
-
-Cài đặt & Khởi chạy (hướng dẫn tổng quát)
-Lưu ý: Hướng dẫn dưới đây mang tính chung; dự án cụ thể có thể sử dụng Node/PHP/Python/Java. Xem thư mục Cuahang_Nongduoc để biết chi tiết cài đặt của module.
-
-1. Lấy mã nguồn
-- git clone https://github.com/tpcuong/DoAn_KTPM.git
-- Chuyển tới thư mục module: Cuahang_Nongduoc/Cuahang Nongduoc
-
-2. Kiểm tra stack và cài đặt phụ thuộc
-- Node.js: nếu có package.json → npm install hoặc yarn install
-- PHP (Laravel): nếu có composer.json → composer install
-- Python: nếu có requirements.txt → pip install -r requirements.txt (tốt nhất dùng virtualenv)
-- Java: kiểm tra pom.xml hoặc build.gradle và thực hiện build tương ứng
-
-3. Cấu hình cơ sở dữ liệu
-- Tạo database (MySQL/Postgres/SQLite tuỳ dự án).
-- Tìm file cấu hình (.env, config.php, application.properties, v.v.) và chỉnh host, user, password, dbname.
-- Chạy migration hoặc import file SQL nếu có:
-  - Ví dụ Laravel: php artisan migrate --seed
-  - Hoặc chạy file .sql trong MySQL.
-
-4. Khởi động ứng dụng
-- Node: npm run start / npm run dev
-- PHP: php artisan serve hoặc triển khai trên Apache/Nginx
-- Python: flask run / uvicorn / django runserver
-- Java: mvn spring-boot:run hoặc build jar và chạy
-
-5. Truy cập giao diện
-- Mở trình duyệt và truy cập http://localhost:PORT (PORT tham chiếu trong cấu hình, ví dụ 3000/8000/8080).
-
-6. Thiết lập ban đầu
-- Tạo tài khoản admin (thông qua seed hoặc form đăng ký).
-- Nhập danh mục và vài sản phẩm mẫu để kiểm tra tính năng.
-
-Bảo trì, sao lưu và khôi phục
-- Sao lưu định kỳ cơ sở dữ liệu (dump SQL).
-- Sao lưu file cấu hình quan trọng (.env) và file media (hình ảnh sản phẩm).
-- Trước khi nâng cấp hoặc chạy migration, thực hiện backup để khả năng rollback.
-
-Vấn đề thường gặp & Khắc phục nhanh
-- Lỗi kết nối DB: kiểm tra thông tin trong file cấu hình (.env), đảm bảo DB server đang chạy và cổng đúng.
-- Thiếu dependencies: kiểm tra file lock (package-lock.json / composer.lock) và chạy lại lệnh cài đặt.
-- Lỗi migration: kiểm tra phiên bản migration đã chạy, rollback nếu cần và chạy lại.
-
-Tham khảo mã nguồn
-- Thư mục module liên quan: Cuahang_Nongduoc/Cuahang Nongduoc
-- Link: https://github.com/tpcuong/DoAn_KTPM/tree/main/Cuahang_Nongduoc/Cuahang%20Nongduoc
-
-Liên hệ & Hỗ trợ
-- Nếu cần cập nhật README trực tiếp trong repo hoặc muốn tôi tạo file README.md thay thế nội dung hiện tại, vui lòng xác nhận rõ vị trí (root hoặc trong thư mục module) và nội dung cụ thể cần thay đổi.
-
-Cảm ơn — chúc bạn triển khai và sử dụng phần mềm hiệu quả.
-](https://github.com/tpcuong/DoAn_KTPM.git Đọc repo của tôi và viết hướng dẫn của phần mềm nông dược sử dụng vào  file README)
+Nếu bạn muốn, mình sẽ:
+- Soạn README chi tiết và chính xác (bằng tiếng Việt) đặt vào `Cuahang_Nongduoc/Cuahang Nongduoc/README.md` dựa trên file `app.config` và (nếu có) script SQL mà bạn cung cấp. Mình sẽ chỉ ghi thông tin có thực trong repo và những hướng dẫn cấu hình/khởi chạy chính xác dựa trên dữ liệu bạn gửi.
