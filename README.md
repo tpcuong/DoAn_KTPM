@@ -1,4 +1,4 @@
-Phần mềm Cửa hàng Nông dược — Hướng dẫn sử dụng
+[Phần mềm Cửa hàng Nông dược — Hướng dẫn sử dụng
 
 Mục đích: Tài liệu này hướng dẫn cách sử dụng các chức năng chính của module "Cửa hàng Nông dược" (quản trị viên, nhân viên bán hàng, quản lý kho) và mô tả nhanh cách cài đặt, cấu hình để chạy ứng dụng.
 
@@ -112,3 +112,4 @@ Liên hệ & Hỗ trợ
 - Nếu cần cập nhật README trực tiếp trong repo hoặc muốn tôi tạo file README.md thay thế nội dung hiện tại, vui lòng xác nhận rõ vị trí (root hoặc trong thư mục module) và nội dung cụ thể cần thay đổi.
 
 Cảm ơn — chúc bạn triển khai và sử dụng phần mềm hiệu quả.
+](https://github.com/tpcuong/DoAn_KTPM.git Đọc repo của tôi và viết hướng dẫn của phần mềm nông dược sử dụng vào  file README)
