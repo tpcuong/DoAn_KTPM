@@ -53,7 +53,6 @@ namespace CuahangNongduoc.DataLayer
         }
 
 
-        
         public DataRow NewRow()
         {
             return m_Ds.NewRow();

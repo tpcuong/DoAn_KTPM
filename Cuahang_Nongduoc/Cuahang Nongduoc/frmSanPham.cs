@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using CuahangNongduoc.Controller;
 using CuahangNongduoc.Strategy;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CuahangNongduoc
 {
@@ -14,161 +15,150 @@ namespace CuahangNongduoc
     {
         SanPhamController ctrl = new SanPhamController();
         DonViTinhController ctrlDVT = new DonViTinhController();
+        Controll status = Controll.Normal;
 
         public frmSanPham()
         {
             InitializeComponent();
+            status = Controll.AddNew;
+
         }
 
         private void frmSanPham_Load(object sender, EventArgs e)
         {
-
-
             dataGridView.AutoGenerateColumns = false;
             ctrlDVT.HienthiAutoComboBox(cmbDVT);
             ctrlDVT.HienthiDataGridViewComboBoxColumn(colDVT);
             ctrl.HienthiDataGridview(dataGridView, bindingNavigator,
                  txtMaSanPham, txtTenSanPham, cmbDVT, numDonGiaNhap, numGiaBanSi, numGiaBanLe);
+            status = Controll.Normal;
             Allow(true);
-            txtMaSanPham.BringToFront();
 
 
         }
 
-        //Co sua
+
         private void toolLuu_Click(object sender, EventArgs e)
         {
-
-
-            if (numDonGiaNhap.Value <= 0)
+            Allow(true);
+            if (status == Controll.AddNew)
             {
-                MessageBox.Show("Đơn giá nhập phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                numDonGiaNhap.Focus();
-                return;
-            }
-            else if (txtTenSanPham.Text.Trim() == "")
-            {
-                MessageBox.Show("Tên sản phẩm không được để trống!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtTenSanPham.Focus();
-                return;
-            }
-            else if (numGiaBanSi.Value <= 0)
-            {
-                MessageBox.Show("Giá bán sỉ phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                numGiaBanSi.Focus();
-                return;
-            }
-            else if (numGiaBanLe.Value <= 0)
-            {
-                MessageBox.Show("Giá bán lẻ phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                numGiaBanLe.Focus();
-                return;
+                if (numDonGiaNhap.Value <= 0)
+                {
+                    MessageBox.Show("Đơn giá nhập phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    numDonGiaNhap.Focus();
+                    return;
+                }
+                else if (txtTenSanPham.Text.Trim() == "")
+                {
+                    MessageBox.Show("Tên sản phẩm không được để trống!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTenSanPham.Focus();
+                    return;
+                }
+                else if (numGiaBanSi.Value <= 0)
+                {
+                    MessageBox.Show("Giá bán sỉ phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    numGiaBanSi.Focus();
+                    return;
+                }
+                else if (numGiaBanLe.Value <= 0)
+                {
+                    MessageBox.Show("Giá bán lẻ phải lớn hơn 0!", "Sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    numGiaBanLe.Focus();
+                    return;
+                }
+                else
+                {
+                    Add();
+                }
             }
             else
             {
-                try
-                {
-
-
-                    txtMaSanPham.BringToFront();
-                    DataRow row = ctrl.NewRow();
-                    long maso = ThamSo.SanPham;
-                    ThamSo.SanPham = maso + 1;
-                    row["ID"] = maso;
-                    row["TEN_SAN_PHAM"] = txtTenSanPham.Text.Trim();
-                    row["SO_LUONG"] = 0;
-                    row["DON_GIA_NHAP"] = numDonGiaNhap.Value;
-                    row["GIA_BAN_SI"] = numGiaBanSi.Value;
-                    row["GIA_BAN_LE"] = numGiaBanLe.Value;
-                    row["ID_DON_VI_TINH"] = cmbDVT.SelectedValue;
-                    row["GIA_BINH_QUAN"] = 0;
-                    ctrl.Add(row);
-                    ctrl.Save();     
-                    toolLuu.Enabled = false;           
-                    bindingNavigatorDeleteItem.Enabled = true;
-                    bindingNavigatorAddNewItem.Enabled = true;
-                    dataGridView.Enabled = true;
-
-                    frmSanPham_Load(sender, e);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Lỗi khi lưu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                status = Controll.Normal;
             }
+
+
+                bindingNavigatorPositionItem.Focus();
+            ctrl.Save();
+            
         }
-        //Co sua
+            void Add()
+            {
+                DataRow row = ctrl.NewRow();
+                row["ID"] = Convert.ToInt64(txtMaSanPham.Text.ToString());
+                row["TEN_SAN_PHAM"] = txtTenSanPham.Text;
+                row["ID_DON_VI_TINH"] = cmbDVT.SelectedValue;
+                row["SO_LUONG"] = numSoLuong.Value;
+                row["DON_GIA_NHAP"] = numGiaBanLe.Value;
+                row["GIA_BAN_SI"] = numGiaBanSi.Value;
+                row["GIA_BAN_LE"] = numGiaBanLe.Value;
+            row["GIA_BINH_QUAN"] = 0;
+                ctrl.Add(row);
+                ThamSo.SanPham = Convert.ToInt32(txtMaSanPham.Text) + 1;
+                bindingNavigator.BindingSource.MoveLast();
+            }
         private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
+            Allow(false);
+            status = Controll.AddNew;
             txtMaSanPham.DataBindings.Clear();
-            txtTenSanPham.DataBindings.Clear();
-            cmbDVT.DataBindings.Clear();
-            numDonGiaNhap.DataBindings.Clear();
-            numGiaBanSi.DataBindings.Clear();
-            numGiaBanLe.DataBindings.Clear();
-            Allow(false);//
-            txtMaGia.BringToFront();//
-            txtMaGia.Text = ThamSo.SanPham.ToString();//
+            txtMaSanPham.Text = ThamSo.SanPham.ToString();
             txtTenSanPham.Text = "";
-            numDonGiaNhap.Value = 0;
-            numGiaBanSi.Value = 0;
             numGiaBanLe.Value = 0;
-            cmbDVT.SelectedIndex = 0;
-           bindingNavigatorAddNewItem.Enabled = false;
-        }
+            numGiaBanSi.Value = 0;
+            numSoLuong.Value = 0;
+            numDonGiaNhap.Value = 0;
 
-        //Thêm mới
-        void Allow(bool allow)
+        }
+        void Allow(bool val)
         {
-            dataGridView.Enabled = allow;
-            txtTenSanPham.Enabled = !allow;
-            cmbDVT.Enabled = !allow;
-            numDonGiaNhap.Enabled = !allow;
-            numGiaBanSi.Enabled = !allow;
-            numGiaBanLe.Enabled = !allow;
-            bindingNavigatorDeleteItem.Enabled = allow;
-            toolLuu.Enabled = !allow;
+            dataGridView.Enabled = val;
+            txtTenSanPham.Enabled = !val;
+            cmbDVT.Enabled = !val;
+            numDonGiaNhap.Enabled = !val;
+            numGiaBanSi.Enabled = !val;
+            numGiaBanLe.Enabled = !val;
+            numSoLuong.Enabled = !val;
+            bindingNavigatorAddNewItem.Enabled = val;
+            bindingNavigatorDeleteItem.Enabled = val;
+            toolLuu.Enabled = !val;
 
         }
-        //Co sua
+
+        void Delete()
+        {
+            if (dataGridView.SelectedRows.Count > 0)
+            {
+
+                    try
+                    {
+
+                        var policy = new XoaMem();
+
+                        string id = txtMaSanPham.Text;
+                        if (ThamSo.Delete(id, "SAN_PHAM", policy))
+                        {
+                            MessageBox.Show("Xóa thành công!", "San pham", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi xóa sản phẩm! " + ex.Message, "San pham", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    //                    }
+                
+                
+            }
+        }
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn có chắc chắn xóa không?", "San Pham", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                if (dataGridView.SelectedRows.Count > 0)
-                {
-
-
-                    int sp = Convert.ToInt32(dataGridView.SelectedRows[0].Cells["colSoLuong"].Value.ToString());
-                    if (sp > 0)
-                    {
-                        MessageBox.Show("Sản phẩm còn trong kho, không thể xóa!", "San pham", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    }
-                    else
-                    {
-                        try
-                        {
-
-                            var policy = new XoaMem();
-
-                            string id = txtMaSanPham.Text;
-                            if (ThamSo.Delete(id, "SAN_PHAM", policy))
-                            {
-                                MessageBox.Show("Xóa thành công!", "San pham", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Lỗi xóa sản phẩm! " + ex.Message, "San pham", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        //                    }
-                    }
-                    frmSanPham_Load(sender, e);
-                    //bindingNavigator.BindingSource.RemoveCurrent();
-                }
-            }
+            //if (MessageBox.Show("Bạn có chắc chắn xóa không?", "San Pham", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            //{
+            //    bindingNavigator.BindingSource.RemoveCurrent();
+            //}
+            Delete();
+            frmSanPham_Load(sender, e);
         }
 
         private void toolThoat_Click(object sender, EventArgs e)
@@ -179,7 +169,7 @@ namespace CuahangNongduoc
         private void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
             e.Cancel = true;
-
+            
         }
 
         private void btnThemDVT_Click(object sender, EventArgs e)
@@ -235,13 +225,7 @@ namespace CuahangNongduoc
             toolTimSanPham.Text = "";
             toolTimSanPham.ForeColor = Color.Black;
         }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            frmSanPham_Load(sender, e);
-
-
-        }
+      
 
 
     }

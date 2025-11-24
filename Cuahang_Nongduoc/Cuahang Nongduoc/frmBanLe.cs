@@ -340,25 +340,7 @@ namespace CuahangNongduoc
             this.Luu();
             status = Controll.Normal;
             this.Allow(false);
-            DataTable dt = ctrlMaSanPham.DanhSachMSP();
-            Dictionary<string, long> tongTheoMaSP = new Dictionary<string, long>();
-
-            foreach (DataRow row in dt.Rows)
-            {
-                string maSP = row["ID_SAN_PHAM"].ToString();
-                long soLuong = Convert.ToInt64(row["SO_LUONG"]);
-
-                if (tongTheoMaSP.ContainsKey(maSP))
-                    tongTheoMaSP[maSP] += soLuong;
-                else
-                    tongTheoMaSP[maSP] = soLuong;
-            }
-            // Sau khi cộng dồn xong, với mỗi sản phẩm trùng, cộng lại vào tồn kho
-            foreach (var item in tongTheoMaSP)
-            {
-                // Giả sử UpdateSoLuong(maSP, soLuong) là hàm "cập nhật tồn kho"
-                ctrlSanPham.UpdateSoLuong(item.Key, item.Value);
-            }
+            ctrlSanPham.CapNhatSoLuong(txtMaPhieu.Text);
         }
 
         void Luu()

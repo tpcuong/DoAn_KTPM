@@ -170,5 +170,14 @@ namespace CuahangNongduoc.DataLayer
         {
             return m_Ds.ExecuteNoneQuery() > 0;
         }
+        public void CapNhatSoLuong(String masp, int so_luong)
+        {
+            DataService ds = new DataService();
+            SqlCommand cmd = new SqlCommand("UPDATE SAN_PHAM SET SO_LUONG = SO_LUONG + @so WHERE ID = @id");
+            cmd.Parameters.Add("so", OleDbType.Integer).Value = so_luong;
+            cmd.Parameters.Add("id", OleDbType.VarChar).Value = masp;
+            ds.ExecuteNoneQuery(cmd);
+        }
+
     }
 }
