@@ -97,10 +97,7 @@ Vì cấu trúc cụ thể (ngôn ngữ, framework) có thể khác nhau, dướ
      - ví dụ: `php artisan migrate` (Laravel) hoặc `npm run migrate` hoặc chạy file .sql trong MySQL.
 
 4. Khởi động ứng dụng
-   - Node.js: `npm start` / `npm run dev`
-   - PHP: cấu hình Apache/Nginx hoặc `php -S localhost:8000 -t public`
-   - Python: `python manage.py runserver` (Django) hoặc `flask run`
-   - Java: `mvn spring-boot:run` hoặc chạy jar.
+
 
 5. Truy cập giao diện
    - Mở trình duyệt, truy cập: http://localhost:PORT (PORT tuỳ cấu hình, mặc định thường 3000/8000/8080)
@@ -109,37 +106,7 @@ Vì cấu trúc cụ thể (ngôn ngữ, framework) có thể khác nhau, dướ
    - Tạo tài khoản admin đầu tiên (thông qua seed, script hoặc form đăng ký).
    - Nhập danh mục và một số sản phẩm mẫu để kiểm tra.
 
----
 
-## Sao lưu và phục hồi dữ liệu
-- Thực hiện sao lưu database theo lịch (daily/weekly).
-- Lưu trữ file sao lưu ở nơi an toàn, kiểm thử phục hồi định kỳ.
-- Nếu có tính năng xuất dữ liệu (CSV/Excel), sử dụng để xuất danh sách sản phẩm/đơn hàng làm bản sao.
-
----
-
-## Bảo mật & Quyền riêng tư
-- Thay đổi mật khẩu mặc định ngay khi triển khai.
-- Hạn chế quyền truy cập database và backup.
-- Sử dụng HTTPS khi đưa ứng dụng lên môi trường production.
-- Mã hoá mật khẩu người dùng (bcrypt hoặc tương đương).
-- Hạn chế upload file (kiểm tra định dạng/kích thước).
-
----
-
-## Khắc phục sự cố cơ bản
-- Không thể kết nối DB: kiểm tra host, user, password, DB có tồn tại chưa.
-- Lỗi thiếu package/dependency: kiểm tra logs, chạy lại lệnh cài dependencies.
-- Trang trắng / lỗi 500: kiểm tra logs server và logs ứng dụng.
-- Lỗi đăng nhập: kiểm tra bảng users trong DB, reset mật khẩu admin.
-
----
-
-## Đóng góp
-- Nếu bạn muốn sửa lỗi hoặc thêm tính năng:
-  - Fork repo -> tạo branch mới -> commit -> tạo Pull Request.
-  - Mô tả rõ thay đổi, kèm hướng dẫn test.
-- Ghi chú style code và các quy ước (nếu có) trong contribution guide.
 
 ---
 
