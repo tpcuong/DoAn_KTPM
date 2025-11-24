@@ -1,118 +1,114 @@
-# Phần mềm "Cửa hàng Nông dược" — Hướng dẫn sử dụng
+Phần mềm Cửa hàng Nông dược — Hướng dẫn sử dụng
 
-Phiên bản: README tạm thời cho module "Cửa hàng Nông dược"  
-Thư mục liên quan trong repo: https://github.com/tpcuong/DoAn_KTPM/tree/main/Cuahang_Nongduoc/Cuahang%20Nongduoc
+Mục đích: Tài liệu này hướng dẫn cách sử dụng các chức năng chính của module "Cửa hàng Nông dược" (quản trị viên, nhân viên bán hàng, quản lý kho) và mô tả nhanh cách cài đặt, cấu hình để chạy ứng dụng.
 
-Mục đích của tài liệu này là hướng dẫn người dùng (quản trị viên, nhân viên bán hàng, người quản lý kho) cách sử dụng các chức năng chính của phần mềm quản lý cửa hàng nông dược. Tài liệu cũng bao gồm các chỉ dẫn cơ bản để khởi chạy ứng dụng — phần “Cài đặt & Khởi chạy” mang tính tổng quát; nếu bạn biết stack cụ thể (ví dụ Node.js, PHP, Java, v.v.) hãy bổ sung lệnh tương ứng trong phần cấu hình.
+Tổng quan chức năng chính
+- Quản lý sản phẩm: thêm/sửa/xóa sản phẩm, quản lý danh mục, hình ảnh, đơn vị tính, giá bán/giá nhập.
+- Quản lý nhà cung cấp: lưu thông tin nhà cung cấp và lịch sử nhập hàng.
+- Quản lý khách hàng: thông tin khách hàng, theo dõi công nợ.
+- Quản lý kho / tồn kho: theo dõi tồn kho, cảnh báo tồn kho thấp, điều chỉnh tồn kho.
+- Nhập hàng: tạo và xác nhận phiếu nhập, cập nhật tồn kho, ghi nhận chi phí.
+- Bán hàng: tạo đơn/hóa đơn, tính tiền, VAT, áp mã giảm giá, in hóa đơn, quản lý thu/chi.
+- Báo cáo: doanh thu, tồn kho, lợi nhuận theo khoảng thời gian, bộ lọc theo sản phẩm/nhà cung cấp/nhân viên.
+- Tìm kiếm & lọc: tìm nhanh sản phẩm theo mã/tên, lọc theo danh mục/nhà cung cấp/giá/trạng thái.
+- Quản lý người dùng & phân quyền: tạo tài khoản nhân viên, gán vai trò (Admin, Quản lý kho, Thu ngân, Kế toán).
 
----
-
-## Tổng quan chức năng chính
-Phần mềm hỗ trợ các nghiệp vụ chính cho cửa hàng nông dược, thường bao gồm:
-- Quản lý sản phẩm (thêm, sửa, xóa, quản lý danh mục)
-- Quản lý nhà cung cấp
-- Quản lý khách hàng
-- Quản lý kho / tồn kho
-- Nhập hàng (ghi nhận phiếu nhập, cập nhật tồn kho)
-- Bán hàng (tạo đơn/bill, tính tiền, in hóa đơn)
-- Báo cáo (doanh thu theo ngày/tháng, tồn kho, lãi lỗ)
-- Tìm kiếm & lọc sản phẩm, đơn hàng, nhà cung cấp
-- Quản lý người dùng & phân quyền
-
----
-
-## Hướng dẫn sử dụng (User manual)
-
-LƯU Ý: Tên menu/label có thể khác tuỳ theo hiện thực trong giao diện — dưới đây là hướng dẫn chung theo các thao tác phổ biến.
+Hướng dẫn sử dụng (User manual)
+LƯU Ý: Tên menu/label có thể khác tuỳ theo giao diện cài đặt. Dưới đây là các thao tác phổ biến:
 
 1. Đăng nhập / Đăng xuất
-   - Mở ứng dụng và truy cập trang đăng nhập.
-   - Nhập tài khoản đã được cấp (username/email và mật khẩu).
-   - Sau khi đăng nhập thành công, bạn sẽ thấy Dashboard/tổng quan.
+- Mở ứng dụng, truy cập trang đăng nhập.
+- Nhập tài khoản (username/email) và mật khẩu.
+- Sau khi đăng nhập, vào Dashboard/tổng quan.
 
 2. Dashboard (Tổng quan)
-   - Hiển thị thông tin nhanh: doanh thu hôm nay/tuần/tháng, số đơn mới, cảnh báo tồn kho thấp.
-   - Từ Dashboard bạn có thể điều hướng tới các chức năng chính (Sản phẩm, Nhập hàng, Bán hàng, Báo cáo).
+- Hiển thị doanh thu hôm nay/tuần/tháng, số đơn hàng mới, cảnh báo tồn kho thấp.
+- Điều hướng nhanh tới Sản phẩm, Nhập hàng, Bán hàng, Báo cáo.
 
 3. Quản lý sản phẩm
-   - Thêm sản phẩm mới: chọn “Thêm sản phẩm”, nhập mã, tên, danh mục, đơn vị, giá bán, giá nhập, mô tả, hình ảnh (nếu có), số lượng tồn ban đầu.
-   - Sửa/Xóa: chọn sản phẩm trong danh sách -> Chỉnh sửa hoặc Xoá.
-   - Danh mục: tạo/chi tiết hóa danh mục sản phẩm để dễ quản lý.
+- Thêm sản phẩm: nhập mã, tên, danh mục, đơn vị, giá nhập, giá bán, mô tả, hình ảnh, tồn kho ban đầu.
+- Sửa/Xóa: chọn sản phẩm trong danh sách → Chỉnh sửa hoặc Xóa.
+- Quản lý danh mục: tạo/điều chỉnh danh mục để tổ chức sản phẩm.
 
 4. Quản lý nhà cung cấp
-   - Thêm nhà cung cấp: tên, địa chỉ, số điện thoại, email, ghi chú.
-   - Lưu trữ lịch sử nhập hàng liên quan đến nhà cung cấp.
+- Thêm nhà cung cấp: tên, địa chỉ, điện thoại, email, ghi chú.
+- Theo dõi lịch sử nhập hàng theo nhà cung cấp.
 
 5. Nhập hàng (Phiếu nhập)
-   - Tạo phiếu nhập mới: chọn nhà cung cấp, chọn sản phẩm kèm số lượng, giá nhập, ghi chú.
-   - Xác nhận phiếu nhập sẽ tăng tồn kho tương ứng.
-   - Hỗ trợ theo dõi chi phí nhập hàng.
+- Tạo phiếu nhập: chọn nhà cung cấp, thêm sản phẩm, số lượng, giá nhập, ghi chú.
+- Xác nhận phiếu nhập để cập nhật tồn kho và chi phí.
+- Lưu trữ và tra cứu lịch sử phiếu nhập.
 
 6. Bán hàng (Tạo đơn / Hóa đơn)
-   - Tạo đơn bán: chọn khách hàng (hoặc khách vãng lai), thêm sản phẩm, điều chỉnh số lượng, áp mã giảm giá (nếu có).
-   - Hệ thống tính tổng, VAT (nếu có), nợ/thu tiền.
-   - In hóa đơn hoặc lưu lại lịch sử đơn.
+- Tạo đơn bán: chọn/khởi tạo khách hàng, thêm sản phẩm, điều chỉnh số lượng.
+- Hệ thống tính tổng, VAT, áp mã giảm giá, xử lý thu/ghi nợ.
+- In hoặc lưu hóa đơn, xem lịch sử đơn hàng.
 
 7. Quản lý tồn kho
-   - Xem tồn kho hiện tại theo sản phẩm/danh mục.
-   - Cảnh báo sản phẩm tồn dưới ngưỡng tối thiểu.
-   - Điều chỉnh tồn kho (nhập/xuất điều chỉnh) với lý do.
+- Xem tồn kho hiện tại theo sản phẩm/danh mục.
+- Thiết lập ngưỡng tồn tối thiểu để nhận cảnh báo.
+- Điều chỉnh tồn kho (nhập/xuất điều chỉnh) kèm lý do và ghi chú.
 
 8. Báo cáo
-   - Báo cáo doanh thu theo ngày/tuần/tháng.
-   - Báo cáo tồn kho, hàng sắp hết.
-   - Báo cáo lợi nhuận (doanh thu - giá vốn).
-   - Lọc báo cáo theo khoảng thời gian, sản phẩm, nhà cung cấp, nhân viên bán hàng.
+- Các báo cáo cơ bản: doanh thu theo ngày/tuần/tháng, tồn kho, lợi nhuận.
+- Lọc báo cáo theo khoảng thời gian, sản phẩm, nhà cung cấp, nhân viên bán hàng.
 
 9. Tìm kiếm & Lọc
-   - Sử dụng thanh tìm kiếm để tìm sản phẩm theo mã, tên.
-   - Sử dụng bộ lọc để lọc theo danh mục, nhà cung cấp, khoảng giá, trạng thái tồn kho.
+- Tìm nhanh theo mã, tên sản phẩm.
+- Lọc theo danh mục, nhà cung cấp, khoảng giá, trạng thái tồn kho.
 
 10. Quản trị & Phân quyền
-    - Tạo tài khoản nhân viên với vai trò (Admin, Quản lý kho, Thu ngân, Kế toán).
-    - Gán quyền truy cập phần mềm theo vai trò: ai được phép nhập hàng, ai được phép xóa đơn, v.v.
+- Tạo tài khoản nhân viên với vai trò khác nhau.
+- Gán quyền: ai được phép nhập hàng, tạo/xóa đơn, xem báo cáo tài chính, v.v.
 
----
-
-## Cài đặt & Khởi chạy (hướng dẫn chung)
-Vì cấu trúc cụ thể (ngôn ngữ, framework) có thể khác nhau, dưới đây là các bước tổng quát để thiết lập môi trường. Vui lòng kiểm tra file cấu hình trong repo (ví dụ: package.json, composer.json, requirements.txt, pom.xml, Readme hiện có trong thư mục) để biết chính xác stack.
+Cài đặt & Khởi chạy (hướng dẫn tổng quát)
+Lưu ý: Hướng dẫn dưới đây mang tính chung; dự án cụ thể có thể sử dụng Node/PHP/Python/Java. Xem thư mục Cuahang_Nongduoc để biết chi tiết cài đặt của module.
 
 1. Lấy mã nguồn
-   - git clone https://github.com/tpcuong/DoAn_KTPM.git
-   - Đi tới thư mục module: `Cuahang_Nongduoc/Cuahang Nongduoc`
+- git clone https://github.com/tpcuong/DoAn_KTPM.git
+- Chuyển tới thư mục module: Cuahang_Nongduoc/Cuahang Nongduoc
 
 2. Kiểm tra stack và cài đặt phụ thuộc
-   - Node.js: nếu có file package.json
-     - cài Node.js, sau đó: `npm install` hoặc `yarn install`
-   - PHP: nếu có file composer.json
-     - cài Composer, sau đó: `composer install`
-   - Python: nếu có requirements.txt
-     - tạo virtualenv, `pip install -r requirements.txt`
-   - Java (Maven/Gradle): check pom.xml hoặc build.gradle
+- Node.js: nếu có package.json → npm install hoặc yarn install
+- PHP (Laravel): nếu có composer.json → composer install
+- Python: nếu có requirements.txt → pip install -r requirements.txt (tốt nhất dùng virtualenv)
+- Java: kiểm tra pom.xml hoặc build.gradle và thực hiện build tương ứng
 
 3. Cấu hình cơ sở dữ liệu
-   - Tạo database (MySQL/Postgres/SQLite tuỳ dự án).
-   - Tìm file cấu hình (ví dụ .env, config.php, application.properties) và cập nhật thông tin DB (host, user, password, dbname).
-   - Nếu có file migration hoặc script SQL, chạy để tạo bảng:
-     - ví dụ: `php artisan migrate` (Laravel) hoặc `npm run migrate` hoặc chạy file .sql trong MySQL.
+- Tạo database (MySQL/Postgres/SQLite tuỳ dự án).
+- Tìm file cấu hình (.env, config.php, application.properties, v.v.) và chỉnh host, user, password, dbname.
+- Chạy migration hoặc import file SQL nếu có:
+  - Ví dụ Laravel: php artisan migrate --seed
+  - Hoặc chạy file .sql trong MySQL.
 
 4. Khởi động ứng dụng
-
+- Node: npm run start / npm run dev
+- PHP: php artisan serve hoặc triển khai trên Apache/Nginx
+- Python: flask run / uvicorn / django runserver
+- Java: mvn spring-boot:run hoặc build jar và chạy
 
 5. Truy cập giao diện
-   - Mở trình duyệt, truy cập: http://localhost:PORT (PORT tuỳ cấu hình, mặc định thường 3000/8000/8080)
+- Mở trình duyệt và truy cập http://localhost:PORT (PORT tham chiếu trong cấu hình, ví dụ 3000/8000/8080).
 
 6. Thiết lập ban đầu
-   - Tạo tài khoản admin đầu tiên (thông qua seed, script hoặc form đăng ký).
-   - Nhập danh mục và một số sản phẩm mẫu để kiểm tra.
+- Tạo tài khoản admin (thông qua seed hoặc form đăng ký).
+- Nhập danh mục và vài sản phẩm mẫu để kiểm tra tính năng.
 
+Bảo trì, sao lưu và khôi phục
+- Sao lưu định kỳ cơ sở dữ liệu (dump SQL).
+- Sao lưu file cấu hình quan trọng (.env) và file media (hình ảnh sản phẩm).
+- Trước khi nâng cấp hoặc chạy migration, thực hiện backup để khả năng rollback.
 
+Vấn đề thường gặp & Khắc phục nhanh
+- Lỗi kết nối DB: kiểm tra thông tin trong file cấu hình (.env), đảm bảo DB server đang chạy và cổng đúng.
+- Thiếu dependencies: kiểm tra file lock (package-lock.json / composer.lock) và chạy lại lệnh cài đặt.
+- Lỗi migration: kiểm tra phiên bản migration đã chạy, rollback nếu cần và chạy lại.
 
----
+Tham khảo mã nguồn
+- Thư mục module liên quan: Cuahang_Nongduoc/Cuahang Nongduoc
+- Link: https://github.com/tpcuong/DoAn_KTPM/tree/main/Cuahang_Nongduoc/Cuahang%20Nongduoc
 
-## Tài liệu thêm & Liên hệ
-- Tham khảo mã nguồn trong thư mục: Cuahang_Nongduoc/Cuahang Nongduoc
-  - Link: https://github.com/tpcuong/DoAn_KTPM/tree/main/Cuahang_Nongduoc/Cuahang%20Nongduoc
+Liên hệ & Hỗ trợ
+- Nếu cần cập nhật README trực tiếp trong repo hoặc muốn tôi tạo file README.md thay thế nội dung hiện tại, vui lòng xác nhận rõ vị trí (root hoặc trong thư mục module) và nội dung cụ thể cần thay đổi.
 
-
-Cảm ơn bạn — nếu muốn mình chuyển nội dung README này thành file thực tế trong repo (README.md), gửi yêu cầu rõ ràng và cho biết nơi muốn đặt (root repo hoặc trong thư mục module).
+Cảm ơn — chúc bạn triển khai và sử dụng phần mềm hiệu quả.
