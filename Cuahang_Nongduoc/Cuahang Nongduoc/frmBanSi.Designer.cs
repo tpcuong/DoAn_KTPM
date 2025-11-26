@@ -1060,9 +1060,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Button btnThemDaiLy;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtMaPhieu;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dtNgayLapPhieu;
         private System.Windows.Forms.ComboBox cmbKhachHang;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numPhiVanChuyen;
@@ -1085,5 +1083,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colThanhTien;
         private System.Windows.Forms.DataGridViewTextBoxColumn NGAY_HET_HAN;
         private System.Windows.Forms.Panel panel3;
+        public System.Windows.Forms.DateTimePicker dtNgayLapPhieu;
+        public System.Windows.Forms.TextBox txtMaPhieu;
     }
 }

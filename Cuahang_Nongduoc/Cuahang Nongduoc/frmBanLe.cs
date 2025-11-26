@@ -7,10 +7,11 @@ using System.Text;
 using System.Windows.Forms;
 using CuahangNongduoc.Controller;
 using CuahangNongduoc.BusinessObject;
+using CuahangNongduoc.Template_Pattern;
 
 namespace CuahangNongduoc
 {
-    public partial class frmBanLe : Form
+    public partial class frmBanLe : Form, IFormBanHang
     {
         SanPhamController ctrlSanPham = new SanPhamController();
         KhachHangController ctrlKhachHang = new KhachHangController();
@@ -26,6 +27,21 @@ namespace CuahangNongduoc
         Dictionary<string, decimal> soLuongLo = new Dictionary<string, decimal>();
         Decimal bqgq;
 
+        public ChiTietPhieuBanController CtrlChiTiet => ctrlChiTiet;
+        public MaSanPhamController CtrlMaSanPham => ctrlMaSanPham;
+
+        public string MaPhieu => txtMaPhieu.Text;
+
+        public DateTime NgayLapPhieu => dtNgayLapPhieu.Value;
+
+        public void XuLyDataGrid() => XuLyDataGridView();
+        public DateTime ngayLapPhieu => dtNgayLapPhieu.Value;
+
+        public void SetNgayLapPhieu(DateTime dt)
+        {
+            dtNgayLapPhieu.Value = dt;  // ← đây là chỗ thật sự set
+        }
+        public void CapNhatTongTien() => TinhToanTongTienCuoiCung();
         public frmBanLe()
         {
             InitializeComponent();
@@ -144,64 +160,19 @@ namespace CuahangNongduoc
         private void btnAdd_Click(object sender, EventArgs e)
         {
             toolLuu.Enabled = true;
-            if (numSoLuong.Value <= 0)
-            {
-                MessageBox.Show("Vui lòng nhập Số lượng!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
+            // 1. Lấy mã sản phẩm
             string idSP = cmbSanPham.SelectedValue.ToString();
-            List<MaSanPham> danhSachLo = ctrlMaSanPham.LayDanhSachMaSanPham(idSP);
-            decimal soLuongCanXuat = numSoLuong.Value;
 
-            if (!viTriLo.ContainsKey(idSP))
-                viTriLo.Add(idSP, 0);
+            // 2. Lấy số lượng
+            decimal soLuong = numSoLuong.Value;
 
-       
-            foreach (MaSanPham lo in danhSachLo)
-            {
-                if (!soLuongLo.ContainsKey(lo.Id))
-                    soLuongLo.Add(lo.Id, lo.SoLuong);
-            }
+            // 3. Tạo handler theo Template Method (dùng interface IFormBanHang)
+            var handler = new BanHangFIFO(this);
 
-        
-            while (soLuongCanXuat > 0 && viTriLo[idSP] < danhSachLo.Count)
-            {
-                int viTriHienTai = viTriLo[idSP];
-                MaSanPham loHienTai = danhSachLo[viTriHienTai];
-                string idLo = loHienTai.Id;
+            // 4. Gọi Template Method để xuất hàng → FIFO + Tạo chi tiết
+            handler.XuatHang(idSP, soLuong);
 
-                decimal tonHienTai = soLuongLo[idLo];
-                decimal soLuongXuat = Math.Min(soLuongCanXuat, tonHienTai);
-
-                if (soLuongXuat > 0)
-                {
-                    soLuongLo[idLo] -= soLuongXuat;
-                    soLuongCanXuat -= soLuongXuat;
-
-                    decimal thanhTien = numDonGia.Value * soLuongXuat;
-
-                    DataRow row = ctrlChiTiet.NewRow();
-                    row["ID_MA_SAN_PHAM"] = idLo;
-                    row["ID_PHIEU_BAN"] = txtMaPhieu.Text;
-                    row["DON_GIA"] = bqgq;
-                    row["SO_LUONG"] = soLuongXuat;
-                    row["THANH_TIEN"] = thanhTien;
-                    row["NGAY_HET_HAN"] = loHienTai.NgayHetHan;
-
-                    ctrlChiTiet.Add(row);
-                    KTraDongTrung();
-                }
-
-                if (soLuongLo[idLo] == 0)
-                {
-                    viTriLo[idSP]++;
-                }
-            }
-
-            TinhToanTongTienCuoiCung();
-            ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
-
+            // 5. Reset input nếu cần
             numSoLuong.Value = 0;
             numThanhTien.Value = 0;
         }
@@ -284,52 +255,67 @@ namespace CuahangNongduoc
 
 
 
-        public void KTraDongTrung()
+        void KtrDongTrung(DataTable tbl)
         {
-            DataTable tbl = null;
-
-            if (dgvDanhsachSP.DataSource is BindingSource)
-            {
-                BindingSource bs = (BindingSource)dgvDanhsachSP.DataSource;
-                tbl = bs.DataSource as DataTable;
-            }
-            else if (dgvDanhsachSP.DataSource is DataTable)
-            {
-                tbl = (DataTable)dgvDanhsachSP.DataSource;
-            }
-
-            if (tbl == null || tbl.Rows.Count == 0)
-                return;
 
             for (int i = 0; i < tbl.Rows.Count - 1; i++)
             {
                 for (int j = i + 1; j < tbl.Rows.Count; j++)
                 {
-                    if (tbl.Rows[i]["ID_MA_SAN_PHAM"].ToString() == tbl.Rows[j]["ID_MA_SAN_PHAM"].ToString())
+                    if (tbl.Rows[i]["ID_MA_SAN_PHAM"].ToString() ==
+                        tbl.Rows[j]["ID_MA_SAN_PHAM"].ToString())
                     {
-
                         decimal sl1 = Convert.ToDecimal(tbl.Rows[i]["SO_LUONG"]);
                         decimal sl2 = Convert.ToDecimal(tbl.Rows[j]["SO_LUONG"]);
-                        tbl.Rows[i]["SO_LUONG"] = sl1 + sl2;
 
+                        tbl.Rows[i]["SO_LUONG"] = sl1 + sl2;
 
                         decimal tt1 = Convert.ToDecimal(tbl.Rows[i]["THANH_TIEN"]);
                         decimal tt2 = Convert.ToDecimal(tbl.Rows[j]["THANH_TIEN"]);
                         tbl.Rows[i]["THANH_TIEN"] = tt1 + tt2;
-
 
                         tbl.Rows.RemoveAt(j);
                         j--;
                     }
                 }
             }
+        }
+        void KtraSouong(DataTable tbl)
+        {
+            for (int i = tbl.Rows.Count - 1; i >= 0; i--)
+            {
+                string idMaSP = tbl.Rows[i]["ID_MA_SAN_PHAM"].ToString();
+                decimal slBan = Convert.ToDecimal(tbl.Rows[i]["SO_LUONG"]);
 
-            dgvDanhsachSP.DataSource = tbl;
+                var msp = ctrlMaSanPham.LayMaSanPham(idMaSP);
+                decimal slTonKho = msp.SoLuong;
+
+                if (slBan > slTonKho)
+                {
+                    MessageBox.Show($"Lô {idMaSP} chỉ còn {slTonKho} trong kho.\n Bạn đang bán {slBan}. Dòng này sẽ bị xóa! Không đủ hàng", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    tbl.Rows.RemoveAt(i);
+                }
+            }
+        }
+        public void XuLyDataGridView()
+        {
+            DataTable tbl = null;
+
+            // Lấy DataTable
+            if (dgvDanhsachSP.DataSource is BindingSource bs) // Kiểm tra nếu DataSource là BindingSource
+                tbl = (DataTable)bs.DataSource; // Ép kiểu DataSource về DataTable
+            else
+                tbl = (DataTable)dgvDanhsachSP.DataSource;
+
+            if (tbl == null || tbl.Rows.Count == 0) return;
+            KtrDongTrung(tbl);
+            KtraSouong(tbl);
             dgvDanhsachSP.Refresh();
         }
 
 
-       // private void numTongTien_ValueChanged(object sender, EventArgs e)
+        // private void numTongTien_ValueChanged(object sender, EventArgs e)
         // {
         //    TinhToanConNo();
         // }
