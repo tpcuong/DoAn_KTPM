@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Text;
 using System.Windows.Forms;
 using CuahangNongduoc.Controller;
@@ -30,7 +31,7 @@ namespace CuahangNongduoc
             ctrlDVT.HienthiAutoComboBox(cmbDVT);
             ctrlDVT.HienthiDataGridViewComboBoxColumn(colDVT);
             ctrl.HienthiDataGridview(dataGridView, bindingNavigator,
-                 txtMaSanPham, txtTenSanPham, cmbDVT, numDonGiaNhap, numGiaBanSi, numGiaBanLe);
+                 txtMaSanPham, txtTenSanPham, cmbDVT,numSoLuong, numDonGiaNhap, numGiaBanSi, numGiaBanLe);
             status = Controll.Normal;
             Allow(true);
 
@@ -40,7 +41,7 @@ namespace CuahangNongduoc
 
         private void toolLuu_Click(object sender, EventArgs e)
         {
-            Allow(true);
+           
             if (status == Controll.AddNew)
             {
                 if (numDonGiaNhap.Value <= 0)
@@ -73,7 +74,8 @@ namespace CuahangNongduoc
                 }
             }
             else
-            {
+            { 
+                Allow(true);
                 status = Controll.Normal;
             }
 
@@ -225,7 +227,6 @@ namespace CuahangNongduoc
             toolTimSanPham.Text = "";
             toolTimSanPham.ForeColor = Color.Black;
         }
-      
 
 
     }

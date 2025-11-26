@@ -101,7 +101,24 @@ namespace CuahangNongduoc.Controller
             txtGhichu.DataBindings.Clear();
             txtGhichu.DataBindings.Add("Text", bs, "GHI_CHU");
         }
+        public DataRow TaoPhieuThanhToanMoi(string idKhachHang, decimal tongTien)
+        {
+            long maphieu = ThamSo.LayMaPhieuThanhToan();
+            ThamSo.GanMaPhieuThanhToan(maphieu + 1);
 
-        
+            DataRow row = factory.NewRow();
+            row["ID"] = maphieu;
+            row["NGAY_THANH_TOAN"] = DateTime.Now.Date;
+            row["TONG_TIEN"] = tongTien;
+            if (!string.IsNullOrEmpty(idKhachHang))
+            {
+                row["ID_KHACH_HANG"] = idKhachHang;
+            }
+
+            factory.Add(row);
+            return row;
+        }
+
+
     }
 }

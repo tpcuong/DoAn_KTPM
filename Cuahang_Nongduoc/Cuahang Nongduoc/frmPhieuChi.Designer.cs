@@ -70,6 +70,7 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolIn = new System.Windows.Forms.ToolStripButton();
             this.toolTimKiem = new System.Windows.Forms.ToolStripButton();
+            this.toolReload = new System.Windows.Forms.ToolStripButton();
             this.panel1.SuspendLayout();
             this.grpThongtin.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTongTien)).BeginInit();
@@ -326,6 +327,7 @@
             this.toolAdd,
             this.toolDelete,
             this.toolSave,
+            this.toolReload,
             this.toolStripSeparator1,
             this.toolIn,
             this.toolTimKiem});
@@ -468,6 +470,17 @@
             this.toolTimKiem.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolTimKiem.Click += new System.EventHandler(this.toolTimKiem_Click);
             // 
+            // toolReload
+            // 
+            this.toolReload.Image = global::CuahangNongduoc.Properties.Resources.reload_24;
+            this.toolReload.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolReload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolReload.Name = "toolReload";
+            this.toolReload.Size = new System.Drawing.Size(50, 43);
+            this.toolReload.Text = "Xem lại";
+            this.toolReload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolReload.Click += new System.EventHandler(this.toolReload_Click);
+            // 
             // frmPhieuChi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -535,5 +548,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colGhiChu;
         private System.Windows.Forms.ComboBox cmbNV;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ToolStripButton toolReload;
     }
 }

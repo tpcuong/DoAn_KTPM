@@ -30,12 +30,15 @@ namespace CuahangNongduoc
             ctrl.HienthiPhieuChi(bindingNavigator, dataGridView,cmbNV, cmbLyDoChi, txtMaPhieu, dtNgayChi, numTongTien, txtGhiChu);
             toolSave.Enabled = false;
             toolDelete.Enabled = true;
+            dataGridView.Enabled = true;
+
         }
         //Co sua
         private void toolAdd_Click(object sender, EventArgs e)
         {   
             toolDelete.Enabled = false;
             toolSave.Enabled = true;
+            dataGridView.Enabled =false;
             MessageBox.Show("Hãy nhập dữ liệu rồi ấn lưu","Thông báo",MessageBoxButtons.OK,MessageBoxIcon.Information);
             long maphieu = ThamSo.PhieuChi;
             cmbLyDoChi.Text = "";
@@ -47,6 +50,7 @@ namespace CuahangNongduoc
             {
                 cmbNV.SelectedValue = Convert.ToInt64(dt.Rows[0]["ID"]);
             }
+
         }
 
         private void dataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
@@ -91,7 +95,8 @@ namespace CuahangNongduoc
         //Co sua
         private void toolSave_Click(object sender, EventArgs e)
         {
-            if(numTongTien.Value <= 0)
+            dataGridView.Enabled = true;
+            if (numTongTien.Value <= 0)
             {
                 MessageBox.Show("Tổng tiền phải lớn hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -129,6 +134,18 @@ namespace CuahangNongduoc
                 InPhieu.Show();
             }
         }
+        /// <summary>
+        /// Sửa lỗi tìm kiếm
+        /// </summary>
+        /// Refactoring Extract Mưthod
+        private void SearchPhieuChi(frmTimPhieuChi timForm)
+        {
+            int lyDoChi = Convert.ToInt32(timForm.cmbLyDo.SelectedValue);
+            DateTime ngayChi = timForm.dtNgayChi.Value.Date;
+
+            ctrl.TimPhieuChi(
+                bindingNavigator, dataGridView, cmbLyDoChi, txtMaPhieu, dtNgayChi, numTongTien, txtGhiChu, lyDoChi, ngayChi);
+        }
 
         private void btnThemLyDoChi_Click(object sender, EventArgs e)
         {
@@ -136,22 +153,34 @@ namespace CuahangNongduoc
             Chi.ShowDialog();
             ctrlLyDo.HienthiAutoComboBox(cmbLyDoChi);
         }
-
-        private void toolTimKiem_Click(object sender, EventArgs e)
+        private frmTimPhieuChi CreateTimPhieuChiForm()
         {
-            frmTimPhieuChi Tim = new frmTimPhieuChi();
+            frmTimPhieuChi form = new frmTimPhieuChi();
             Point p = PointToScreen(toolTimKiem.Bounds.Location);
             p.X += toolTimKiem.Width;
             p.Y += toolTimKiem.Height;
-            Tim.Location = p;
-            Tim.ShowDialog();
-            if (Tim.DialogResult == DialogResult.OK)
-            {
-                ctrl.TimPhieuChi(bindingNavigator, dataGridView, cmbLyDoChi, txtMaPhieu, dtNgayChi, numTongTien, txtGhiChu, Convert.ToInt32(Tim.cmbLyDo.SelectedValue), dtNgayChi.Value.Date);
-                
-            }
+            form.Location = p;
+            return form;
         }
 
+        private void toolTimKiem_Click(object sender, EventArgs e)
+        {
+            frmTimPhieuChi timForm = CreateTimPhieuChiForm();
+            timForm.ShowDialog();
+            if (timForm.DialogResult == DialogResult.OK)
+            {
+                SearchPhieuChi(timForm);
+            }
 
+        }
+
+        private void toolReload_Click(object sender, EventArgs e)
+        {
+            frmThanhToan_Load(sender, e);
+
+        }
     }
+
+
+    
 }

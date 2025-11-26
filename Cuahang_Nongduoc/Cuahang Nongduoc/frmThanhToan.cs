@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Timers;
 using System.Windows.Forms;
 using CuahangNongduoc.Controller;
 using CuahangNongduoc.Strategy;
@@ -31,6 +32,8 @@ namespace CuahangNongduoc
             bindingNavigator.BindingSource.AddingNew += new AddingNewEventHandler(BindingSource_AddingNew);
             toolSave.Enabled = false;
             toolDelete.Enabled = true;
+            dataGridView.Enabled = false;
+
         }
 
         void BindingSource_AddingNew(object sender, AddingNewEventArgs e)
@@ -42,6 +45,7 @@ namespace CuahangNongduoc
         {
             toolDelete.Enabled = false;
             toolSave.Enabled = true;
+            dataGridView.Enabled = false;
             MessageBox.Show("Hãy nhập dữ liệu rồi ấn lưu", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             long maphieu = ThamSo.LayMaPhieuThanhToan();
             txtGhiChu.Text = "";
@@ -97,25 +101,30 @@ namespace CuahangNongduoc
         private void toolSave_Click(object sender, EventArgs e)
         {
 
+
+
+
+
+
+
             try
             {
-                long maphieu = ThamSo.LayMaPhieuThanhToan(); ;
+
+                if(numTongTien.Value <= 0)
+                {
+                    MessageBox.Show("Tổng tiền phải lớn hơn 0!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }  
+                    long maphieu = ThamSo.LayMaPhieuThanhToan(); ;
                 ThamSo.GanMaPhieuThanhToan(maphieu + 1);
-
-                DataRow row = ctrl.NewRow();
-                row["ID"] = maphieu;
-                row["NGAY_THANH_TOAN"] = dtNgayThanhToan.Value;
-                row["TONG_TIEN"] = numTongTien.Value;
-                row["GHI_CHU"] = txtGhiChu.Text;
-                row["ID_KHACH_HANG"] = cmbKhachHang.SelectedValue;
-                row["ID_NGUOI_DUNG"] = cmbNV.SelectedValue;
-
-                ctrl.Add(row);
-                bindingNavigator.BindingSource.MoveLast();
-                txtMaPhieu.Focus();
+                string idKhachHang = cmbKhachHang.SelectedValue?.ToString();
+                decimal tongTien = numTongTien.Value;
+                DataRow newRow = ctrl.TaoPhieuThanhToanMoi(idKhachHang, tongTien); 
                 bindingNavigator.BindingSource.MoveNext();
                 ctrl.Save();
-                
+                dataGridView.Refresh();
+                dataGridView.Enabled = false;
+                toolSave.Enabled = false;
                 MessageBox.Show("Lưu phiếu thanh toán thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -156,7 +165,15 @@ namespace CuahangNongduoc
                 ctrl.TimPhieuThanhToan(bindingNavigator, dataGridView,cmbNV, cmbKhachHang, txtMaPhieu, dtNgayThanhToan, numTongTien, txtGhiChu,
                     Tim.cmbKhachHang.SelectedValue.ToString(), Tim.dtNgayThu.Value.Date);
             }
+            else
+            {
+                MessageBox.Show("Chưa thực hiện tìm kiếm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
+        private void toolReload_Click(object sender, EventArgs e)
+        {
+            frmThanhToan_Load(sender, e);   
+        }
     }
 }

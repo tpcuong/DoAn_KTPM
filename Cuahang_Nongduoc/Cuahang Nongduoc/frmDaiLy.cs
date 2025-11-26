@@ -20,10 +20,67 @@ namespace CuahangNongduoc
         {
 
             ctrl.HienthiDaiLyDataGridview(dataGridView, bindingNavigator);
+
+        }
+        private bool ValidateRow(DataGridViewRow dtg, DataGridView grid)
+        {
+            var cell = dtg.Cells["colDienThoai"];
+            string sdt = cell.Value == null ? string.Empty : cell.Value.ToString().Trim();
+            if (dtg.Cells["colHoTen"].Value == null || string.IsNullOrEmpty(dtg.Cells["colHoTen"].Value.ToString().Trim()))
+            {
+                MessageBox.Show("Vui lòng nhập họ tên khách hàng", "Khách hàng",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                grid.CurrentCell = dtg.Cells["colHoTen"];
+                grid.BeginEdit(true);
+                return false;
+            }
+            else if (string.IsNullOrEmpty(sdt))
+            {
+                MessageBox.Show("Vui lòng nhập số điện thoại", "Khách hàng",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                grid.CurrentCell = cell;
+                grid.BeginEdit(true);
+                return false;
+            }
+
+
+            bool allDigits = true;
+            foreach (char c in sdt)
+            {
+                if (!char.IsDigit(c))
+                {
+                    allDigits = false;
+                    break;
+                }
+            }
+
+            if (!allDigits || sdt.Length < 9 || sdt.Length > 11)
+            {
+                MessageBox.Show("Số điện thoại không hợp lệ (chỉ chứa số, dài 9–11 ký tự).",
+                                "Khách hàng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                grid.CurrentCell = cell;
+                grid.BeginEdit(true);
+                return false;
+            }
+
+            return true;
         }
 
         private void toolLuu_Click(object sender, EventArgs e)
         {
+                        dataGridView.EndEdit(); // chốt hết dữ liệu đang edit
+
+            foreach (DataGridViewRow row in dataGridView.Rows)
+            {
+                // Bỏ qua dòng mới
+                if (row.IsNewRow) continue;
+
+                if (!ValidateRow(row, dataGridView))
+                {
+                    // Gặp dòng sai là dừng luôn, bắt user sửa
+                    return;
+                }
+            }
             bindingNavigatorPositionItem.Focus();
             ctrl.Save();
         }

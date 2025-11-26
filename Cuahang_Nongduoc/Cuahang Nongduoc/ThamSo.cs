@@ -159,14 +159,13 @@ namespace CuahangNongduoc
                 object obj = ds.ExecuteScalar(new SqlCommand("SELECT KHACH_HANG FROM THAM_SO"));
                 return Convert.ToInt64(obj);
             }
-            set
+            set 
             {
                 DataService ds = new DataService();
                 //ds.ExecuteNoneQuery(new OleDbCommand("UPDATE THAM_SO SET KHACH_HANG = " + value));
                 ds.ExecuteNoneQuery(new SqlCommand("UPDATE THAM_SO SET KHACH_HANG = " + value));
             }
         }
-
         public static long PhieuChi
         {
             get

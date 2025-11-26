@@ -7,21 +7,38 @@ using System.Text;
 using System.Windows.Forms;
 using CuahangNongduoc.Controller;
 using CuahangNongduoc.BusinessObject;
+using CuahangNongduoc.Template_Pattern;
 
 namespace CuahangNongduoc
 {
-    public partial class frmBanSi : Form
+    public partial class frmBanSi : Form, IFormBanHang
     {
         SanPhamController ctrlSanPham = new SanPhamController();
         KhachHangController ctrlKhachHang = new KhachHangController();
-        MaSanPhamController ctrlMaSanPham = new MaSanPhamController();
         PhieuBanController ctrlPhieuBan = new PhieuBanController();
+        MaSanPhamController ctrlMaSanPham = new MaSanPhamController();
         ChiTietPhieuBanController ctrlChiTiet = new ChiTietPhieuBanController();
         DichVuController dvController = new DichVuController();
         NguoiDungController ctrNguoiDung = new NguoiDungController();
         Dictionary<string, int> viTriLo = new Dictionary<string, int>();
         Dictionary<string, decimal> soLuongLo = new Dictionary<string, decimal>();
         Decimal bqgq;
+        public ChiTietPhieuBanController CtrlChiTiet => ctrlChiTiet;
+
+        public MaSanPhamController CtrlMaSanPham => ctrlMaSanPham;
+        public string MaPhieu => txtMaPhieu.Text;
+
+        public DateTime NgayLapPhieu => dtNgayLapPhieu.Value;
+
+        public void XuLyDataGrid() => XuLyDataGridView();
+        public void CapNhatTongTien() => TinhToanTongTienCuoiCung();
+
+        public DateTime ngayLapPhieu => dtNgayLapPhieu.Value;
+
+        public void SetNgayLapPhieu(DateTime dt)
+        {
+            dtNgayLapPhieu.Value = dt;  // ← đây là chỗ thật sự set
+        }
 
         IList<MaSanPham> deleted = new List<MaSanPham>();
 
@@ -174,69 +191,25 @@ namespace CuahangNongduoc
         {
             toolLuu.Enabled = true;
 
-            if (numSoLuong.Value <= 0)
+            string idSP = cmbSanPham.SelectedValue.ToString();
+            if (idSP == null)
             {
-                MessageBox.Show("Vui lòng nhập Số lượng!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Chưa chọn sản phẩm!");
                 return;
             }
+            decimal soLuong = numSoLuong.Value;
 
-            string idSP = cmbSanPham.SelectedValue.ToString();
-            List<MaSanPham> danhSachLo = ctrlMaSanPham.LayDanhSachMaSanPham(idSP);
+            var handler = new BanHangFIFO(this);
 
-            decimal soLuongCanXuat = numSoLuong.Value;
-
-            if (!viTriLo.ContainsKey(idSP))
-                viTriLo.Add(idSP, 0);
-
-            foreach (MaSanPham lo in danhSachLo)
-            {
-                if (!soLuongLo.ContainsKey(lo.Id))
-                    soLuongLo.Add(lo.Id, lo.SoLuong);
-            }
-
-            while (soLuongCanXuat > 0 && viTriLo[idSP] < danhSachLo.Count)
-            {
-                int viTriHienTai = viTriLo[idSP];
-                MaSanPham loHienTai = danhSachLo[viTriHienTai];
-                string idLo = loHienTai.Id;
-
-                decimal tonHienTai = soLuongLo[idLo];
-                decimal soLuongXuat = Math.Min(soLuongCanXuat, tonHienTai);
-
-                if (soLuongXuat > 0)
-                {
-                    soLuongLo[idLo] -= soLuongXuat;
-                    soLuongCanXuat -= soLuongXuat;
-
-                    decimal thanhTien = numDonGia.Value * soLuongXuat;
-
-                    DataRow row = ctrlChiTiet.NewRow();
-                    row["ID_MA_SAN_PHAM"] = idLo;
-                    row["ID_PHIEU_BAN"] = txtMaPhieu.Text;
-                    row["DON_GIA"] = numDonGia.Value; // Logic Bán sỉ: Lưu giá sỉ
-                    row["SO_LUONG"] = soLuongXuat;
-                    row["THANH_TIEN"] = thanhTien;
-                    row["NGAY_HET_HAN"] = loHienTai.NgayHetHan;
-
-                    ctrlChiTiet.Add(row);
-                    XuLyDataGridView();
-                }
-
-                if (soLuongLo[idLo] == 0)
-                {
-                    viTriLo[idSP]++;
-                }
-            }
+            handler.XuatHang(idSP, soLuong);
 
             numSoLuong.Value = 0;
             numThanhTien.Value = 0;
-            //ctrlSanPham.HienthiAutoComboBox(cmbSanPham);
-            TinhToanTongTienCuoiCung();
         }
 
 
 
-        void KtrDongTrung(DataTable tbl)
+          void KtrDongTrung(DataTable tbl)
         {
 
             for (int i = 0; i < tbl.Rows.Count - 1; i++)
@@ -261,7 +234,7 @@ namespace CuahangNongduoc
                 }
             }
         }
-        void KtraSouong(DataTable tbl)
+         void KtraSouong(DataTable tbl)
         {
             for (int i = tbl.Rows.Count - 1; i >= 0; i--)
             {
@@ -279,7 +252,7 @@ namespace CuahangNongduoc
                 }
             }
         }
-        void XuLyDataGridView()
+        public void XuLyDataGridView()
         {
             DataTable tbl = null;
 
@@ -309,13 +282,14 @@ namespace CuahangNongduoc
 
         private void toolLuu_Click(object sender, EventArgs e)
         {
-            if(dtNgayLapPhieu.Value.Date > DateTime.Now.Date)
+            BindingSource bs = dgvDanhsachSP.DataSource as BindingSource;
+            DataTable dt = bs?.DataSource as DataTable; if (dtNgayLapPhieu.Value.Date > DateTime.Now.Date)
             {
                 MessageBox.Show("Ngày lập phiếu không được lớn hơn ngày hiện tại!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 dtNgayLapPhieu.Focus();
                 return;
             }
-            else if(bindingNavigator.BindingSource.Count <= 0)
+            else if( dt.Rows.Count<= 0)
             {
                 MessageBox.Show("Phiếu bán phải có ít nhất một sản phẩm!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -325,11 +299,13 @@ namespace CuahangNongduoc
             {
 
           
-                    bindingNavigatorPositionItem.Focus();
+                 bindingNavigatorPositionItem.Focus();
                 this.Luu();
-
                 status = Controll.Normal;
                 ctrlSanPham.CapNhatSoLuong(txtMaPhieu.Text);
+                MessageBox.Show("Lưu phiếu bán thành công!", "Phiếu bán", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                frmBanSi_Load(sender, e);
+
             }
         }
         void Luu()
@@ -615,7 +591,7 @@ namespace CuahangNongduoc
             }
         }
 
-        private void TinhToanTongTienCuoiCung()
+        public void TinhToanTongTienCuoiCung()
         {
             decimal tienHang = 0;
             foreach (DataGridViewRow row in dgvDanhsachSP.Rows)

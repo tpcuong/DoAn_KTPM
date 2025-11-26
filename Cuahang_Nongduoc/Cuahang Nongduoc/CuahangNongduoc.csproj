@@ -543,6 +543,10 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="strategy\Xoa.cs" />
     <Compile Include="strategy\XoaMem.cs" />
+    <Compile Include="Template Pattern\BanHangFIFO.cs" />
+    <Compile Include="Template Pattern\BanHangTemplate.cs" />
+    <Compile Include="Template Pattern\IFormBanHang.cs" />
+    <Compile Include="Template Pattern\XuatLoDTO.cs" />
     <Compile Include="ThamSo.cs" />
   </ItemGroup>
   <ItemGroup>

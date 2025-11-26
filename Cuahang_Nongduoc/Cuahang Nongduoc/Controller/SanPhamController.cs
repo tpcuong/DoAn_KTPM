@@ -74,7 +74,7 @@ namespace CuahangNongduoc.Controller
         }
 
         public void HienthiDataGridview(System.Windows.Forms.DataGridView dg, System.Windows.Forms.BindingNavigator bn,
-            TextBox txtMaSp, TextBox txtTenSp, ComboBox cmbDVT, NumericUpDown numDonGiaNhap, NumericUpDown numGiaBanSi, NumericUpDown numGiaBanLe)
+            TextBox txtMaSp, TextBox txtTenSp, ComboBox cmbDVT, NumericUpDown numSoLuong, NumericUpDown numDonGiaNhap, NumericUpDown numGiaBanSi, NumericUpDown numGiaBanLe)
         {
             System.Windows.Forms.BindingSource bs = new System.Windows.Forms.BindingSource();
             bs.DataSource = factory.DanhsachSanPham();
@@ -87,6 +87,9 @@ namespace CuahangNongduoc.Controller
 
             cmbDVT.DataBindings.Clear();
             cmbDVT.DataBindings.Add("SelectedValue", bs, "ID_DON_VI_TINH");
+
+            numSoLuong.DataBindings.Clear();
+            numSoLuong.DataBindings.Add("Value", bs, "DON_GIA_NHAP");
 
             numDonGiaNhap.DataBindings.Clear();
             numDonGiaNhap.DataBindings.Add("Value", bs, "DON_GIA_NHAP");

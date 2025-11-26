@@ -83,10 +83,9 @@ namespace CuahangNongduoc
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            
 
-            MaSanPhamController ctrl = new MaSanPhamController();
-            MaSanPham masp  = ctrl.LayMaSanPham(txtMaSo.Text.Trim());
+            //Use global controller
+            MaSanPham masp  = ctrlMaSP.LayMaSanPham(txtMaSo.Text.Trim());
             if (masp == null)
             {
                 foreach (DataGridViewRow view in dataGridView.Rows)
@@ -375,10 +374,23 @@ namespace CuahangNongduoc
                 //ctrl.Save();
             }
         }
-
+        const int DEFAULT_PAID = 0;
         private void numDaTra_ValueChanged(object sender, EventArgs e)
         {
-            numConNo.Value = numTongTien.Value - numDaTra.Value;
+            if(numDaTra.Value <= numTongTien.Value)
+            {
+                numConNo.Value = numTongTien.Value - numDaTra.Value;
+
+            }
+            else
+            {
+                MessageBox.Show("Số tiền đã trả không được lớn hơn Tổng tiền!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                if(dataGridView.Rows.Count > 0)
+                {
+                    dataGridView.Rows.RemoveAt(0);
+                }
+                numDaTra.Value = DEFAULT_PAID;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
