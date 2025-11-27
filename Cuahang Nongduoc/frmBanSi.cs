@@ -542,7 +542,13 @@ namespace CuahangNongduoc
 
         private void toolXoa_Click(object sender, EventArgs e)
         {
-            btnRemove_Click(sender, e);
+            if (MessageBox.Show("Bạn có chắc chắn xóa không?", "San Pham", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                if (dgvDanhsachSP.Rows.Count > 0)
+                    btnRemove_Click(sender, e);
+                else
+                    MessageBox.Show("Không có dữ liệu để xóa", "San Pham", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void numDonGia_ValueChanged(object sender, EventArgs e)
         {
