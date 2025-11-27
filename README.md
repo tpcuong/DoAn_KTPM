@@ -1,10 +1,5 @@
 # Hướng dẫn sử dụng — Module "Cửa hàng Nông dược"
 
-LƯU Ý QUAN TRỌNG
-- Nội dung trong README này được soạn dựa trên mã nguồn hiện có trong thư mục `Cuahang_Nongduoc/Cuahang Nongduoc` của repo. Mình chỉ ghi những gì thực sự tồn tại trong mã (tên file, cấu trúc thư mục, form, các phần chính). Mình không thêm thông tin chức năng chi tiết nếu không thể xác minh từ mã.
-- Danh sách file và thư mục được thu thập từ kho — có khả năng danh sách này không hoàn toàn đầy đủ do giới hạn truy vấn. Để xem toàn bộ mã nguồn, mở link repo trực tiếp:
-  https://github.com/tpcuong/DoAn_KTPM/tree/main/Cuahang_Nongduoc/Cuahang%20Nongduoc
-
 1) Tổng quan kỹ thuật nhanh (những gì nhìn thấy trong repo)
 - Ngôn ngữ chính: C# (nhiều file .cs, .csproj, .sln).
 - Dự án: WinForms (nhiều file `*.Designer.cs`, `*.resx` → giao diện Forms).
