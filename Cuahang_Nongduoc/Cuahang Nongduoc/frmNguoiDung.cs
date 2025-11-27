@@ -95,7 +95,10 @@ namespace CuahangNongduoc
         {
             if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Nguoi Dung", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                bindingNavigator.BindingSource.RemoveCurrent();
+                if (dgvNguoiDung.Rows.Count > 0)
+                    bindingNavigator.BindingSource.RemoveCurrent();
+                else
+                    MessageBox.Show("Không có dữ liệu để xóa", "Nguoi Dung", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void toolTimNguoiDung_KeyDown(object sender, KeyEventArgs e)

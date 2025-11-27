@@ -44,10 +44,10 @@ namespace CuahangNongduoc
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Dai Ly", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
+            if (dataGridView.Rows.Count > 0)
                 bindingNavigator.BindingSource.RemoveCurrent();
-            }
+            else
+                MessageBox.Show("Không có dữ liệu để xóa", "Dai ly", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void dataGridView_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)

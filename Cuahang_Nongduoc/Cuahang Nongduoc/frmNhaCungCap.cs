@@ -28,7 +28,10 @@ namespace CuahangNongduoc
         {
             if (MessageBox.Show("Bạn có chắc chắn xóa không?", "Nha Cung Cap", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                bindingNavigator.BindingSource.RemoveCurrent();
+                if (dataGridView.Rows.Count > 0)
+                    bindingNavigator.BindingSource.RemoveCurrent();
+                else
+                    MessageBox.Show("Không có dữ liệu để xóa", "Nha cung cap", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
